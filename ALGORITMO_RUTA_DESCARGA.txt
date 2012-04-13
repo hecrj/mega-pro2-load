@@ -1,41 +1,62 @@
 ALGORITMO DE SELECCIÓN DE RUTA DE DESCARGA
 
-Ruta encontrar_ruta(Peticion &p, Red &r, int suma_bandas, int prof)
+struct Nodo {
+	int id;
+	int vel;
+};
+
+Ruta encontrar_ruta(const Peticion &p) const
 {
-	if(s.esta_libre() and s.tiene_pelicula(p.consultar_pelicula()))
+	Pelicula peli = p.consultar_pelicula();
+	queue<Nodo> servidores;
+
+	Nodo main_serv;
+	main_serv.id = main_serv_id;
+	main_serv.vel = serv[main_serv_id].consultar_velocidad();
+	
+	servidores.push(main_serv);
+
+	ServNodo serv_nodo;
+	serv_nodo.id = 0;
+	serv_nodo.vel = 0;
+
+	while(not servidores.empty())
 	{
-		int total_velocidad = s.consultar_velocidad() + suma_bandas;
+		Nodo serv = servidores.front();
+		servidores.pop();
 
-		if(p.consultar_peso() / total_velocidad <= 1)
+		if(servers[serv.id].esta_libre() and servers[serv.id].tiene_pelicula(peli))
 		{
-			Ruta ruta(r.raiz(), prof);
-			ruta.dar_prioridad();
+			serv.vel += servers[serv_id].consultar_velocidad();
+
+			if(peli.consultar_peso() / serv.vel <= 1)
+				return construir_ruta(serv.id);
+
+			else if(serv_vel > serv_nodo.velocidad())
+				serv_nodo = serv;
 		}
-		else
+
+		if(servers[serv.id].tiene_hijos())
 		{
-			if(r.tiene_hijos())
+			int s1, s2;
+			servers[serv.id].hijos(s1, s2);
+
+			Nodo serv_hijo;
+			serv_hijo.id = s1;
+			serv_hijo.vel = serv.vel;
+
+			servidores.push(serv_hijo);
+
+			if(s2 != 0)
 			{
-				Ruta r1 = encontrar_ruta(p, r.obtener_hijo_izq(), total_velocidad, prof+1);
-
-				if(r.unico_hijo() or r1.tiene_prioridad())
-					return r1;
-
-				Ruta r2 = encontrar_ruta(p, r.obtener_hijo_der(), total_velocidad, prof+1);
-
-				if(r2.tiene_prioridad())
-					return r2;
-
-				if(r1.consultar_velocidad() == r2.consultar_velocidad())
-				{
-					if(r1.consultar_profundidad() == r2.consultar_profundidad())
-				}
+				serv_hijo.id = s2;
+				servidores.push(serv_hijo);
 			}
-			else
-				Ruta ruta(r.raiz(), prof);
 		}
+
 	}
 
-	return ruta;
+	return construir_ruta(serv_nodo.id);
 }
 
 // Hmmm... Me parece que la mejor solución será recorrer el arbol de servidores en amplitud...
