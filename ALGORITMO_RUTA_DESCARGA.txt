@@ -1,17 +1,41 @@
 ALGORITMO DE SELECCIÓN DE RUTA DE DESCARGA
 
-recibe servidor y suma anchos banda
+Ruta encontrar_ruta(Peticion &p, Red &r, int suma_bandas, int prof)
+{
+	if(s.esta_libre() and s.tiene_pelicula(p.consultar_pelicula()))
+	{
+		int total_velocidad = s.consultar_velocidad() + suma_bandas;
 
-si libre y tiene película
-	si peso_peli / ancho_servidor + anchos_banda <= 1
-		devolver nuevo camino empezando servidor
-	finsi
-finsi
+		if(p.consultar_peso() / total_velocidad <= 1)
+		{
+			Ruta ruta(r.raiz(), prof);
+			ruta.dar_prioridad();
+		}
+		else
+		{
+			if(r.tiene_hijos())
+			{
+				Ruta r1 = encontrar_ruta(p, r.obtener_hijo_izq(), total_velocidad, prof+1);
 
-camino izquierda = algoritmo(izquierda, anchos_banda + ancho_servidor)
+				if(r.unico_hijo() or r1.tiene_prioridad())
+					return r1;
 
-si long camino izquierda == 1
-	añadir servidor camino izquierda
-	devolver camino izquierda
-sino
-	camino derecha = ...
+				Ruta r2 = encontrar_ruta(p, r.obtener_hijo_der(), total_velocidad, prof+1);
+
+				if(r2.tiene_prioridad())
+					return r2;
+
+				if(r1.consultar_velocidad() == r2.consultar_velocidad())
+				{
+					if(r1.consultar_profundidad() == r2.consultar_profundidad())
+				}
+			}
+			else
+				Ruta ruta(r.raiz(), prof);
+		}
+	}
+
+	return ruta;
+}
+
+// Hmmm... Me parece que la mejor solución será recorrer el arbol de servidores en amplitud...
