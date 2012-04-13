@@ -1,0 +1,17 @@
+ALGORITMO DE SELECCIÓN DE RUTA DE DESCARGA
+
+recibe servidor y suma anchos banda
+
+si libre y tiene película
+	si peso_peli / ancho_servidor + anchos_banda <= 1
+		devolver nuevo camino empezando servidor
+	finsi
+finsi
+
+camino izquierda = algoritmo(izquierda, anchos_banda + ancho_servidor)
+
+si long camino izquierda == 1
+	añadir servidor camino izquierda
+	devolver camino izquierda
+sino
+	camino derecha = ...
