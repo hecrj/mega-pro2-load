@@ -11,15 +11,17 @@ class Request
 		int get_movie_id() const;
 		int get_time_start() const;
 		int get_time_end() const;
+		int get_route() const;
 
-		void read_request();
-		void set_time_end(int t_end);
+		void read_request(int id);
+		void set_route(const Route &route);
 
 	private:
 		int id;
 		int movie_id;
 		int t_start;
 		int t_end;
+		Route route;
 };
 
 #endif

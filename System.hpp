@@ -1,9 +1,10 @@
 #ifndef SYSTEM_HPP
 #define SYSTEM_HPP
 
+#include <stack>
 #include "utils.PRO2"
+#include "Router.hpp"
 #include "Request.hpp"
-#include "Server.hpp"
 #include "Movie.hpp"
 
 class System 
@@ -14,13 +15,15 @@ class System
 		void init();
 
 	private:
-		vector<Request> reqs;
-		vector<Server> servs;
-		vector<Movie> movs;
+		Router router;
+		MovieCollection movies;
+		stack<Request> reqs;
 
-		void read_servers();
-		void read_movies();
 		void listen();
+		void new_request();
+		void unfinished_requests();
+		void update_server();
+		void most_downld_movie();
 };
 
 #endif
