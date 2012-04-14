@@ -12,6 +12,7 @@ class Request
 		int get_time_start() const;
 		int get_time_end() const;
 
+		void read_request();
 		void set_time_end(int t_end);
 
 	private:
