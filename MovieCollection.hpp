@@ -6,10 +6,10 @@
 class Movie
 {
 	public:
-		MovieCollection::MovieCollection()
-		{}
+		MovieCollection::MovieCollection();
 
-		Movie MovieCollection::get_movie(int movie_id);
+		int MovieCollection::number_of_movies() const;
+		Movie MovieCollection::get_movie(int movie_id) const;
 
 		void MovieCollection::read_movies();
 

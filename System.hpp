@@ -13,17 +13,14 @@ class System
 		System();
 
 		void init();
+		void new_request();
+		void unfinished_requests();
+		void most_downld_movie();
 
 	private:
 		Router router;
 		MovieCollection movies;
 		stack<Request> reqs;
-
-		void listen();
-		void new_request();
-		void unfinished_requests();
-		void update_server();
-		void most_downld_movie();
 };
 
 #endif

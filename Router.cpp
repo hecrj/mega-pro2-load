@@ -60,7 +60,7 @@ Route Router::build_route(const Node &serv_node)
 {
 	Route route(serv_node.speed);
 
-	while(servers[serv_node.id].has_parent())
+	while(serv_node.id != -1)
 	{
 		route.add_server_id(serv_node.id);
 		serv_node.id = servers[serv_node.id].get_parent_id();
@@ -76,5 +76,24 @@ void Router::read_servers(int n_movies)
 	servers = vector<Server>(n);
 
 	for(int i = 0; i < n; ++i)
-		servers[i].read_server(n_movies);
+	{
+		cout << "Input the id of the server #" << i << ": ";
+		int id = readint() - 1;
+
+		servers[id].read_server(id, n_movies);
+
+		if(servers[id].has_children())
+		{
+			int s1, s2;
+			servers[id].children(s1, s2);
+
+			servers[s1].set_parent_id(id);
+
+			if(s2 != -1)
+				servers[s2].set_parent_id(id);
+		}
+	}
+
+	cout << "Input the id of the main server: ";
+	main_server_id = readint();
 }

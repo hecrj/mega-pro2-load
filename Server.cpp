@@ -1,4 +1,5 @@
 #include "Server.hpp"
+#include "utils.PRO2"
 
 Server::Server()
 {
@@ -40,7 +41,7 @@ bool Server::has_parent() const
 
 bool Server::has_children() const
 {
-	return (child1_id != -1 and child2_id != -2);
+	return (child1_id != -1 and child2_id != -1);
 }
 
 void Server::set_request(int request_id)
@@ -64,8 +65,23 @@ void Server::children(int &c1, int &c2)
 	c2 = child2_id;
 }
 
-void Server::read_server(int n_movies)
+void Server::read_server(int id, int n_movies)
 {
 	movies = vector<int>(n_movies, false);
+
+	cout << "Input the speed of the server " << id << ": ";
 	speed = readint();
+
+	cout << "Input the IDs of the server movies (0 to end):" << endl;
+	int movie_id = readint() - 1;
+
+	while(movie_id != -1)
+	{
+		enable_movie(movie_id);
+		movie_id = readint() - 1;
+	}
+
+	cout << "Input the 2 sub-server IDs of the server " << id << " (0 to none):" << endl;
+	child1_id = readint() - 1;
+	child2_id = readint() - 1;
 }

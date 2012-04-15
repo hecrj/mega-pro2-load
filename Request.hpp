@@ -11,7 +11,7 @@ class Request
 		int get_movie_id() const;
 		int get_time_start() const;
 		int get_time_end() const;
-		int get_route() const;
+		Route get_route() const;
 
 		void read_request(int id);
 		void set_route(const Route &route);
