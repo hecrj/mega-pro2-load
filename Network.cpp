@@ -1,10 +1,10 @@
-#include "Router.hpp"
+#include "Network.hpp"
 #include <queue>
 
-Router::Router()
+Network::Network()
 {}
 
-Route Router::get_route(const Movie &movie) const
+Route Network::get_route(const Request &req) const
 {
 	queue<Node> qservs;
 
@@ -22,11 +22,11 @@ Route Router::get_route(const Movie &movie) const
 		Node serv = qservs.front();
 		qservs.pop();
 
-		if(not servers[serv.id].is_busy() and servers[serv.id].has_movie(movie.get_id()))
+		if(not servers[serv.id].is_busy() and servers[serv.id].has_movie(req.get_movie_id()))
 		{
 			serv.speed += servers[serv.id].get_speed();
 
-			if(movie.get_size() / serv.speed <= 1)
+			if(movies[req.get_movie_id()] / serv.speed <= 1)
 				return build_route(serv);
 
 			else if(serv.speed > best_server.speed)
@@ -44,7 +44,7 @@ Route Router::get_route(const Movie &movie) const
 
 			qservs.push(serv_child);
 
-			if(s2 != 0)
+			if(s2 != -1)
 			{
 				serv_child.id = s2;
 				qservs.push(serv_child);
@@ -56,7 +56,7 @@ Route Router::get_route(const Movie &movie) const
 	return build_route(best_server);
 }
 
-Route Router::build_route(const Node &serv_node)
+Route Network::build_route(const Node &serv_node)
 {
 	Route route(serv_node.speed);
 
@@ -69,18 +69,39 @@ Route Router::build_route(const Node &serv_node)
 	return route;
 }
 
-void Router::read_servers(int n_movies)
+void Network::read_network()
+{
+	read_movies();
+	read_servers();
+}
+
+void Network::read_movies()
+{
+	cout << "Input the number of movies in the network: ";
+	int n = read_int();
+
+	movies = vector<int>(n);
+
+	for(int i = 0; i < n; ++i)
+	{
+		cout << "Input the size of the movie #" << i+1 << ": ";
+		movies[i] = readint();
+	}
+
+}
+
+void Network::read_servers()
 {
 	cout << "Input the number of servers of the system: ";
-	int n = read_int() - 1;
+	int n = read_int();
 	servers = vector<Server>(n);
 
 	for(int i = 0; i < n; ++i)
 	{
-		cout << "Input the id of the server #" << i << ": ";
+		cout << "Input the id of the server #" << i+1 << ": ";
 		int id = readint() - 1;
 
-		servers[id].read_server(id, n_movies);
+		servers[id].read_server(id, movies.size());
 
 		if(servers[id].has_children())
 		{

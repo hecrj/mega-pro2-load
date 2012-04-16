@@ -2,13 +2,7 @@
 
 System::System()
 {
-
-}
-
-void System::init()
-{
-	movies.read_movies();
-	router.read_servers(movies.number_of_movies());
+	network.read_network();
 }
 
 void System::new_request()
@@ -16,13 +10,7 @@ void System::new_request()
 	Request req;
 	req.read_request(reqs.size());
 
-	Route route_id = router.get_route(movies.get_movie(req.get_movie_id()));
-
-	if(not route.empty())
-	{
-		req.set_route(route);
-		router.make_busy(route.get_servers());
-	}
+	network.handle(req);
 
 	req.write_request();
 	reqs.push(req);

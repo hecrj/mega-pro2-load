@@ -3,19 +3,11 @@
 
 #include "Server.hpp"
 #include "Route.hpp"
-#include "Movie.hpp"
 
-class Router
+class Network
 {
-	public:
-		Router();
-
-		Route get_route(const Movie &movie) const
-
-		void read_servers(int n_movies);
-
-
 	private:
+		vector<int> movies;
 		vector<Server> servers;
 		int main_server_id;
 		
@@ -25,6 +17,18 @@ class Router
 		};
 
 		Route build_route(const Node &serv_node);
+		
+		void read_movies();
+		void read_servers();
+
+	public:
+		Network();
+
+		Route get_route(const Request &req) const;
+
+		void handle(Request &req, int size);
+
+		void read_network();
 };
 
 #endif

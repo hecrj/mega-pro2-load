@@ -11,8 +11,7 @@ class System
 {
 	public:
 		System();
-
-		void init();
+		
 		void new_request();
 		void unfinished_requests();
 		void most_downld_movie();

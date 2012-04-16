@@ -24,8 +24,7 @@ void show_help()
 int main()
 {
 	System sys;
-
-	sys.init();
+	
 	cout << "MEGA-PRO2-LOAD initialized!" << endl << endl;
 
 	show_help();

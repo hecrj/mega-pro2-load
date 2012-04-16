@@ -1,0 +1,56 @@
+#include "Request.hpp"
+#include "utils.PRO2"
+
+Request::Request()
+{}
+
+int Request::get_id() const
+{
+	return id;
+}
+
+int Request::get_movie_id() const
+{
+	return movie_id;
+}
+
+int Request::get_time_start() const
+{
+	return t_start;
+}
+
+int Request::get_time_end() const
+{
+	return t_end;
+}
+
+Route Request::get_route() const
+{
+	return route;
+}
+
+void Request::set_time_end(int t_end)
+{
+	this->t_end = t_end;
+}
+
+void Request::set_route(const Route &route)
+{
+	this->route = route;
+}
+
+void Request::read_request(int id)
+{
+	this->id = id;
+
+	cout << "Enter the ID of the movie to request: ";
+	movie_id = readint();
+}
+
+void Request::write_request()
+{
+	cout << "Request ID: " << id << endl;
+	cout << "Movie ID:   " << movie_id << endl;
+	cout << "Start time: " << t_start << endl;
+	cout << "End time:   " << t_end << endl;
+}
