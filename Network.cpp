@@ -1,5 +1,8 @@
 #include "Network.hpp"
+#include "utils.PRO2"
+#include <stack>
 #include <queue>
+#include <cmath>
 
 Network::Network()
 {}
@@ -10,11 +13,11 @@ Route Network::get_route(const Request &req) const
 
 	Node main_server;
 	main_server.id = main_server_id;
-	main_server.speed = servers[main_server_id].get_speed();
+	main_server.speed = 0;
 	qservs.push(main_server);
 
 	Node best_server;
-	best_server.id = 0;
+	best_server.id = -1;
 	best_server.speed = 0;
 
 	while(not qservs.empty())
@@ -22,12 +25,18 @@ Route Network::get_route(const Request &req) const
 		Node serv = qservs.front();
 		qservs.pop();
 
+		cout << "Checking server: " << serv.id+1 << endl;
+
 		if(not servers[serv.id].is_busy() and servers[serv.id].has_movie(req.get_movie_id()))
 		{
 			serv.speed += servers[serv.id].get_speed();
 
-			if(movies[req.get_movie_id()] / serv.speed <= 1)
-				return build_route(serv);
+			cout << "The server is free and has the movie." << endl;
+			cout << "Movie size: " << movies[req.get_movie_id()] << endl;
+			cout << "Node speed: " << serv.speed << endl;
+
+			if(movies[req.get_movie_id()] <= serv.speed)
+				return build_route(req, serv);
 
 			else if(serv.speed > best_server.speed)
 				best_server = serv;
@@ -53,20 +62,33 @@ Route Network::get_route(const Request &req) const
 
 	}
 
-	return build_route(best_server);
+	return build_route(req, best_server);
 }
 
-Route Network::build_route(const Node &serv_node)
+Route Network::build_route(const Request &req, Node &serv_node) const
 {
-	Route route(serv_node.speed);
+	int time = int( ceil( double(movies[req.get_movie_id()]) / double(serv_node.speed) ) );
+	
+	Route route(time);
 
 	while(serv_node.id != -1)
 	{
-		route.add_server_id(serv_node.id);
+		route.add_server(serv_node.id);
 		serv_node.id = servers[serv_node.id].get_parent_id();
 	}
 
 	return route;
+}
+
+void Network::set_busy_servers(const Request &req)
+{
+	stack<int> req_servers = req.get_route().get_servers();
+
+	while(not req_servers.empty())
+	{
+		servers[req_servers.top()].set_request(req.get_id());
+		req_servers.pop();
+	}
 }
 
 void Network::read_network()
@@ -78,7 +100,7 @@ void Network::read_network()
 void Network::read_movies()
 {
 	cout << "Input the number of movies in the network: ";
-	int n = read_int();
+	int n = readint();
 
 	movies = vector<int>(n);
 
@@ -93,7 +115,7 @@ void Network::read_movies()
 void Network::read_servers()
 {
 	cout << "Input the number of servers of the system: ";
-	int n = read_int();
+	int n = readint();
 	servers = vector<Server>(n);
 
 	for(int i = 0; i < n; ++i)
@@ -116,5 +138,5 @@ void Network::read_servers()
 	}
 
 	cout << "Input the id of the main server: ";
-	main_server_id = readint();
+	main_server_id = readint() - 1;
 }

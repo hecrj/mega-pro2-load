@@ -24,7 +24,7 @@ int Server::get_parent_id() const
 	return parent_id;
 }
 
-bool Server::is_busy()
+bool Server::is_busy() const
 {
 	return request_id != -1;
 }
@@ -49,6 +49,11 @@ void Server::set_request(int request_id)
 	this->request_id = request_id;
 }
 
+void Server::set_parent_id(int parent_id)
+{
+	this->parent_id = parent_id;
+}
+
 void Server::enable_movie(int movie_id)
 {
 	movies[movie_id] = true;
@@ -59,7 +64,7 @@ void Server::disable_movie(int movie_id)
 	movies[movie_id] = false;
 }
 
-void Server::children(int &c1, int &c2)
+void Server::children(int &c1, int &c2) const
 {
 	c1 = child1_id;
 	c2 = child2_id;
@@ -67,15 +72,15 @@ void Server::children(int &c1, int &c2)
 
 void Server::read_server(int id, int n_movies)
 {
-	movies = vector<int>(n_movies, false);
+	movies = vector<bool>(n_movies, false);
 
-	cout << "Input the speed of the server " << id << ": ";
+	cout << "Input the speed of the server " << id+1 << ": ";
 	speed = readint();
 
 	cout << "Input the IDs of the server movies (0 to end):" << endl;
 	int movie_id = readint() - 1;
 
-	while(movie_id != -1)
+	while(movie_id >= 0)
 	{
 		enable_movie(movie_id);
 		movie_id = readint() - 1;

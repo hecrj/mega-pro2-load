@@ -10,7 +10,10 @@ void System::new_request()
 	Request req;
 	req.read_request(reqs.size());
 
-	network.handle(req);
+	Route route = network.get_route(req);
+	req.set_route(route);
+	
+	network.set_busy_servers(req);
 
 	req.write_request();
 	reqs.push(req);

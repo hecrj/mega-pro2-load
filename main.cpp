@@ -30,19 +30,19 @@ int main()
 	show_help();
 
 	cout << "Choose one action: ";
-	int opt = read_int();
+	int opt = readint();
 
 	while(opt != OPT_SYS_END)
 	{
 		if(opt == OPT_NEW_REQ) sys.new_request();
 		else if(opt == OPT_UNF_REQ) sys.unfinished_requests();
-		else if(opt == OPT_BUS_SER) sys.write_busy_servers();
-		else if(opt == OPT_UPD_SER) sys.update_server();
-		else if(opt == OPT_MSD_MOV) sys.write_most_downld_movie();
+		else if(opt == OPT_BUS_SER) cout << "UNDONE";
+		else if(opt == OPT_UPD_SER) cout << "UNDONE";
+		else if(opt == OPT_MSD_MOV) cout << "UNDONE";
 		else if(opt == OPT_SHW_HEL) show_help();
 
 		cout << "Choose next action: ";
-		opt = read_int();
+		opt = readint();
 	}
 
 	cout << "MEGA-PRO2-LOAD finished!" << endl;

@@ -1,11 +1,19 @@
 #ifndef SERVER_HPP
 #define SERVER_HPP
 
+#include <vector>
 #include "Request.hpp"
-#include "Movie.hpp"
 
 class Server
 {
+	private:
+		int speed;
+		int request_id;
+		std::vector<bool> movies;
+		int parent_id;
+		int child1_id;
+		int child2_id;
+
 	public:
 		Server();
 		Server(int id, int speed);
@@ -17,20 +25,13 @@ class Server
 		bool has_movie(int movie_id) const;
 		bool has_parent() const;
 		bool has_children() const;
+		void children(int &c1, int &c2) const;
 
 		void set_request(int request_id);
+		void set_parent_id(int parent_id);
 		void enable_movie(int movie_id);
 		void disable_movie(int movie_id);
-		void children(int &c1, int &c2);
-		void read_server(int n_movies);
-
-	private:
-		int speed;
-		int request_id;
-		vector<bool> movies;
-		int parent_id;
-		int child1_id;
-		int child2_id;
+		void read_server(int id, int n_movies);
 };
 
 #endif

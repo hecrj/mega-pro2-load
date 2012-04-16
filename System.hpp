@@ -2,10 +2,8 @@
 #define SYSTEM_HPP
 
 #include <stack>
-#include "utils.PRO2"
-#include "Router.hpp"
+#include "Network.hpp"
 #include "Request.hpp"
-#include "Movie.hpp"
 
 class System 
 {
@@ -17,9 +15,8 @@ class System
 		void most_downld_movie();
 
 	private:
-		Router router;
-		MovieCollection movies;
-		stack<Request> reqs;
+		Network network;
+		std::stack<Request> reqs;
 };
 
 #endif

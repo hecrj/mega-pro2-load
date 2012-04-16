@@ -37,20 +37,24 @@ void Request::set_time_end(int t_end)
 void Request::set_route(const Route &route)
 {
 	this->route = route;
+	t_end = t_start + route.get_time();
 }
 
 void Request::read_request(int id)
 {
 	this->id = id;
 
+	cout << "Enter the start time of the request: ";
+	t_start = readint();
+
 	cout << "Enter the ID of the movie to request: ";
-	movie_id = readint();
+	movie_id = readint() - 1;
 }
 
 void Request::write_request()
 {
-	cout << "Request ID: " << id << endl;
-	cout << "Movie ID:   " << movie_id << endl;
+	cout << "Request ID: " << id+1 << endl;
+	cout << "Movie ID:   " << movie_id+1 << endl;
 	cout << "Start time: " << t_start << endl;
 	cout << "End time:   " << t_end << endl;
 }

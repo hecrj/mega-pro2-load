@@ -7,8 +7,8 @@
 class Network
 {
 	private:
-		vector<int> movies;
-		vector<Server> servers;
+		std::vector<int> movies;
+		std::vector<Server> servers;
 		int main_server_id;
 		
 		struct Node {
@@ -16,7 +16,7 @@ class Network
 			int speed;
 		};
 
-		Route build_route(const Node &serv_node);
+		Route build_route(const Request &req, Node &serv_node) const;
 		
 		void read_movies();
 		void read_servers();
@@ -26,7 +26,7 @@ class Network
 
 		Route get_route(const Request &req) const;
 
-		void handle(Request &req, int size);
+		void set_busy_servers(const Request &req);
 
 		void read_network();
 };
