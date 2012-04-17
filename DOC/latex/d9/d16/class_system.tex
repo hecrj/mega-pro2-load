@@ -1,0 +1,145 @@
+\hypertarget{class_system}{\section{System Class Reference}
+\label{d9/d16/class_system}\index{System@{System}}
+}
+
+
+A \hyperlink{class_system}{System} represents the main application logic.  
+
+
+
+
+{\ttfamily \#include $<$System.\-hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_system_ae317936c9bcf1374d61745572e0f2f8a}{System} ()
+\begin{DoxyCompactList}\small\item\em Creates and initializes a new \hyperlink{class_system}{System}. \end{DoxyCompactList}\item 
+void \hyperlink{class_system_a499965423e9e68d34f3e990bad6df6e4}{new\-\_\-request} ()
+\begin{DoxyCompactList}\small\item\em Creates and handles a new requests. \end{DoxyCompactList}\item 
+void \hyperlink{class_system_add52fcf8832657bed30a4e7685a4945e}{write\-\_\-unfinished\-\_\-requests} ()
+\begin{DoxyCompactList}\small\item\em Outputs information of the unfinished requests. \end{DoxyCompactList}\item 
+void \hyperlink{class_system_a44fbbdfc460ec7234471da2e6ad83826}{write\-\_\-busy\-\_\-servers} ()
+\begin{DoxyCompactList}\small\item\em Outputs information of the busy servers. \end{DoxyCompactList}\item 
+void \hyperlink{class_system_a42515d345b69287ff126025a75e1654f}{update\-\_\-server} (int id)
+\begin{DoxyCompactList}\small\item\em Updates a server asking some new values. \end{DoxyCompactList}\item 
+void \hyperlink{class_system_a77a40e3668db7126501e58a724279f71}{write\-\_\-most\-\_\-downladed\-\_\-movie} ()
+\begin{DoxyCompactList}\small\item\em Outputs the most downloaded movie between t1 and t2. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+A \hyperlink{class_system}{System} represents the main application logic. 
+
+It is formed by a router and a collection of movies and requests. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_system_ae317936c9bcf1374d61745572e0f2f8a}{\index{System@{System}!System@{System}}
+\index{System@{System}!System@{System}}
+\subsubsection[{System}]{\setlength{\rightskip}{0pt plus 5cm}{\bf System\-::\-System} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{d9/d16/class_system_ae317936c9bcf1374d61745572e0f2f8a}
+
+
+Creates and initializes a new \hyperlink{class_system}{System}. 
+
+\begin{DoxyPrecond}{Precondition}
+True 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Returns a new initialized \hyperlink{class_system}{System}. 
+\end{DoxyPostcond}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_system_a499965423e9e68d34f3e990bad6df6e4}{\index{System@{System}!new\-\_\-request@{new\-\_\-request}}
+\index{new\-\_\-request@{new\-\_\-request}!System@{System}}
+\subsubsection[{new\-\_\-request}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf System\-::new\-\_\-request} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{d9/d16/class_system_a499965423e9e68d34f3e990bad6df6e4}
+
+
+Creates and handles a new requests. 
+
+Handling a request is a process where the request end time is calculated using free servers, which will be busy until then. \begin{DoxyPrecond}{Precondition}
+True 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+A new request is added and handled by the \hyperlink{class_system}{System}. 
+\end{DoxyPostcond}
+\hypertarget{class_system_a42515d345b69287ff126025a75e1654f}{\index{System@{System}!update\-\_\-server@{update\-\_\-server}}
+\index{update\-\_\-server@{update\-\_\-server}!System@{System}}
+\subsubsection[{update\-\_\-server}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf System\-::update\-\_\-server} (
+\begin{DoxyParamCaption}
+\item[{int}]{id}
+\end{DoxyParamCaption}
+)}}\label{d9/d16/class_system_a42515d345b69287ff126025a75e1654f}
+
+
+Updates a server asking some new values. 
+
+\begin{DoxyPrecond}{Precondition}
+The server with id exists. 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+The server with id has been updated with the new data. 
+\end{DoxyPostcond}
+\hypertarget{class_system_a44fbbdfc460ec7234471da2e6ad83826}{\index{System@{System}!write\-\_\-busy\-\_\-servers@{write\-\_\-busy\-\_\-servers}}
+\index{write\-\_\-busy\-\_\-servers@{write\-\_\-busy\-\_\-servers}!System@{System}}
+\subsubsection[{write\-\_\-busy\-\_\-servers}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf System\-::write\-\_\-busy\-\_\-servers} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{d9/d16/class_system_a44fbbdfc460ec7234471da2e6ad83826}
+
+
+Outputs information of the busy servers. 
+
+\begin{DoxyPrecond}{Precondition}
+True 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Information of the busy servers has been printed in the output stream. 
+\end{DoxyPostcond}
+\hypertarget{class_system_a77a40e3668db7126501e58a724279f71}{\index{System@{System}!write\-\_\-most\-\_\-downladed\-\_\-movie@{write\-\_\-most\-\_\-downladed\-\_\-movie}}
+\index{write\-\_\-most\-\_\-downladed\-\_\-movie@{write\-\_\-most\-\_\-downladed\-\_\-movie}!System@{System}}
+\subsubsection[{write\-\_\-most\-\_\-downladed\-\_\-movie}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf System\-::write\-\_\-most\-\_\-downladed\-\_\-movie} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{d9/d16/class_system_a77a40e3668db7126501e58a724279f71}
+
+
+Outputs the most downloaded movie between t1 and t2. 
+
+\begin{DoxyPrecond}{Precondition}
+t1 $<$ t2, t1 greater than the last entered time 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+The most downloaded movie has been pritend in the output stream. 
+\end{DoxyPostcond}
+\hypertarget{class_system_add52fcf8832657bed30a4e7685a4945e}{\index{System@{System}!write\-\_\-unfinished\-\_\-requests@{write\-\_\-unfinished\-\_\-requests}}
+\index{write\-\_\-unfinished\-\_\-requests@{write\-\_\-unfinished\-\_\-requests}!System@{System}}
+\subsubsection[{write\-\_\-unfinished\-\_\-requests}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf System\-::write\-\_\-unfinished\-\_\-requests} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{d9/d16/class_system_add52fcf8832657bed30a4e7685a4945e}
+
+
+Outputs information of the unfinished requests. 
+
+\begin{DoxyPrecond}{Precondition}
+True 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Information of the unfinished requests has been printed in the output stream. 
+\end{DoxyPostcond}
+
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{_system_8hpp}{System.\-hpp}\end{DoxyCompactItemize}

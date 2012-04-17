@@ -1,0 +1,105 @@
+\hypertarget{class_request_collection}{\section{Request\-Collection Class Reference}
+\label{de/d60/class_request_collection}\index{Request\-Collection@{Request\-Collection}}
+}
+
+
+A \hyperlink{class_request_collection}{Request\-Collection} represents a collection of Requests.  
+
+
+
+
+{\ttfamily \#include $<$Request\-Collection.\-hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_request_collection_a185bbbd64b7f3fbc8602c1aeb5ef2ddf}{Request\-Collection} ()
+\begin{DoxyCompactList}\small\item\em Creates a new empty \hyperlink{class_request_collection}{Request\-Collection}. \end{DoxyCompactList}\item 
+int \hyperlink{class_request_collection_a3253b1d4890067c96c26887c3d924008}{number\-\_\-of\-\_\-requests} () const 
+\begin{DoxyCompactList}\small\item\em Returns the number of requests that the \hyperlink{class_request_collection}{Request\-Collection} has. \end{DoxyCompactList}\item 
+\hyperlink{class_request}{Request} \hyperlink{class_request_collection_ad6cb0526cde453266f583b14f4f1eb8d}{get\-\_\-request} (int request\-\_\-id)
+\begin{DoxyCompactList}\small\item\em Returns the request with the id {\bfseries request\-\_\-id}. \end{DoxyCompactList}\item 
+void \hyperlink{class_request_collection_ae3697bf1a2308203c8f4c375d71dc934}{add\-\_\-request} (const \hyperlink{class_request}{Request} \&req)
+\begin{DoxyCompactList}\small\item\em Adds a \hyperlink{class_request}{Request} to the \hyperlink{class_request_collection}{Request\-Collection}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+A \hyperlink{class_request_collection}{Request\-Collection} represents a collection of Requests. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_request_collection_a185bbbd64b7f3fbc8602c1aeb5ef2ddf}{\index{Request\-Collection@{Request\-Collection}!Request\-Collection@{Request\-Collection}}
+\index{Request\-Collection@{Request\-Collection}!RequestCollection@{Request\-Collection}}
+\subsubsection[{Request\-Collection}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Request\-Collection\-::\-Request\-Collection} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{de/d60/class_request_collection_a185bbbd64b7f3fbc8602c1aeb5ef2ddf}
+
+
+Creates a new empty \hyperlink{class_request_collection}{Request\-Collection}. 
+
+\begin{DoxyPrecond}{Precondition}
+True 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Returns a new empty \hyperlink{class_request_collection}{Request\-Collection}. 
+\end{DoxyPostcond}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_request_collection_ae3697bf1a2308203c8f4c375d71dc934}{\index{Request\-Collection@{Request\-Collection}!add\-\_\-request@{add\-\_\-request}}
+\index{add\-\_\-request@{add\-\_\-request}!RequestCollection@{Request\-Collection}}
+\subsubsection[{add\-\_\-request}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf Request\-Collection\-::add\-\_\-request} (
+\begin{DoxyParamCaption}
+\item[{const {\bf Request} \&}]{req}
+\end{DoxyParamCaption}
+)}}\label{de/d60/class_request_collection_ae3697bf1a2308203c8f4c375d71dc934}
+
+
+Adds a \hyperlink{class_request}{Request} to the \hyperlink{class_request_collection}{Request\-Collection}. 
+
+\begin{DoxyPrecond}{Precondition}
+True 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+The \hyperlink{class_request}{Request} has been added to the \hyperlink{class_request_collection}{Request\-Collection}. 
+\end{DoxyPostcond}
+\hypertarget{class_request_collection_ad6cb0526cde453266f583b14f4f1eb8d}{\index{Request\-Collection@{Request\-Collection}!get\-\_\-request@{get\-\_\-request}}
+\index{get\-\_\-request@{get\-\_\-request}!RequestCollection@{Request\-Collection}}
+\subsubsection[{get\-\_\-request}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Request} {\bf Request\-Collection\-::get\-\_\-request} (
+\begin{DoxyParamCaption}
+\item[{int}]{request\-\_\-id}
+\end{DoxyParamCaption}
+)}}\label{de/d60/class_request_collection_ad6cb0526cde453266f583b14f4f1eb8d}
+
+
+Returns the request with the id {\bfseries request\-\_\-id}. 
+
+\begin{DoxyPrecond}{Precondition}
+0 $<$= request\-\_\-id $<$= \hyperlink{class_request_collection_a3253b1d4890067c96c26887c3d924008}{Request\-Collection\-::number\-\_\-of\-\_\-requests()} 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+The request with the id {\bfseries request\-\_\-id} is returned. 
+\end{DoxyPostcond}
+\hypertarget{class_request_collection_a3253b1d4890067c96c26887c3d924008}{\index{Request\-Collection@{Request\-Collection}!number\-\_\-of\-\_\-requests@{number\-\_\-of\-\_\-requests}}
+\index{number\-\_\-of\-\_\-requests@{number\-\_\-of\-\_\-requests}!RequestCollection@{Request\-Collection}}
+\subsubsection[{number\-\_\-of\-\_\-requests}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf Request\-Collection\-::number\-\_\-of\-\_\-requests} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{de/d60/class_request_collection_a3253b1d4890067c96c26887c3d924008}
+
+
+Returns the number of requests that the \hyperlink{class_request_collection}{Request\-Collection} has. 
+
+\begin{DoxyPrecond}{Precondition}
+True 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+The number of requests of the \hyperlink{class_request_collection}{Request\-Collection} has been returned. 
+\end{DoxyPostcond}
+
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{_request_collection_8hpp}{Request\-Collection.\-hpp}\end{DoxyCompactItemize}

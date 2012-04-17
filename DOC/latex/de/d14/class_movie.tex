@@ -1,0 +1,125 @@
+\hypertarget{class_movie}{\section{Movie Class Reference}
+\label{de/d14/class_movie}\index{Movie@{Movie}}
+}
+
+
+A \hyperlink{class_movie}{Movie} has an id and a size.  
+
+
+
+
+{\ttfamily \#include $<$Movie.\-hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_movie_a62d82e9e61d6349ae66a73d0af6667ac}{Movie} ()
+\begin{DoxyCompactList}\small\item\em Creates an empty \hyperlink{class_movie}{Movie}. \end{DoxyCompactList}\item 
+\hyperlink{class_movie_a914e028c5499c5945f3acfb785977802}{Movie} (int id, int size)
+\begin{DoxyCompactList}\small\item\em Creates a new \hyperlink{class_movie}{Movie} with the {\bfseries size} specified. \end{DoxyCompactList}\item 
+int \hyperlink{class_movie_a363e66932a5d16dc86c58f57a8b3e72a}{get\-\_\-id} () const 
+\begin{DoxyCompactList}\small\item\em Returns the id of the \hyperlink{class_movie}{Movie}. \end{DoxyCompactList}\item 
+int \hyperlink{class_movie_a92d213d1f005f758cd298dff2a0355f8}{get\-\_\-size} () const 
+\begin{DoxyCompactList}\small\item\em Returns the size of the \hyperlink{class_movie}{Movie}. \end{DoxyCompactList}\item 
+void \hyperlink{class_movie_aed2f694a5ac3a776e3ba8d297dee6e3a}{read\-\_\-movie} (int id)
+\begin{DoxyCompactList}\small\item\em Reads size from input stream and sets it to the \hyperlink{class_movie}{Movie}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+A \hyperlink{class_movie}{Movie} has an id and a size. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_movie_a62d82e9e61d6349ae66a73d0af6667ac}{\index{Movie@{Movie}!Movie@{Movie}}
+\index{Movie@{Movie}!Movie@{Movie}}
+\subsubsection[{Movie}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Movie\-::\-Movie} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{de/d14/class_movie_a62d82e9e61d6349ae66a73d0af6667ac}
+
+
+Creates an empty \hyperlink{class_movie}{Movie}. 
+
+\begin{DoxyPrecond}{Precondition}
+True 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Returns a new empty \hyperlink{class_movie}{Movie}. 
+\end{DoxyPostcond}
+\hypertarget{class_movie_a914e028c5499c5945f3acfb785977802}{\index{Movie@{Movie}!Movie@{Movie}}
+\index{Movie@{Movie}!Movie@{Movie}}
+\subsubsection[{Movie}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Movie\-::\-Movie} (
+\begin{DoxyParamCaption}
+\item[{int}]{id, }
+\item[{int}]{size}
+\end{DoxyParamCaption}
+)}}\label{de/d14/class_movie_a914e028c5499c5945f3acfb785977802}
+
+
+Creates a new \hyperlink{class_movie}{Movie} with the {\bfseries size} specified. 
+
+\begin{DoxyPrecond}{Precondition}
+size $>$ 0 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Returns a new \hyperlink{class_movie}{Movie} with {\bfseries size}. 
+\end{DoxyPostcond}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_movie_a363e66932a5d16dc86c58f57a8b3e72a}{\index{Movie@{Movie}!get\-\_\-id@{get\-\_\-id}}
+\index{get\-\_\-id@{get\-\_\-id}!Movie@{Movie}}
+\subsubsection[{get\-\_\-id}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf Movie\-::get\-\_\-id} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{de/d14/class_movie_a363e66932a5d16dc86c58f57a8b3e72a}
+
+
+Returns the id of the \hyperlink{class_movie}{Movie}. 
+
+\begin{DoxyPrecond}{Precondition}
+\hyperlink{class_movie}{Movie} has an id. 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+The id of the \hyperlink{class_movie}{Movie} is returned. 
+\end{DoxyPostcond}
+\hypertarget{class_movie_a92d213d1f005f758cd298dff2a0355f8}{\index{Movie@{Movie}!get\-\_\-size@{get\-\_\-size}}
+\index{get\-\_\-size@{get\-\_\-size}!Movie@{Movie}}
+\subsubsection[{get\-\_\-size}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf Movie\-::get\-\_\-size} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{de/d14/class_movie_a92d213d1f005f758cd298dff2a0355f8}
+
+
+Returns the size of the \hyperlink{class_movie}{Movie}. 
+
+\begin{DoxyPrecond}{Precondition}
+\hyperlink{class_movie}{Movie} size is defined. 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+The size of the \hyperlink{class_movie}{Movie} is returned. 
+\end{DoxyPostcond}
+\hypertarget{class_movie_aed2f694a5ac3a776e3ba8d297dee6e3a}{\index{Movie@{Movie}!read\-\_\-movie@{read\-\_\-movie}}
+\index{read\-\_\-movie@{read\-\_\-movie}!Movie@{Movie}}
+\subsubsection[{read\-\_\-movie}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf Movie\-::read\-\_\-movie} (
+\begin{DoxyParamCaption}
+\item[{int}]{id}
+\end{DoxyParamCaption}
+)}}\label{de/d14/class_movie_aed2f694a5ac3a776e3ba8d297dee6e3a}
+
+
+Reads size from input stream and sets it to the \hyperlink{class_movie}{Movie}. 
+
+\begin{DoxyPrecond}{Precondition}
+\hyperlink{class_movie}{Movie} size is not defined, id $>$= 0 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+The \hyperlink{class_movie}{Movie} has the specified {\bfseries id} and the size read from input stream. 
+\end{DoxyPostcond}
+
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{_movie_8hpp}{Movie.\-hpp}\end{DoxyCompactItemize}

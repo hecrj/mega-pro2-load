@@ -1,0 +1,105 @@
+\hypertarget{class_movie_collection}{\section{Movie\-Collection Class Reference}
+\label{d7/d51/class_movie_collection}\index{Movie\-Collection@{Movie\-Collection}}
+}
+
+
+A \hyperlink{class_movie_collection}{Movie\-Collection} represents a collection of movies.  
+
+
+
+
+{\ttfamily \#include $<$Movie\-Collection.\-hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_movie_collection_ab17a3e99d78262f0c1d290a1c7385e0f}{Movie\-Collection} ()
+\begin{DoxyCompactList}\small\item\em Creates a new empty \hyperlink{class_movie_collection}{Movie\-Collection}. \end{DoxyCompactList}\item 
+int \hyperlink{class_movie_collection_adfa021fecab47a7db69fad7ffc7dd1c3}{number\-\_\-of\-\_\-movies} () const 
+\begin{DoxyCompactList}\small\item\em Returns the number of movies of the \hyperlink{class_movie_collection}{Movie\-Collection}. \end{DoxyCompactList}\item 
+\hyperlink{class_movie}{Movie} \hyperlink{class_movie_collection_af5558ab369dd58dd9294326ea854007c}{get\-\_\-movie} (int movie\-\_\-id) const 
+\begin{DoxyCompactList}\small\item\em Returns the \hyperlink{class_movie}{Movie} with id {\bfseries movie\-\_\-id}. \end{DoxyCompactList}\item 
+void \hyperlink{class_movie_collection_aefcb7765d0cfd43e4c55feda3abb5e55}{read\-\_\-movies} ()
+\begin{DoxyCompactList}\small\item\em Reads a sequence of Movies from input stream. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+A \hyperlink{class_movie_collection}{Movie\-Collection} represents a collection of movies. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_movie_collection_ab17a3e99d78262f0c1d290a1c7385e0f}{\index{Movie\-Collection@{Movie\-Collection}!Movie\-Collection@{Movie\-Collection}}
+\index{Movie\-Collection@{Movie\-Collection}!MovieCollection@{Movie\-Collection}}
+\subsubsection[{Movie\-Collection}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Movie\-Collection\-::\-Movie\-Collection} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{d7/d51/class_movie_collection_ab17a3e99d78262f0c1d290a1c7385e0f}
+
+
+Creates a new empty \hyperlink{class_movie_collection}{Movie\-Collection}. 
+
+\begin{DoxyPrecond}{Precondition}
+True 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Reutns a new empty \hyperlink{class_movie_collection}{Movie\-Collection}. 
+\end{DoxyPostcond}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_movie_collection_af5558ab369dd58dd9294326ea854007c}{\index{Movie\-Collection@{Movie\-Collection}!get\-\_\-movie@{get\-\_\-movie}}
+\index{get\-\_\-movie@{get\-\_\-movie}!MovieCollection@{Movie\-Collection}}
+\subsubsection[{get\-\_\-movie}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Movie} {\bf Movie\-Collection\-::get\-\_\-movie} (
+\begin{DoxyParamCaption}
+\item[{int}]{movie\-\_\-id}
+\end{DoxyParamCaption}
+) const}}\label{d7/d51/class_movie_collection_af5558ab369dd58dd9294326ea854007c}
+
+
+Returns the \hyperlink{class_movie}{Movie} with id {\bfseries movie\-\_\-id}. 
+
+\begin{DoxyPrecond}{Precondition}
+0 $<$= id $<$= \hyperlink{class_movie_collection_adfa021fecab47a7db69fad7ffc7dd1c3}{Movie\-Collection\-::number\-\_\-of\-\_\-movies()} 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+The \hyperlink{class_movie}{Movie} with id {\bfseries movie\-\_\-id} is returned. 
+\end{DoxyPostcond}
+\hypertarget{class_movie_collection_adfa021fecab47a7db69fad7ffc7dd1c3}{\index{Movie\-Collection@{Movie\-Collection}!number\-\_\-of\-\_\-movies@{number\-\_\-of\-\_\-movies}}
+\index{number\-\_\-of\-\_\-movies@{number\-\_\-of\-\_\-movies}!MovieCollection@{Movie\-Collection}}
+\subsubsection[{number\-\_\-of\-\_\-movies}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf Movie\-Collection\-::number\-\_\-of\-\_\-movies} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{d7/d51/class_movie_collection_adfa021fecab47a7db69fad7ffc7dd1c3}
+
+
+Returns the number of movies of the \hyperlink{class_movie_collection}{Movie\-Collection}. 
+
+\begin{DoxyPrecond}{Precondition}
+True 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+The number of movies of the \hyperlink{class_movie_collection}{Movie\-Collection} is returned. 
+\end{DoxyPostcond}
+\hypertarget{class_movie_collection_aefcb7765d0cfd43e4c55feda3abb5e55}{\index{Movie\-Collection@{Movie\-Collection}!read\-\_\-movies@{read\-\_\-movies}}
+\index{read\-\_\-movies@{read\-\_\-movies}!MovieCollection@{Movie\-Collection}}
+\subsubsection[{read\-\_\-movies}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf Movie\-Collection\-::read\-\_\-movies} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{d7/d51/class_movie_collection_aefcb7765d0cfd43e4c55feda3abb5e55}
+
+
+Reads a sequence of Movies from input stream. 
+
+\begin{DoxyPrecond}{Precondition}
+True 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+The Movies read from input are added to the \hyperlink{class_movie_collection}{Movie\-Collection}. 
+\end{DoxyPostcond}
+
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{_movie_collection_8hpp}{Movie\-Collection.\-hpp}\end{DoxyCompactItemize}

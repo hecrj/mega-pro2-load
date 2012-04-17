@@ -1,0 +1,106 @@
+\hypertarget{class_network}{\section{Network Class Reference}
+\label{de/de1/class_network}\index{Network@{Network}}
+}
+
+
+A \hyperlink{class_network}{Network} consists of a tree related set of Servers.  
+
+
+
+
+{\ttfamily \#include $<$Network.\-hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_network_a3cc2fb4f8fa4d507077e8da85ce5a1c8}{Network} ()
+\begin{DoxyCompactList}\small\item\em Creates a new empty \hyperlink{class_network}{Network}. \end{DoxyCompactList}\item 
+void \hyperlink{class_network_a3b6af9795d37156f9fa6e0fa1441bd99}{occupy\-\_\-servers} (const \hyperlink{class_route}{Route} \&route, int request\-\_\-id)
+\begin{DoxyCompactList}\small\item\em Sets the Servers related to the \hyperlink{class_route}{Route} as busy. \end{DoxyCompactList}\item 
+void \hyperlink{class_network_ac66a15e2a733d4cce9974d2e2921552f}{free\-\_\-servers} (const \hyperlink{class_route}{Route} \&route)
+\begin{DoxyCompactList}\small\item\em Sets the Servers related to the \hyperlink{class_route}{Route} as free. \end{DoxyCompactList}\item 
+void \hyperlink{class_network_a12d28a1bc2ea301c8fef6054838156be}{read\-\_\-network} ()
+\begin{DoxyCompactList}\small\item\em Reads a network of servers. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+A \hyperlink{class_network}{Network} consists of a tree related set of Servers. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_network_a3cc2fb4f8fa4d507077e8da85ce5a1c8}{\index{Network@{Network}!Network@{Network}}
+\index{Network@{Network}!Network@{Network}}
+\subsubsection[{Network}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Network\-::\-Network} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{de/de1/class_network_a3cc2fb4f8fa4d507077e8da85ce5a1c8}
+
+
+Creates a new empty \hyperlink{class_network}{Network}. 
+
+\begin{DoxyPrecond}{Precondition}
+True 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Returns a new empty \hyperlink{class_network}{Network}. 
+\end{DoxyPostcond}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_network_ac66a15e2a733d4cce9974d2e2921552f}{\index{Network@{Network}!free\-\_\-servers@{free\-\_\-servers}}
+\index{free\-\_\-servers@{free\-\_\-servers}!Network@{Network}}
+\subsubsection[{free\-\_\-servers}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf Network\-::free\-\_\-servers} (
+\begin{DoxyParamCaption}
+\item[{const {\bf Route} \&}]{route}
+\end{DoxyParamCaption}
+)}}\label{de/de1/class_network_ac66a15e2a733d4cce9974d2e2921552f}
+
+
+Sets the Servers related to the \hyperlink{class_route}{Route} as free. 
+
+\begin{DoxyPrecond}{Precondition}
+True 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+The Servers related to the \hyperlink{class_route}{Route} are free. 
+\end{DoxyPostcond}
+\hypertarget{class_network_a3b6af9795d37156f9fa6e0fa1441bd99}{\index{Network@{Network}!occupy\-\_\-servers@{occupy\-\_\-servers}}
+\index{occupy\-\_\-servers@{occupy\-\_\-servers}!Network@{Network}}
+\subsubsection[{occupy\-\_\-servers}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf Network\-::occupy\-\_\-servers} (
+\begin{DoxyParamCaption}
+\item[{const {\bf Route} \&}]{route, }
+\item[{int}]{request\-\_\-id}
+\end{DoxyParamCaption}
+)}}\label{de/de1/class_network_a3b6af9795d37156f9fa6e0fa1441bd99}
+
+
+Sets the Servers related to the \hyperlink{class_route}{Route} as busy. 
+
+\begin{DoxyPrecond}{Precondition}
+request\-\_\-id $>$= 0 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+The Servers related to the \hyperlink{class_route}{Route} are busy. 
+\end{DoxyPostcond}
+\hypertarget{class_network_a12d28a1bc2ea301c8fef6054838156be}{\index{Network@{Network}!read\-\_\-network@{read\-\_\-network}}
+\index{read\-\_\-network@{read\-\_\-network}!Network@{Network}}
+\subsubsection[{read\-\_\-network}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf Network\-::read\-\_\-network} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{de/de1/class_network_a12d28a1bc2ea301c8fef6054838156be}
+
+
+Reads a network of servers. 
+
+\begin{DoxyPrecond}{Precondition}
+Not determined yet. 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Not determined yet. 
+\end{DoxyPostcond}
+
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{_network_8hpp}{Network.\-hpp}\end{DoxyCompactItemize}
