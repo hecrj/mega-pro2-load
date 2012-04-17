@@ -12,10 +12,6 @@
  */
 class Network
 {
-	/*private:
-		std::vector<Server> servers;
-		int main_server_id;*/
-
 	public:
 		/**
 		 * Creates a new empty Network.

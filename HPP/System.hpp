@@ -4,8 +4,7 @@
  */
 #ifndef SYSTEM_HPP
 #define SYSTEM_HPP
-
-//#include <stack>
+ 
 #include "Router.hpp"
 #include "MovieCollection.hpp"
 #include "RequestCollection.hpp"
@@ -16,11 +15,6 @@
  */
 class System 
 {
-	/*private:
-		Router router;
-		MovieCollection movs;
-		RequestCollection reqs;*/
-
 	public:
 		/**
 		 * Creates and initializes a new System.

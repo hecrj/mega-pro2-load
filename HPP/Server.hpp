@@ -5,22 +5,12 @@
 #ifndef SERVER_HPP
 #define SERVER_HPP
 
-//#include <vector>
-
 /**
  * A Server is characterized by its speed, the request id that is serving, the
  * available movies, its parent and its two children.
  */
 class Server
 {
-	/*private:
-		int speed;
-		int request_id;
-		std::vector<bool> movies;
-		int parent_id;
-		int child1_id;
-		int child2_id;*/
-
 	public:
 		/**
 		 * Creates a new empty server.

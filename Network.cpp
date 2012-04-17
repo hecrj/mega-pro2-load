@@ -7,6 +7,18 @@
 Network::Network()
 {}
 
+void handle_request(Request &req)
+{
+	Route route = get_route(req);
+	req.set_route(route);
+
+	int time_end = req.get_time_start() + route.get_time();
+	req.set_time_end(time_end);
+
+	set_busy_servers(req);
+	rcol.add_request(req);
+}
+
 Route Network::get_route(const Request &req) const
 {
 	queue<Node> qservs;

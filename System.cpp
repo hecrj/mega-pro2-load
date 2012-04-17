@@ -1,28 +1,44 @@
 #include "System.hpp"
+#include "Movie.hpp"
+#include "Route.hpp"
 
 System::System()
 {
-	network.read_network();
+	movs.read_movies();
+	router.read_network();
 }
 
 void System::new_request()
 {
 	Request req;
-	req.read_request(reqs.size());
+	req.read_request();
 
-	Route route = network.get_route(req);
-	req.set_route(route);
+	Movie req_movie = movs.get_movie(req.get_movie_id());
+	Route route = router.get_route(req_movie);
 	
-	network.set_busy_servers(req);
+	req.set_route(route);
+	router.set_busy_servers(route, req.get_id(), );
 
+	rcol.add_request(req);
 	req.write_request();
-	reqs.push(req);
 }
 
-void System::unfinished_requests()
-{}
+void System::write_unfinished_requests()
+{
 
-void System::most_downld_movie()
+}
+
+void System::write_busy_servers()
+{
+
+}
+
+void System::update_server()
+{
+
+}
+
+void System::write_most_downloaded_movie()
 {
 
 }

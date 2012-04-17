@@ -37,7 +37,6 @@ void Request::set_time_end(int t_end)
 void Request::set_route(const Route &route)
 {
 	this->route = route;
-	t_end = t_start + route.get_time();
 }
 
 void Request::read_request(int id)

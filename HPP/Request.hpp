@@ -13,13 +13,6 @@
  */
 class Request
 {
-	/*private:
-		int id;
-		int movie_id;
-		int t_start;
-		int t_end;
-		Route route;*/
-
 	public:
 		/**
 		 * Creates an empty request.
