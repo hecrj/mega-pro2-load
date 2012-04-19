@@ -10,6 +10,10 @@
  */
 class Movie
 {
+	private:
+		int id;
+		int size;
+
 	public:
 		/**
 		 * Creates an empty Movie.
@@ -17,7 +21,7 @@ class Movie
 		 * \post Returns a new empty Movie.
 		 */
 		Movie();
-
+		
 		/**
 		 * Creates a new Movie with the **size** specified.
 		 * \pre size > 0

@@ -5,7 +5,7 @@
 #ifndef SERVER_HPP
 #define SERVER_HPP
 
-//#include <vector>
+#include <vector>
 
 /**
  * A Server is characterized by its speed, the request id that is serving, the
@@ -13,13 +13,13 @@
  */
 class Server
 {
-	/*private:
+	private:
 		int speed;
 		int request_id;
 		std::vector<bool> movies;
 		int parent_id;
 		int child1_id;
-		int child2_id;*/
+		int child2_id;
 
 	public:
 		/**

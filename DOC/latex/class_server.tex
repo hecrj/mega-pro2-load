@@ -1,0 +1,347 @@
+\hypertarget{class_server}{
+\section{Server Class Reference}
+\label{class_server}\index{Server@{Server}}
+}
+
+
+A \hyperlink{class_server}{Server} is characterized by its speed, the request id that is serving, the available movies, its parent and its two children.  
+
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_server_ad5ec9462b520e59f7ea831e157ee5e59}{Server} ()
+\begin{DoxyCompactList}\small\item\em Creates a new empty server. \item\end{DoxyCompactList}\item 
+\hyperlink{class_server_a066a75893cc4691e6bfa997a0710b354}{Server} (int id, int speed)
+\begin{DoxyCompactList}\small\item\em Creates a new server with the $\ast$$\ast$id$\ast$$\ast$ and the $\ast$$\ast$speed$\ast$$\ast$ specified. \item\end{DoxyCompactList}\item 
+int \hyperlink{class_server_aa464e17f9008aaee5dfc559d0828703a}{get\_\-request\_\-id} () const 
+\begin{DoxyCompactList}\small\item\em Returns the request id the \hyperlink{class_server}{Server} is serving. \item\end{DoxyCompactList}\item 
+int \hyperlink{class_server_a05d6f00d5bef65c071870153ae74115a}{get\_\-speed} () const 
+\begin{DoxyCompactList}\small\item\em Returns the speed of the server. \item\end{DoxyCompactList}\item 
+int \hyperlink{class_server_a86797118fa0842e735e5aaaccf030d37}{get\_\-parent\_\-id} () const 
+\begin{DoxyCompactList}\small\item\em Returns the Server's parent id. \item\end{DoxyCompactList}\item 
+bool \hyperlink{class_server_a1bfac1f0028aea71f89e64809937306a}{is\_\-busy} () const 
+\begin{DoxyCompactList}\small\item\em Returns whether the \hyperlink{class_server}{Server} is serving any petition or not. \item\end{DoxyCompactList}\item 
+bool \hyperlink{class_server_a92979104e897c899d44f9ab4a5931a95}{has\_\-movie} (int movie\_\-id) const 
+\begin{DoxyCompactList}\small\item\em Tells whether the \hyperlink{class_server}{Server} has a movie or not. \item\end{DoxyCompactList}\item 
+bool \hyperlink{class_server_a1aed1fb63af9b2d8a40459f5e51422c7}{has\_\-parent} () const 
+\begin{DoxyCompactList}\small\item\em Tells whether the \hyperlink{class_server}{Server} has a parent or not. \item\end{DoxyCompactList}\item 
+bool \hyperlink{class_server_aab357f6115e5a102d631a28e6c99658b}{has\_\-children} () const 
+\begin{DoxyCompactList}\small\item\em Tells whether the \hyperlink{class_server}{Server} has children or not. \item\end{DoxyCompactList}\item 
+void \hyperlink{class_server_a3e362f139ad82a6ad64f0c32965ead19}{children} (int \&c1, int \&c2) const 
+\begin{DoxyCompactList}\small\item\em Sets $\ast$$\ast$c1$\ast$$\ast$ and $\ast$$\ast$c2$\ast$$\ast$ with the children of the \hyperlink{class_server}{Server}. \item\end{DoxyCompactList}\item 
+void \hyperlink{class_server_a6d64170bbfd9374a2f46c3919a2bba9e}{set\_\-request} (int request\_\-id)
+\begin{DoxyCompactList}\small\item\em Sets the request id that the \hyperlink{class_server}{Server} is going to serve. \item\end{DoxyCompactList}\item 
+void \hyperlink{class_server_a8a31b0d635f6c41ffb5a78b36335169d}{set\_\-parent\_\-id} (int parent\_\-id)
+\begin{DoxyCompactList}\small\item\em Sets the parent id of the \hyperlink{class_server}{Server}. \item\end{DoxyCompactList}\item 
+void \hyperlink{class_server_ac16efc6ace1591ae8e9d713f97bd8248}{enable\_\-movie} (int movie\_\-id)
+\begin{DoxyCompactList}\small\item\em Makes a movie available on the \hyperlink{class_server}{Server}. \item\end{DoxyCompactList}\item 
+void \hyperlink{class_server_ad8559b9cecaaa676188af625fc30a1d5}{disable\_\-movie} (int movie\_\-id)
+\begin{DoxyCompactList}\small\item\em Makes a movie unavailable on the \hyperlink{class_server}{Server}. \item\end{DoxyCompactList}\item 
+void \hyperlink{class_server_a211afa28db4b71ad56eb87d8c495f44f}{read\_\-server} (int id, int n\_\-movies)
+\begin{DoxyCompactList}\small\item\em Reads a \hyperlink{class_server}{Server} from the input stream. \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+A \hyperlink{class_server}{Server} is characterized by its speed, the request id that is serving, the available movies, its parent and its two children. 
+
+Definition at line 12 of file Server.hpp.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_server_ad5ec9462b520e59f7ea831e157ee5e59}{
+\index{Server@{Server}!Server@{Server}}
+\index{Server@{Server}!Server@{Server}}
+\subsubsection[{Server}]{\setlength{\rightskip}{0pt plus 5cm}Server::Server (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_server_ad5ec9462b520e59f7ea831e157ee5e59}
+
+
+Creates a new empty server. 
+
+\begin{DoxyPrecond}{Precondition}
+True 
+
+Returns a new empty \hyperlink{class_server}{Server}. 
+\end{DoxyPrecond}
+\hypertarget{class_server_a066a75893cc4691e6bfa997a0710b354}{
+\index{Server@{Server}!Server@{Server}}
+\index{Server@{Server}!Server@{Server}}
+\subsubsection[{Server}]{\setlength{\rightskip}{0pt plus 5cm}Server::Server (
+\begin{DoxyParamCaption}
+\item[{int}]{id, }
+\item[{int}]{speed}
+\end{DoxyParamCaption}
+)}}
+\label{class_server_a066a75893cc4691e6bfa997a0710b354}
+
+
+Creates a new server with the $\ast$$\ast$id$\ast$$\ast$ and the $\ast$$\ast$speed$\ast$$\ast$ specified. 
+
+\begin{DoxyPrecond}{Precondition}
+id $>$= 0, speed $>$= 0 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Returns a new \hyperlink{class_server}{Server} with the $\ast$$\ast$id$\ast$$\ast$ and $\ast$$\ast$speed$\ast$$\ast$ specified. 
+\end{DoxyPostcond}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_server_aa464e17f9008aaee5dfc559d0828703a}{
+\index{Server@{Server}!get\_\-request\_\-id@{get\_\-request\_\-id}}
+\index{get\_\-request\_\-id@{get\_\-request\_\-id}!Server@{Server}}
+\subsubsection[{get\_\-request\_\-id}]{\setlength{\rightskip}{0pt plus 5cm}int Server::get\_\-request\_\-id (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}
+\label{class_server_aa464e17f9008aaee5dfc559d0828703a}
+
+
+Returns the request id the \hyperlink{class_server}{Server} is serving. 
+
+\begin{DoxyPrecond}{Precondition}
+The \hyperlink{class_server}{Server} is busy 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+The request id is returned. 
+\end{DoxyPostcond}
+\hypertarget{class_server_a05d6f00d5bef65c071870153ae74115a}{
+\index{Server@{Server}!get\_\-speed@{get\_\-speed}}
+\index{get\_\-speed@{get\_\-speed}!Server@{Server}}
+\subsubsection[{get\_\-speed}]{\setlength{\rightskip}{0pt plus 5cm}int Server::get\_\-speed (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}
+\label{class_server_a05d6f00d5bef65c071870153ae74115a}
+
+
+Returns the speed of the server. 
+
+\begin{DoxyPrecond}{Precondition}
+The \hyperlink{class_server}{Server} has an speed. 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+The \hyperlink{class_server}{Server} speed is returned. 
+\end{DoxyPostcond}
+\hypertarget{class_server_a86797118fa0842e735e5aaaccf030d37}{
+\index{Server@{Server}!get\_\-parent\_\-id@{get\_\-parent\_\-id}}
+\index{get\_\-parent\_\-id@{get\_\-parent\_\-id}!Server@{Server}}
+\subsubsection[{get\_\-parent\_\-id}]{\setlength{\rightskip}{0pt plus 5cm}int Server::get\_\-parent\_\-id (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}
+\label{class_server_a86797118fa0842e735e5aaaccf030d37}
+
+
+Returns the Server's parent id. 
+
+\begin{DoxyPrecond}{Precondition}
+The \hyperlink{class_server}{Server} has a parent. 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+The Server's parent id is returned. 
+\end{DoxyPostcond}
+\hypertarget{class_server_a1bfac1f0028aea71f89e64809937306a}{
+\index{Server@{Server}!is\_\-busy@{is\_\-busy}}
+\index{is\_\-busy@{is\_\-busy}!Server@{Server}}
+\subsubsection[{is\_\-busy}]{\setlength{\rightskip}{0pt plus 5cm}bool Server::is\_\-busy (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}
+\label{class_server_a1bfac1f0028aea71f89e64809937306a}
+
+
+Returns whether the \hyperlink{class_server}{Server} is serving any petition or not. 
+
+\begin{DoxyPrecond}{Precondition}
+True 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+True if the \hyperlink{class_server}{Server} is busy, false otherwise. 
+\end{DoxyPostcond}
+\hypertarget{class_server_a92979104e897c899d44f9ab4a5931a95}{
+\index{Server@{Server}!has\_\-movie@{has\_\-movie}}
+\index{has\_\-movie@{has\_\-movie}!Server@{Server}}
+\subsubsection[{has\_\-movie}]{\setlength{\rightskip}{0pt plus 5cm}bool Server::has\_\-movie (
+\begin{DoxyParamCaption}
+\item[{int}]{movie\_\-id}
+\end{DoxyParamCaption}
+) const}}
+\label{class_server_a92979104e897c899d44f9ab4a5931a95}
+
+
+Tells whether the \hyperlink{class_server}{Server} has a movie or not. 
+
+\begin{DoxyPrecond}{Precondition}
+0 $<$= movie\_\-id $<$= total\_\-movies 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+True if the \hyperlink{class_server}{Server} has the movie, false otherwise. 
+\end{DoxyPostcond}
+\hypertarget{class_server_a1aed1fb63af9b2d8a40459f5e51422c7}{
+\index{Server@{Server}!has\_\-parent@{has\_\-parent}}
+\index{has\_\-parent@{has\_\-parent}!Server@{Server}}
+\subsubsection[{has\_\-parent}]{\setlength{\rightskip}{0pt plus 5cm}bool Server::has\_\-parent (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}
+\label{class_server_a1aed1fb63af9b2d8a40459f5e51422c7}
+
+
+Tells whether the \hyperlink{class_server}{Server} has a parent or not. 
+
+\begin{DoxyPrecond}{Precondition}
+True 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+True if the \hyperlink{class_server}{Server} has a parent, false otherwise. 
+\end{DoxyPostcond}
+\hypertarget{class_server_aab357f6115e5a102d631a28e6c99658b}{
+\index{Server@{Server}!has\_\-children@{has\_\-children}}
+\index{has\_\-children@{has\_\-children}!Server@{Server}}
+\subsubsection[{has\_\-children}]{\setlength{\rightskip}{0pt plus 5cm}bool Server::has\_\-children (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}
+\label{class_server_aab357f6115e5a102d631a28e6c99658b}
+
+
+Tells whether the \hyperlink{class_server}{Server} has children or not. 
+
+\begin{DoxyPrecond}{Precondition}
+True 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+True if the \hyperlink{class_server}{Server} has children, false otherwise. 
+\end{DoxyPostcond}
+\hypertarget{class_server_a3e362f139ad82a6ad64f0c32965ead19}{
+\index{Server@{Server}!children@{children}}
+\index{children@{children}!Server@{Server}}
+\subsubsection[{children}]{\setlength{\rightskip}{0pt plus 5cm}void Server::children (
+\begin{DoxyParamCaption}
+\item[{int \&}]{c1, }
+\item[{int \&}]{c2}
+\end{DoxyParamCaption}
+) const}}
+\label{class_server_a3e362f139ad82a6ad64f0c32965ead19}
+
+
+Sets $\ast$$\ast$c1$\ast$$\ast$ and $\ast$$\ast$c2$\ast$$\ast$ with the children of the \hyperlink{class_server}{Server}. 
+
+\begin{DoxyPrecond}{Precondition}
+The \hyperlink{class_server}{Server} has children 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+c1 and c2 are set with the children of the \hyperlink{class_server}{Server} (left and right, respectively) 
+\end{DoxyPostcond}
+\hypertarget{class_server_a6d64170bbfd9374a2f46c3919a2bba9e}{
+\index{Server@{Server}!set\_\-request@{set\_\-request}}
+\index{set\_\-request@{set\_\-request}!Server@{Server}}
+\subsubsection[{set\_\-request}]{\setlength{\rightskip}{0pt plus 5cm}void Server::set\_\-request (
+\begin{DoxyParamCaption}
+\item[{int}]{request\_\-id}
+\end{DoxyParamCaption}
+)}}
+\label{class_server_a6d64170bbfd9374a2f46c3919a2bba9e}
+
+
+Sets the request id that the \hyperlink{class_server}{Server} is going to serve. 
+
+\begin{DoxyPrecond}{Precondition}
+The \hyperlink{class_server}{Server} is not busy 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+The \hyperlink{class_server}{Server} has the request id set to $\ast$$\ast$request\_\-id$\ast$$\ast$. 
+\end{DoxyPostcond}
+\hypertarget{class_server_a8a31b0d635f6c41ffb5a78b36335169d}{
+\index{Server@{Server}!set\_\-parent\_\-id@{set\_\-parent\_\-id}}
+\index{set\_\-parent\_\-id@{set\_\-parent\_\-id}!Server@{Server}}
+\subsubsection[{set\_\-parent\_\-id}]{\setlength{\rightskip}{0pt plus 5cm}void Server::set\_\-parent\_\-id (
+\begin{DoxyParamCaption}
+\item[{int}]{parent\_\-id}
+\end{DoxyParamCaption}
+)}}
+\label{class_server_a8a31b0d635f6c41ffb5a78b36335169d}
+
+
+Sets the parent id of the \hyperlink{class_server}{Server}. 
+
+\begin{DoxyPrecond}{Precondition}
+The \hyperlink{class_server}{Server} has no parent. 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+The \hyperlink{class_server}{Server} has the parent id set to $\ast$$\ast$parent\_\-id$\ast$$\ast$. 
+\end{DoxyPostcond}
+\hypertarget{class_server_ac16efc6ace1591ae8e9d713f97bd8248}{
+\index{Server@{Server}!enable\_\-movie@{enable\_\-movie}}
+\index{enable\_\-movie@{enable\_\-movie}!Server@{Server}}
+\subsubsection[{enable\_\-movie}]{\setlength{\rightskip}{0pt plus 5cm}void Server::enable\_\-movie (
+\begin{DoxyParamCaption}
+\item[{int}]{movie\_\-id}
+\end{DoxyParamCaption}
+)}}
+\label{class_server_ac16efc6ace1591ae8e9d713f97bd8248}
+
+
+Makes a movie available on the \hyperlink{class_server}{Server}. 
+
+\begin{DoxyPrecond}{Precondition}
+True 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+The movie with id $\ast$$\ast$movie\_\-id$\ast$$\ast$ is available on the \hyperlink{class_server}{Server}. 
+\end{DoxyPostcond}
+\hypertarget{class_server_ad8559b9cecaaa676188af625fc30a1d5}{
+\index{Server@{Server}!disable\_\-movie@{disable\_\-movie}}
+\index{disable\_\-movie@{disable\_\-movie}!Server@{Server}}
+\subsubsection[{disable\_\-movie}]{\setlength{\rightskip}{0pt plus 5cm}void Server::disable\_\-movie (
+\begin{DoxyParamCaption}
+\item[{int}]{movie\_\-id}
+\end{DoxyParamCaption}
+)}}
+\label{class_server_ad8559b9cecaaa676188af625fc30a1d5}
+
+
+Makes a movie unavailable on the \hyperlink{class_server}{Server}. 
+
+\begin{DoxyPrecond}{Precondition}
+True 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+The movie with id $\ast$$\ast$movie\_\-id$\ast$$\ast$ is $\ast$$\ast$not$\ast$$\ast$ available on the \hyperlink{class_server}{Server}. 
+\end{DoxyPostcond}
+\hypertarget{class_server_a211afa28db4b71ad56eb87d8c495f44f}{
+\index{Server@{Server}!read\_\-server@{read\_\-server}}
+\index{read\_\-server@{read\_\-server}!Server@{Server}}
+\subsubsection[{read\_\-server}]{\setlength{\rightskip}{0pt plus 5cm}void Server::read\_\-server (
+\begin{DoxyParamCaption}
+\item[{int}]{id, }
+\item[{int}]{n\_\-movies}
+\end{DoxyParamCaption}
+)}}
+\label{class_server_a211afa28db4b71ad56eb87d8c495f44f}
+
+
+Reads a \hyperlink{class_server}{Server} from the input stream. 
+
+\begin{DoxyPrecond}{Precondition}
+Not determined yet. 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Not determined yet. 
+\end{DoxyPostcond}
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{_server_8hpp}{Server.hpp}\end{DoxyCompactItemize}

@@ -6,6 +6,8 @@
 #define ROUTER_HPP
 
 #include "Server.hpp"
+#include "Route.hpp"
+#include "Movie.hpp"
 
 /**
  * A Network consists of a tree related set of Servers.
@@ -19,6 +21,20 @@ class Network
 		 * \post Returns a new empty Network.
 		 */
 		Network();
+
+		/**
+		 * Returns the number of Servers in the Network.
+		 * \pre True
+		 * \post The number of Servers in the Network.
+		 */
+		 int size() const;
+
+		/**
+		 * Tries to find a Route for the requested Movie.
+		 * \pre Movie size >= 0
+		 * \post Returns a Route in the Router network for the requested Movie.
+		 */
+		Route get_route(const Movie &req) const;
 
 		/**
 		 * Sets the Servers related to the Route as busy.
@@ -35,11 +51,18 @@ class Network
 		void free_servers(const Route &route);
 
 		/**
+		 * Updates the Server with id **server_id**.
+		 * \pre 0 <= id <= Network::size()
+		 * \post The Server with id **server_id** has been updated.
+		 */
+		void update_server(int server_id);
+
+		/**
 		 * Reads a network of servers.
 		 * \pre Not determined yet.
 		 * \post Not determined yet.
 		 */
-		void read_network();
+		void read_network(int n_movies);
 };
 
 #endif

@@ -17,7 +17,7 @@ class Movie
 		 * \post Returns a new empty Movie.
 		 */
 		Movie();
-
+		
 		/**
 		 * Creates a new Movie with the **size** specified.
 		 * \pre size > 0

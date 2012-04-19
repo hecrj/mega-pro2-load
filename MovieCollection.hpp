@@ -5,6 +5,7 @@
 #ifndef MOVIECOLLECTION
 #define MOVIECOLLECTION
 
+#include <vector>
 #include "Movie.hpp"
 
 /**
@@ -12,34 +13,37 @@
  */
 class MovieCollection
 {
+	private:
+		std::vector<Movie> movies;
+
 	public:
 		/**
 		 * Creates a new empty MovieCollection.
 		 * \pre True
-		 * \post Reutns a new empty MovieCollection.
+		 * \post Returns a new empty MovieCollection.
 		 */
-		MovieCollection::MovieCollection();
+		MovieCollection();
 
 		/**
 		 * Returns the number of movies of the MovieCollection.
 		 * \pre True
 		 * \post The number of movies of the MovieCollection is returned.
 		 */
-		int MovieCollection::number_of_movies() const;
+		int size() const;
 
 		/**
 		 * Returns the Movie with id **movie_id**.
-		 * \pre 0 <= id <= MovieCollection::number_of_movies()
+		 * \pre 0 <= id <= MovieCollection::size()
 		 * \post The Movie with id **movie_id** is returned.
 		 */
-		Movie MovieCollection::get_movie(int movie_id) const;
+		Movie get_movie(int movie_id) const;
 
 		/**
 		 * Reads a sequence of Movies from input stream.
 		 * \pre True
 		 * \post The Movies read from input are added to the MovieCollection.
 		 */
-		void MovieCollection::read_movies();
+		void read_movies();
 };
 
 #endif

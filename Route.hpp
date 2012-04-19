@@ -6,16 +6,16 @@
 #ifndef ROUTE_HPP
 #define ROUTE_HPP
 
-//#include <stack>
+#include <stack>
 
 /**
  * A Route is characterized by a travel time and a set of servers.
  */
 class Route
 {
-	/*private:
+	private:
 		int time;
-		std::stack<int> servers;*/
+		std::stack<int> servers;
 
 	public:
 		/**

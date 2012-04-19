@@ -26,14 +26,14 @@ class RequestCollection
 		 * \post The number of requests of the RequestCollection has been
 		 *       returned.
 		 */
-		int number_of_requests() const;
+		int size() const;
 
 		/**
 		 * Returns the request with the id **request_id**.
-		 * \pre 0 <= request_id <= RequestCollection::number_of_requests()
+		 * \pre 0 <= request_id <= RequestCollection::size()
 		 * \post The request with the id **request_id** is returned.
 		 */
-		Request get_request(int request_id);
+		Request get_request(int request_id) const;
 
 		/**
 		 * Adds a Request to the RequestCollection.

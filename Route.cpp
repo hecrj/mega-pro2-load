@@ -9,7 +9,7 @@ Route::Route(int time)
 	this->time = time;
 }
 
-int Route::get_time() const
+int Route::get_travel_time() const
 {
 	return time;
 }

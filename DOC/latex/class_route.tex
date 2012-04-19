@@ -1,0 +1,150 @@
+\hypertarget{class_route}{
+\section{Route Class Reference}
+\label{class_route}\index{Route@{Route}}
+}
+
+
+A \hyperlink{class_route}{Route} is characterized by a travel time and a set of servers.  
+
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_route_a2b1c971aaf032109cee8081c97e9b9e9}{Route} ()
+\begin{DoxyCompactList}\small\item\em Creates a new empty \hyperlink{class_route}{Route}. \item\end{DoxyCompactList}\item 
+\hyperlink{class_route_a0d4195a212515192000cded1e6fc6fe1}{Route} (int travel\_\-time)
+\begin{DoxyCompactList}\small\item\em Creates a new \hyperlink{class_route}{Route} with the $\ast$$\ast$travel\_\-time$\ast$$\ast$ specified. \item\end{DoxyCompactList}\item 
+int \hyperlink{class_route_ab76f0d401c7492ca2e16e8b4402bd544}{get\_\-travel\_\-time} () const 
+\begin{DoxyCompactList}\small\item\em Returns the travel time of the \hyperlink{class_route}{Route}. \item\end{DoxyCompactList}\item 
+std::stack$<$ int $>$ \hyperlink{class_route_adc747b5532d9e0150637e56f7f79c271}{get\_\-servers} () const 
+\begin{DoxyCompactList}\small\item\em Returns the set of servers of the \hyperlink{class_route}{Route}. \item\end{DoxyCompactList}\item 
+bool \hyperlink{class_route_ae50842073a24659f7b60885e2e9c8ff6}{is\_\-empty} () const 
+\begin{DoxyCompactList}\small\item\em Returns whether the \hyperlink{class_route}{Route} has servers or not. \item\end{DoxyCompactList}\item 
+void \hyperlink{class_route_a83ac0bdc29132d404c5fb00ab8729b4f}{add\_\-server} (int server\_\-id)
+\begin{DoxyCompactList}\small\item\em Adds a server to the \hyperlink{class_route}{Route}. \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+A \hyperlink{class_route}{Route} is characterized by a travel time and a set of servers. 
+
+Definition at line 12 of file Route.hpp.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_route_a2b1c971aaf032109cee8081c97e9b9e9}{
+\index{Route@{Route}!Route@{Route}}
+\index{Route@{Route}!Route@{Route}}
+\subsubsection[{Route}]{\setlength{\rightskip}{0pt plus 5cm}Route::Route (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_route_a2b1c971aaf032109cee8081c97e9b9e9}
+
+
+Creates a new empty \hyperlink{class_route}{Route}. 
+
+\hypertarget{class_route_a0d4195a212515192000cded1e6fc6fe1}{
+\index{Route@{Route}!Route@{Route}}
+\index{Route@{Route}!Route@{Route}}
+\subsubsection[{Route}]{\setlength{\rightskip}{0pt plus 5cm}Route::Route (
+\begin{DoxyParamCaption}
+\item[{int}]{travel\_\-time}
+\end{DoxyParamCaption}
+)}}
+\label{class_route_a0d4195a212515192000cded1e6fc6fe1}
+
+
+Creates a new \hyperlink{class_route}{Route} with the $\ast$$\ast$travel\_\-time$\ast$$\ast$ specified. 
+
+\begin{DoxyPrecond}{Precondition}
+time $>$= 0 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+A new \hyperlink{class_route}{Route} with the $\ast$$\ast$travel\_\-time$\ast$$\ast$ set is created. 
+\end{DoxyPostcond}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_route_ab76f0d401c7492ca2e16e8b4402bd544}{
+\index{Route@{Route}!get\_\-travel\_\-time@{get\_\-travel\_\-time}}
+\index{get\_\-travel\_\-time@{get\_\-travel\_\-time}!Route@{Route}}
+\subsubsection[{get\_\-travel\_\-time}]{\setlength{\rightskip}{0pt plus 5cm}int Route::get\_\-travel\_\-time (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}
+\label{class_route_ab76f0d401c7492ca2e16e8b4402bd544}
+
+
+Returns the travel time of the \hyperlink{class_route}{Route}. 
+
+\begin{DoxyPrecond}{Precondition}
+The route has a $\ast$$\ast$travel\_\-time$\ast$$\ast$. 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+True 
+\end{DoxyPostcond}
+\hypertarget{class_route_adc747b5532d9e0150637e56f7f79c271}{
+\index{Route@{Route}!get\_\-servers@{get\_\-servers}}
+\index{get\_\-servers@{get\_\-servers}!Route@{Route}}
+\subsubsection[{get\_\-servers}]{\setlength{\rightskip}{0pt plus 5cm}std::stack$<$int$>$ Route::get\_\-servers (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}
+\label{class_route_adc747b5532d9e0150637e56f7f79c271}
+
+
+Returns the set of servers of the \hyperlink{class_route}{Route}. 
+
+\begin{DoxyPrecond}{Precondition}
+True 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Returns the servers of the \hyperlink{class_route}{Route}. 
+\end{DoxyPostcond}
+\hypertarget{class_route_ae50842073a24659f7b60885e2e9c8ff6}{
+\index{Route@{Route}!is\_\-empty@{is\_\-empty}}
+\index{is\_\-empty@{is\_\-empty}!Route@{Route}}
+\subsubsection[{is\_\-empty}]{\setlength{\rightskip}{0pt plus 5cm}bool Route::is\_\-empty (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}
+\label{class_route_ae50842073a24659f7b60885e2e9c8ff6}
+
+
+Returns whether the \hyperlink{class_route}{Route} has servers or not. 
+
+\begin{DoxyPrecond}{Precondition}
+True 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Returns true if there is any server defined in the \hyperlink{class_route}{Route}, false otherwise. 
+\end{DoxyPostcond}
+\hypertarget{class_route_a83ac0bdc29132d404c5fb00ab8729b4f}{
+\index{Route@{Route}!add\_\-server@{add\_\-server}}
+\index{add\_\-server@{add\_\-server}!Route@{Route}}
+\subsubsection[{add\_\-server}]{\setlength{\rightskip}{0pt plus 5cm}void Route::add\_\-server (
+\begin{DoxyParamCaption}
+\item[{int}]{server\_\-id}
+\end{DoxyParamCaption}
+)}}
+\label{class_route_a83ac0bdc29132d404c5fb00ab8729b4f}
+
+
+Adds a server to the \hyperlink{class_route}{Route}. 
+
+\begin{DoxyPrecond}{Precondition}
+server\_\-id $>$= 0 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+The server has been added to the \hyperlink{class_route}{Route} by its identifier. 
+\end{DoxyPostcond}
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{_route_8hpp}{Route.hpp}\end{DoxyCompactItemize}

@@ -13,12 +13,12 @@
  */
 class Request
 {
-	/*private:
+	private:
 		int id;
 		int movie_id;
 		int t_start;
 		int t_end;
-		Route route;*/
+		Route route;
 
 	public:
 		/**
@@ -57,6 +57,13 @@ class Request
 		 */
 		Route get_route() const;
 
+		/**
+		 * Updates the end time of the Request.
+		 * \pre time_end > time_start
+		 * \post The end time of the Request has been updated.
+		 */
+		void set_time_end(int time_end);
+		
 		/**
 		 * \brief Attaches the route to the request.
 		 * \pre The request has no route attached.

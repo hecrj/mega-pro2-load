@@ -7,19 +7,12 @@
 Network::Network()
 {}
 
-void handle_request(Request &req)
+int Network::size() const
 {
-	Route route = get_route(req);
-	req.set_route(route);
-
-	int time_end = req.get_time_start() + route.get_time();
-	req.set_time_end(time_end);
-
-	set_busy_servers(req);
-	rcol.add_request(req);
+	return servers.size();
 }
 
-Route Network::get_route(const Request &req) const
+Route Network::get_route(const Movie &mov) const
 {
 	queue<Node> qservs;
 
@@ -39,16 +32,16 @@ Route Network::get_route(const Request &req) const
 
 		cout << "Checking server: " << serv.id+1 << endl;
 
-		if(not servers[serv.id].is_busy() and servers[serv.id].has_movie(req.get_movie_id()))
+		if(not servers[serv.id].is_busy() and servers[serv.id].has_movie(mov.get_id()))
 		{
 			serv.speed += servers[serv.id].get_speed();
 
 			cout << "The server is free and has the movie." << endl;
-			cout << "Movie size: " << movies[req.get_movie_id()] << endl;
+			cout << "Movie size: " << mov.get_size() << endl;
 			cout << "Node speed: " << serv.speed << endl;
 
-			if(movies[req.get_movie_id()] <= serv.speed)
-				return build_route(req, serv);
+			if(mov.get_size() <= serv.speed)
+				return build_route(mov, serv);
 
 			else if(serv.speed > best_server.speed)
 				best_server = serv;
@@ -74,13 +67,13 @@ Route Network::get_route(const Request &req) const
 
 	}
 
-	return build_route(req, best_server);
+	return build_route(mov, best_server);
 }
 
-Route Network::build_route(const Request &req, Node &serv_node) const
+Route Network::build_route(const Movie &mov, Node &serv_node) const
 {
-	int time = int( ceil( double(movies[req.get_movie_id()]) / double(serv_node.speed) ) );
-	
+	int time = int( ceil( double(mov.get_size()) / double(serv_node.speed) ) );
+
 	Route route(time);
 
 	while(serv_node.id != -1)
@@ -92,39 +85,22 @@ Route Network::build_route(const Request &req, Node &serv_node) const
 	return route;
 }
 
-void Network::set_busy_servers(const Request &req)
+void Network::occupy_servers(const Route &route, int req_id)
 {
-	stack<int> req_servers = req.get_route().get_servers();
-
-	while(not req_servers.empty())
-	{
-		servers[req_servers.top()].set_request(req.get_id());
-		req_servers.pop();
-	}
+	// ...
 }
 
-void Network::read_network()
+void Network::free_servers(const Route &route)
 {
-	read_movies();
-	read_servers();
+	// ...
 }
 
-void Network::read_movies()
+void Network::update_server(int server_id)
 {
-	cout << "Input the number of movies in the network: ";
-	int n = readint();
-
-	movies = vector<int>(n);
-
-	for(int i = 0; i < n; ++i)
-	{
-		cout << "Input the size of the movie #" << i+1 << ": ";
-		movies[i] = readint();
-	}
-
+	// ...
 }
 
-void Network::read_servers()
+void Network::read_network(int n_movies)
 {
 	cout << "Input the number of servers of the system: ";
 	int n = readint();
@@ -135,7 +111,7 @@ void Network::read_servers()
 		cout << "Input the id of the server #" << i+1 << ": ";
 		int id = readint() - 1;
 
-		servers[id].read_server(id, movies.size());
+		servers[id].read_server(id, n_movies);
 
 		if(servers[id].has_children())
 		{
