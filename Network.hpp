@@ -73,6 +73,13 @@ class Network
 		 * \post Not determined yet.
 		 */
 		void read_network(int n_movies);
+
+		/**
+		 * Prints in the output stream the servers that are actually busy.
+		 * \pre True
+		 * \post The buusy Servers have been printed in the output stream.
+		 */
+		void write_busy_servers();
 };
 
 #endif

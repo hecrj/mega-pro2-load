@@ -44,6 +44,14 @@ class MovieCollection
 		 * \post The Movies read from input are added to the MovieCollection.
 		 */
 		void read_movies();
+
+		/**
+		 * Outputs information about the most downloaded movies in **rcol** between
+		 * **t1** and **t2**.
+		 * \pre t1 < t2
+		 * \post The information has been printed in the output stream.
+		 */
+		void write_most_downloaded_movies(const RequestCollection &rcol, int t1, int t2);
 };
 
 #endif

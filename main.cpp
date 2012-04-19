@@ -50,38 +50,6 @@ void handle_request(const MovieCollection &movies, Network &net, Request &req)
 }
 
 /**
- * Outputs information of the unfinished requests.
- * \pre True
- * \post Information of the unfinished requests has been printed in the
- *       output stream.
- */
-void write_unfinished_requests(const RequestCollection &rcol)
-{
-
-}
-
-/**
- * Outputs information of the busy servers.
- * \pre True
- * \post Information of the busy servers has been printed in the output
- *       stream.
- */
-void write_busy_servers(const Network &net, const RequestCollection &rcol)
-{
-
-}
-
-/**
- * Outputs the most downloaded movie between t1 and t2.
- * \pre t1 < t2, t1 greater than the last entered time
- * \post The most downloaded movie has been pritend in the output stream.
- */
-void write_most_downloaded_movie(const Network &router, const MovieCollection &movies)
-{
-	
-}
-
-/**
  * Prints main application help.
  * \pre True
  * \post A help message has been printed on the output stream.
@@ -130,14 +98,20 @@ int main()
 
         	req.write_request();
         }
-		else if(opt == OPT_UNF_REQ) write_unfinished_requests(rcol);
-		else if(opt == OPT_BUS_SER) write_busy_servers(net, rcol);
+		else if(opt == OPT_UNF_REQ) rcol.write_unfinished_requests();
+		else if(opt == OPT_BUS_SER) net.write_busy_servers();
 		else if(opt == OPT_UPD_SER)
 		{
 			int server_id = readint();
 			net.update_server(server_id);
 		}
-		else if(opt == OPT_MSD_MOV) write_most_downloaded_movie(net, movies);
+		else if(opt == OPT_MSD_MOV)
+		{
+			int t1 = readint();
+			int t2 = readint();
+			
+			movies.write_most_downloaded_movies(rcol, t1, t2);
+		}
 		else if(opt == OPT_SHW_HEL) show_help();
 
 		cout << "Choose next action: ";

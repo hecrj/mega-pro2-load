@@ -45,6 +45,13 @@ class RequestCollection
 		 * \post The Request has been added to the RequestCollection.
 		 */
 		void add_request(const Request &req);
+
+		/**
+		 * Writes the unfinished Requests in the output stream.
+		 * \pre True
+		 * \post The unfinished Requests have been printend in the output stream.
+		 */
+		void write_unfinished_requests();
 };
 
 #endif

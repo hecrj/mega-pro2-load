@@ -32,3 +32,8 @@ void MovieCollection::read_movies()
         movies[i] = mov;
     }
 }
+
+void MovieCollection::write_most_downloaded_movies(const RequestCollection &rcol, int t1, int t2) const
+{
+    // ...
+}
