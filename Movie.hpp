@@ -27,14 +27,7 @@ class Movie
 		 * \pre size > 0
 		 * \post Returns a new Movie with **size**.
 		 */
-		Movie(int id, int size);
-
-		/**
-		 * Returns the id of the Movie.
-		 * \pre Movie has an id.
-		 * \post The id of the Movie is returned.
-		 */
-		int get_id() const;
+		Movie(int size);
 
 		/**
 		 * Returns the size of the Movie.
@@ -45,11 +38,17 @@ class Movie
 
 		/**
 		 * Reads size from input stream and sets it to the Movie.
-		 * \pre Movie size is not defined, id >= 0
-		 * \post The Movie has the specified **id** and the size read from input
-		 *       stream.
+		 * \pre Movie size is not defined
+		 * \post The Movie has the size read from input stream.
 		 */
-		void read_movie(int id);
+		void read_movie();
+
+		/**
+		 * Outputs information of the Movie.
+		 * \pre True
+		 * \post Information about the Movie has been printed.
+		 */
+		void write_movie();
 };
 
 #endif

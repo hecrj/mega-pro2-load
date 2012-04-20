@@ -5,8 +5,6 @@
 #ifndef REQUEST_HPP
 #define REQUEST_HPP
 
-#include "Route.hpp"
-
 /**
  * A Request consists of an id, a movie_id, a start time, an end time
  * and a route of servers.
@@ -43,12 +41,6 @@ class Request
 		 * \post True
 		 */
 		int get_time_end() const;
-		/**
-		 * \brief Returns the route of servers attached to the request.
-		 * \pre The request has an attached route.
-		 * \post True
-		 */
-		Route get_route() const;
 
 		/**
 		 * Updates the end time of the Request.

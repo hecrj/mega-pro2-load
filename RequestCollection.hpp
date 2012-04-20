@@ -5,7 +5,7 @@
 #ifndef REQUESTCOLLECTION_HPP
 #define REQUESTCOLLECTION_HPP
 
-#include <stack>
+#include <list>
 #include "Request.hpp"
 
 /**
@@ -14,8 +14,8 @@
 class RequestCollection
 {
 	private:
-		std::stack<Request> requests;
-
+		list<Request> reqs;
+		// ...
 	public:
 		/**
 		 * Creates a new empty RequestCollection.
@@ -25,33 +25,33 @@ class RequestCollection
 		RequestCollection();
 
 		/**
-		 * Returns the number of requests that the RequestCollection has.
+		 * Returns the next request id in the RequestCollection.
 		 * \pre True
-		 * \post The number of requests of the RequestCollection has been
-		 *       returned.
+		 * \post The next request id in the RequestCollection is returned.
 		 */
-		int size() const;
+		int get_next_id() const;
 
 		/**
-		 * Returns the request with the id **request_id**.
-		 * \pre 0 <= request_id <= RequestCollection::size()
-		 * \post The request with the id **request_id** is returned.
+		 * Gets the most downloaded movie id beetween time [t1, t2] by the
+		 * current requests of the RequestCollection.
 		 */
-		Request get_request(int request_id) const;
+		int get_most_downloaded_movie(int t1, int t2) const;
 
 		/**
-		 * Adds a Request to the RequestCollection.
+		 * Adds a request with **movie_id**, **t_start**, **t_end**, **node_id**
+		 * in the RequestCollection.
 		 * \pre True
-		 * \post The Request has been added to the RequestCollection.
+		 * \post The request of the description has been added to the
+		 *       RequestCollection.
 		 */
-		void add_request(const Request &req);
+		void add_request(int movie_id, int t_start, int t_end, int node_id);
 
 		/**
 		 * Writes the unfinished Requests in the output stream.
 		 * \pre True
 		 * \post The unfinished Requests have been printend in the output stream.
 		 */
-		void write_unfinished_requests();
+		void write_unfinished_requests() const;
 };
 
 #endif

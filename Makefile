@@ -1,7 +1,7 @@
-INCLUDES_CPP = /assig/pro2/cplus/includes
+INCLUDES_CPP = /users/hector0193/Proyectos/PRO2/includes
 
-main.exe: main.o Request.o Network.o Server.o Route.o Movie.o MovieCollection.o RequestCollection.o
-	g++ -o main.exe main.o Request.o Network.o Server.o Route.o Movie.o MovieCollection.o RequestCollection.o
+main.exe: main.o Request.o Network.o Server.o Movie.o MovieCollection.o RequestCollection.o
+	g++ -o main.exe main.o Request.o Network.o Server.o Movie.o MovieCollection.o RequestCollection.o
 
 main.o: main.cpp
 	g++ -c main.cpp -I$(INCLUDES_CPP)
@@ -14,9 +14,6 @@ Network.o: Network.cpp
 
 Server.o: Server.cpp
 	g++ -c Server.cpp -I$(INCLUDES_CPP)
-
-Route.o: Route.cpp
-	g++ -c Route.cpp -I$(INCLUDES_CPP)
 
 Movie.o: Movie.cpp
 	g++ -c Movie.cpp -I$(INCLUDES_CPP)

@@ -11,29 +11,27 @@ int MovieCollection::size() const
 	return movies.size();
 }
 
-Movie MovieCollection::get_movie(int movie_id) const
+int MovieCollection::get_movie_size(int movie_id) const
 {
 	return movies[movie_id];
 }
 
 void MovieCollection::read_movies()
 {
-	cout << "Input the number of movies in the network: ";
+	cout << "Input the total number of movies in the system: ";
     int n = readint();
 
-    movies = vector<Movie>(n);
+    movies = vector<int>(n);
 
     for(int i = 0; i < n; ++i)
     {
-        cout << "Input the size of the movie #" << i+1 << ": ";
-        int size = readint();
-
-        Movie mov(i, size);
-        movies[i] = mov;
+        cout << "Input the size in MBytes of the movie #" << i+1 << ": ";
+        mov[i] = readint();
     }
 }
 
-void MovieCollection::write_most_downloaded_movies(const RequestCollection &rcol, int t1, int t2) const
+void MovieCollection::write_movie(int movie_id) const
 {
-    // ...
+    cout << "The size of the movie with id #" << movie_id << " is ";
+    cout << movies[movie_id] << " MBytes." << endl;
 }

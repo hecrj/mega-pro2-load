@@ -5,16 +5,13 @@
 #ifndef MOVIECOLLECTION
 #define MOVIECOLLECTION
 
-#include <vector>
-#include "Movie.hpp"
-
 /**
  * A MovieCollection represents a collection of movies.
  */
 class MovieCollection
 {
 	private:
-		std::vector<Movie> movies;
+		vector<int> movies;
 
 	public:
 		/**
@@ -32,11 +29,11 @@ class MovieCollection
 		int size() const;
 
 		/**
-		 * Returns the Movie with id **movie_id**.
+		 * Returns the Movie size with id **movie_id**.
 		 * \pre 0 <= id <= MovieCollection::size()
-		 * \post The Movie with id **movie_id** is returned.
+		 * \post The Movie size with id **movie_id** is returned.
 		 */
-		Movie get_movie(int movie_id) const;
+		int get_movie_size(int movie_id) const;
 
 		/**
 		 * Reads a sequence of Movies from input stream.
@@ -46,12 +43,11 @@ class MovieCollection
 		void read_movies();
 
 		/**
-		 * Outputs information about the most downloaded movies in **rcol** between
-		 * **t1** and **t2**.
-		 * \pre t1 < t2
-		 * \post The information has been printed in the output stream.
+		 * Outputs information of the movie with id **movie_id**.
+		 * \pre 0 <= id <= MovieCollection::size()
+		 * \post Information about movie with id **movie_id** has been printed.
 		 */
-		void write_most_downloaded_movies(const RequestCollection &rcol, int t1, int t2);
+		void write_movie(int movie_id);
 };
 
 #endif
