@@ -14,6 +14,8 @@
 #include "MovieCollection.hpp"
 #include "Network.hpp"
 #include "RequestCollection.hpp"
+#include "utils.PRO2"
+#include <cmath>
 
 #define OPT_SYS_END 0
 #define OPT_NEW_REQ 1
@@ -22,6 +24,8 @@
 #define OPT_UPD_SER 4
 #define OPT_MSD_MOV 5
 #define OPT_SHW_HEL 6
+
+void update(RequestCollection &reqs, Network &net, int t_start){}
 
 /**
  * Prints main application help.
@@ -64,13 +68,15 @@ int main()
 	{
         if(opt == OPT_NEW_REQ)
         {
-        	cout << "Input the time when to start the request: ";
+        	int request_id = reqs.get_next_id();
+
+        	cout << "Input the time when to start the request #" << request_id << ": ";
         	int t_start = readint();
 
         	update(reqs, net, t_start);
 
         	cout << "Input the movie id you want to download: ";
-        	int movie_id = readint();
+        	int movie_id = readint() - 1;
 
         	int movie_size = movies.get_movie_size(movie_id);
         	cout << "Size of the selected movie: " << movie_size << " MBytes" << endl;
@@ -78,16 +84,19 @@ int main()
         	int node_speed;
         	int node_id = net.get_best_node(movie_id, movie_size, node_speed);
 
+        	int t_end;
         	if(net.is_a_valid_node(node_id))
         	{
-        		int request_id = reqs.get_next_id();
         		net.set_busy_nodes(node_id, movie_id, request_id);
 
-        		int t_end = ceil( double(movie_size) / double(node_speed) );
-        		reqs.add_request(movie_id, t_start, t_end, node_id);
+        		t_end = t_start + int( ceil( double(movie_size) / double(node_speed) ) );
         	}
+        	else
+        		t_end = 0;
+
+        	reqs.add_request(movie_id, t_start, t_end);
         }
-		else if(opt == OPT_UNF_REQ) reqs.write_unfinished_requests();
+		else if(opt == OPT_UNF_REQ) reqs.write_requests();
 		else if(opt == OPT_BUS_SER) net.write_busy_nodes();
 		else if(opt == OPT_UPD_SER)
 		{
@@ -100,8 +109,8 @@ int main()
 			int t1 = readint();
 			int t2 = readint();
 
-			int dwl_movie = reqs.get_most_downloaded_movie(t1, t2);
-			movies.print_movie(dwl_movie);
+			/*int dwl_movie = reqs.get_most_downloaded_movie(t1, t2);
+			movies.print_movie(dwl_movie);*/
 		}
 		else if(opt == OPT_SHW_HEL) show_help();
 

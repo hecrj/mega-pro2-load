@@ -1,18 +1,12 @@
 #include "Network.hpp"
 #include "utils.PRO2"
-#include <stack>
+#include <vector>
 #include <queue>
-#include <cmath>
 
 Network::Network()
 {}
 
-int Network::size() const
-{
-	return servers.size();
-}
-
-Route Network::get_route(const Movie &mov) const
+int Network::get_best_node(int resource_id, int resource_size, int &node_speed) const
 {
 	queue<Node> qservs;
 
@@ -32,16 +26,19 @@ Route Network::get_route(const Movie &mov) const
 
 		cout << "Checking server: " << serv.id+1 << endl;
 
-		if(not servers[serv.id].is_busy() and servers[serv.id].has_movie(mov.get_id()))
+		if(not servers[serv.id].is_busy() and servers[serv.id].has_movie(resource_id))
 		{
 			serv.speed += servers[serv.id].get_speed();
 
 			cout << "The server is free and has the movie." << endl;
-			cout << "Movie size: " << mov.get_size() << endl;
+			cout << "Movie size: " << resource_size << endl;
 			cout << "Node speed: " << serv.speed << endl;
 
-			if(mov.get_size() <= serv.speed)
-				return build_route(mov, serv);
+			if(resource_size <= serv.speed)
+			{
+				node_speed = serv.speed;
+				return serv.id;
+			}
 
 			else if(serv.speed > best_server.speed)
 				best_server = serv;
@@ -67,10 +64,16 @@ Route Network::get_route(const Movie &mov) const
 
 	}
 
-	return build_route(mov, best_server);
+	node_speed = best_server.speed;
+	return best_server.id;
 }
 
-Route Network::build_route(const Movie &mov, Node &serv_node) const
+bool Network::is_a_valid_node(int node_id) const
+{
+	return node_id >= 0;
+}
+
+/*Route Network::build_route(const Movie &mov, Node &serv_node) const
 {
 	int time = int( ceil( double(mov.get_size()) / double(serv_node.speed) ) );
 
@@ -83,19 +86,19 @@ Route Network::build_route(const Movie &mov, Node &serv_node) const
 	}
 
 	return route;
-}
+}*/
 
-void Network::occupy_servers(const Route &route, int req_id)
+void Network::set_busy_nodes(int node_id, int resource_id, int request_id)
 {
 	// ...
 }
 
-void Network::free_servers(const Route &route)
+void Network::set_free_nodes(int node_id, int request_id)
 {
 	// ...
 }
 
-void Network::update_server(int server_id)
+void Network::update_node(int node_id)
 {
 	// ...
 }
@@ -127,4 +130,9 @@ void Network::read_network(int n_movies)
 
 	cout << "Input the id of the main server: ";
 	main_server_id = readint() - 1;
+}
+
+void Network::write_busy_nodes() const
+{
+
 }

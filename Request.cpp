@@ -2,7 +2,20 @@
 #include "utils.PRO2"
 
 Request::Request()
-{}
+{
+	id = -1;
+	movie_id = -1;
+	t_start = -1;
+	t_end = -1;
+}
+
+Request::Request(int id, int movie_id, int t_start, int t_end)
+{
+	this->id = id;
+	this->movie_id = movie_id;
+	this->t_start = t_start;
+	this->t_end = t_end;
+}
 
 int Request::get_id() const
 {
@@ -22,32 +35,6 @@ int Request::get_time_start() const
 int Request::get_time_end() const
 {
 	return t_end;
-}
-
-Route Request::get_route() const
-{
-	return route;
-}
-
-void Request::set_time_end(int t_end)
-{
-	this->t_end = t_end;
-}
-
-void Request::set_route(const Route &route)
-{
-	this->route = route;
-}
-
-void Request::read_request(int id)
-{
-	this->id = id;
-
-	cout << "Enter the start time of the request: ";
-	t_start = readint();
-
-	cout << "Enter the ID of the movie to request: ";
-	movie_id = readint() - 1;
 }
 
 void Request::write_request()

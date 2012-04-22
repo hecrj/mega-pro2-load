@@ -1,5 +1,5 @@
-#include "utils.PRO2"
 #include "MovieCollection.hpp"
+#include "utils.PRO2"
 
 MovieCollection::MovieCollection()
 {
@@ -26,7 +26,7 @@ void MovieCollection::read_movies()
     for(int i = 0; i < n; ++i)
     {
         cout << "Input the size in MBytes of the movie #" << i+1 << ": ";
-        mov[i] = readint();
+        movies[i] = readint();
     }
 }
 

@@ -5,8 +5,6 @@
 #ifndef REQUEST_HPP
 #define REQUEST_HPP
 
-#include "Route.hpp"
-
 /**
  * A Request consists of an id, a movie_id, a start time, an end time
  * and a route of servers.
@@ -18,13 +16,20 @@ class Request
 		int movie_id;
 		int t_start;
 		int t_end;
-		Route route;
 
 	public:
 		/**
-		 * Creates an empty request.
+		 * Creates a new empty Request.
 		 */
 		Request();
+
+		/**
+		 * Creates a new Request with the given parameters as
+		 * attributes.
+		 * \pre True
+		 * \post Returns a new Request with the given parameters as attributes.
+		 */
+		Request(int id, int movie_id, int t_start, int t_end);
 
 		/**
 		 * \brief Returns the id of the current request.
@@ -50,33 +55,7 @@ class Request
 		 * \post True
 		 */
 		int get_time_end() const;
-		/**
-		 * \brief Returns the route of servers attached to the request.
-		 * \pre The request has an attached route.
-		 * \post True
-		 */
-		Route get_route() const;
 
-		/**
-		 * Updates the end time of the Request.
-		 * \pre time_end > time_start
-		 * \post The end time of the Request has been updated.
-		 */
-		void set_time_end(int time_end);
-		
-		/**
-		 * \brief Attaches the route to the request.
-		 * \pre The request has no route attached.
-		 * \post The request has the route attached.
-		 */
-		void set_route(const Route &route);
-
-		/**
-		 * \brief Reads a request from input stream.
-		 * \pre id >= 0
-		 * \post The request has the id, an start time and a movie id.
-		 */
-		void read_request(int id);
 		/**
 		 * \brief Writes request information in the output stream.
 		 * \pre Not determined yet.

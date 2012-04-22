@@ -5,16 +5,21 @@
 #ifndef REQUESTCOLLECTION_HPP
 #define REQUESTCOLLECTION_HPP
 
-#include <list>
 #include "Request.hpp"
+#include <list>
 
 /**
- * A RequestCollection represents a collection of Requests.
+ * A RequestCollection represents a collection of unfinished Requests.
  */
 class RequestCollection
 {
 	private:
-		list<Request> reqs;
+		std::list<Request> reqs;
+		int next_id;
+
+		std::list<Request>::iterator find_position(int t_end, std::list<Request>::iterator it1,
+			std::list<Request>::iterator it2);
+
 		// ...
 	public:
 		/**
@@ -25,17 +30,11 @@ class RequestCollection
 		RequestCollection();
 
 		/**
-		 * Returns the next request id in the RequestCollection.
+		 * Gets the next Request identifier.
 		 * \pre True
-		 * \post The next request id in the RequestCollection is returned.
+		 * \post The next Request identifier is returned.
 		 */
 		int get_next_id() const;
-
-		/**
-		 * Gets the most downloaded movie id beetween time [t1, t2] by the
-		 * current requests of the RequestCollection.
-		 */
-		int get_most_downloaded_movie(int t1, int t2) const;
 
 		/**
 		 * Adds a request with **movie_id**, **t_start**, **t_end**, **node_id**
@@ -44,14 +43,14 @@ class RequestCollection
 		 * \post The request of the description has been added to the
 		 *       RequestCollection.
 		 */
-		void add_request(int movie_id, int t_start, int t_end, int node_id);
+		void add_request(int movie_id, int t_start, int t_end);
 
 		/**
-		 * Writes the unfinished Requests in the output stream.
+		 * Writes the requests of the RequestCollection in the output stream.
 		 * \pre True
-		 * \post The unfinished Requests have been printend in the output stream.
+		 * \post The requests have been printed in the output stream.
 		 */
-		void write_unfinished_requests() const;
+		void write_requests();
 };
 
 #endif
