@@ -1,8 +1,6 @@
 #include "RequestCollection.hpp"
 #include "utils.PRO2"
 
-typedef std::list<Request>::iterator Iterator;
-
 RequestCollection::RequestCollection()
 {
 	next_id = 1;
@@ -45,7 +43,10 @@ Iterator RequestCollection::find_position(int t_end, Iterator it1, Iterator it2)
 	int dist_last = it2->get_time_end() - t_end;
 
 	if(dist_last <= 0)
+	{
+		it2++;
 		return it2;
+	}
 
 	it2--;
 

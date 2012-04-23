@@ -8,6 +8,8 @@
 #include "Request.hpp"
 #include <list>
 
+typedef std::list<Request>::iterator Iterator;
+
 /**
  * A RequestCollection represents a collection of unfinished Requests.
  */
@@ -17,8 +19,7 @@ class RequestCollection
 		std::list<Request> reqs;
 		int next_id;
 
-		std::list<Request>::iterator find_position(int t_end, std::list<Request>::iterator it1,
-			std::list<Request>::iterator it2);
+		Iterator find_position(int t_end, Iterator it1,	Iterator it2);
 
 		// ...
 	public:

@@ -2,10 +2,12 @@
  * @file Network.hpp
  * @brief Network specification.
  */
-#ifndef ROUTER_HPP
-#define ROUTER_HPP
+#ifndef NETWORK_HPP
+#define NETWORK_HPP
 
 #include "Server.hpp"
+#include <vector>
+#include <list>
 
 /**
  * A Network consists of a tree related set of nodes.
@@ -15,7 +17,9 @@ class Network
 	private:
 		std::vector<Server> servers;
 		int main_server_id;
-		
+		list<int> selection;
+		int selection_speed;
+
 		struct Node {
 			int id;
 			int speed;
@@ -29,28 +33,21 @@ class Network
 		 */
 		Network();
 
-		/**
-		 * Tries to find the best node and its speed for the requested resource.
-		 * \pre Movie size >= 0
-		 * \post If found, the best node id is returned and **node_speed** is updated
-		 *       Otherwise, an invalid node id is returned and **node_speed** is untouched.
-		 */
-		int get_best_node(int resource_id, int resource_size, int &node_speed) const;
+		int get_selection_speed();
 
 		/**
-		 * Returns whether the given **node_id** is a valid node or not.
+		 * Selects the best nodes and for the requested resource.
+		 * \pre resource_size >= 0
+		 * \post The best nodes for the requested resoruce are selected.
+		 */
+		void select(int resource_id, int resource_size) const;
+
+		/**
+		 * Sets the last selected nodes as busy until **t_end**.
 		 * \pre True
-		 * \post Returns true if **node_id** is a valid node, false otherwise.
+		 * \post The last selected nodes are busy.
 		 */
-		bool is_a_valid_node(int node_id) const;
-
-		/**
-		 * Sets the nodes which have the given resource as busy, starting from
-		 * **node_id**, which is a valid node.
-		 * \pre Network::is_a_valid_node(node_id)
-		 * \post The nodes of the description are set to busy for **request_id**.
-		 */
-		void set_busy_nodes(int node_id, int resource_id, int request_id);
+		void set_selection_busy_until(int time, int request_id);
 
 		/**
 		 * Sets the nodes which are busy for **request_id** as free, starting

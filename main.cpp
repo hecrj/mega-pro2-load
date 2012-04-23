@@ -81,20 +81,29 @@ int main()
         	int movie_size = movies.get_movie_size(movie_id);
         	cout << "Size of the selected movie: " << movie_size << " MBytes" << endl;
 
-        	int node_speed;
-        	int node_id = net.get_best_node(movie_id, movie_size, node_speed);
+        	net.select(movie_id, movie_size);
 
-        	int t_end;
-        	if(net.is_a_valid_node(node_id))
+        	int speed = net.get_selection_speed();
+
+        	if(speed > 0) 
         	{
-        		net.set_busy_nodes(node_id, movie_id, request_id);
+        		int t_end = t_start + int( ceil( double(movie_size) / double(node_speed) ) );
+        		net.set_selection_busy_until(t_end, request_id);
 
-        		t_end = t_start + int( ceil( double(movie_size) / double(node_speed) ) );
+        		reqs.add_request(movie_id, t_start, t_end);
+        		
+        		cout << endl;
+        		cout << "Request #" << request_id << " added."
+        		cout << "Start time: " << t_start << endl;
+        		cout << "End time:   " << t_end << endl;
+        		cout << "Selected servers:";
+        		net.print_selection();
         	}
         	else
-        		t_end = 0;
-
-        	reqs.add_request(movie_id, t_start, t_end);
+        	{
+        		cout << request_id << " 0" << endl;
+        		reqs.advance_id();
+        	}
         }
 		else if(opt == OPT_UNF_REQ) reqs.write_requests();
 		else if(opt == OPT_BUS_SER) net.write_busy_nodes();

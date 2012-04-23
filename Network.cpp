@@ -1,6 +1,5 @@
 #include "Network.hpp"
 #include "utils.PRO2"
-#include <vector>
 #include <queue>
 
 Network::Network()
@@ -8,20 +7,22 @@ Network::Network()
 
 int Network::get_best_node(int resource_id, int resource_size, int &node_speed) const
 {
-	queue<Node> qservs;
-
-	Node main_server;
-	main_server.id = main_server_id;
-	main_server.speed = 0;
-	qservs.push(main_server);
-
 	Node best_server;
 	best_server.id = -1;
 	best_server.speed = 0;
 
-	while(not qservs.empty())
+	Node serv;
+	serv.id = main_server_id;
+	serv.speed = 0;
+
+	queue<Node> qservs;
+	qservs.push(serv);
+
+	bool found = false;
+
+	while(not qservs.empty() and not found)
 	{
-		Node serv = qservs.front();
+		serv = qservs.front();
 		qservs.pop();
 
 		cout << "Checking server: " << serv.id+1 << endl;
@@ -35,16 +36,13 @@ int Network::get_best_node(int resource_id, int resource_size, int &node_speed) 
 			cout << "Node speed: " << serv.speed << endl;
 
 			if(resource_size <= serv.speed)
-			{
-				node_speed = serv.speed;
-				return serv.id;
-			}
+				found = true;
 
-			else if(serv.speed > best_server.speed)
+			if(serv.speed > best_server.speed)
 				best_server = serv;
 		}
 
-		if(servers[serv.id].has_children())
+		if(not found and servers[serv.id].has_children())
 		{
 			int s1, s2;
 			servers[serv.id].children(s1, s2);
@@ -61,11 +59,10 @@ int Network::get_best_node(int resource_id, int resource_size, int &node_speed) 
 				qservs.push(serv_child);
 			}
 		}
-
 	}
 
-	node_speed = best_server.speed;
-	return best_server.id;
+	selection_speed = best_server.speed;
+	select_from(best_server.id, resource_id);
 }
 
 bool Network::is_a_valid_node(int node_id) const
@@ -73,24 +70,42 @@ bool Network::is_a_valid_node(int node_id) const
 	return node_id >= 0;
 }
 
-/*Route Network::build_route(const Movie &mov, Node &serv_node) const
+void Network::select_from(int node_id, int resource_id)
 {
-	int time = int( ceil( double(mov.get_size()) / double(serv_node.speed) ) );
+	selection = list<int>();
+	selection.push_back(node_id);
 
-	Route route(time);
+	node_id = servers[node_id].get_parent_id();
 
-	while(serv_node.id != -1)
+	while(node_id >= 0)
 	{
-		route.add_server(serv_node.id);
-		serv_node.id = servers[serv_node.id].get_parent_id();
+		if(servers[node_id].has_movie(resource_id))
+			selection.push_back(node_id);
+
+		node_id = servers[node_id].get_parent_id();
 	}
+}
 
-	return route;
-}*/
-
-void Network::set_busy_nodes(int node_id, int resource_id, int request_id)
+void Network::set_selection_busy_until(int time, int request_id)
 {
-	// ...
+	list<int>::iterator it = selection.begin();
+
+	while(it != selection.end())
+	{
+		servers[*it].set_busy_until(time);
+		it++;
+	}
+}
+
+void Network::print_selection() const
+{
+	list<int>::iterator it = selection.begin();
+
+	while(it != selection.end())
+	{
+		cout << " " << *it;
+		it++;
+	}
 }
 
 void Network::set_free_nodes(int node_id, int request_id)

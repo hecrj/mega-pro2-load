@@ -39,8 +39,10 @@ int Request::get_time_end() const
 
 void Request::write_request()
 {
+	cout << endl;
 	cout << "Request ID: " << id+1 << endl;
 	cout << "Movie ID:   " << movie_id+1 << endl;
 	cout << "Start time: " << t_start << endl;
 	cout << "End time:   " << t_end << endl;
+	cout << endl;
 }
