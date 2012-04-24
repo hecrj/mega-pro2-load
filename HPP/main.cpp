@@ -13,15 +13,17 @@
 
 #include "MovieCollection.hpp"
 #include "Network.hpp"
+#include "Route.hpp"
 #include "RequestCollection.hpp"
+#include "Request.hpp"
 
-#define OPT_SYS_END 0
-#define OPT_NEW_REQ 1
-#define OPT_UNF_REQ 2
-#define OPT_BUS_SER 3
-#define OPT_UPD_SER 4
-#define OPT_MSD_MOV 5
-#define OPT_SHW_HEL 6
+#define OPT_SYS_END 0 // System end
+#define OPT_NEW_REQ 1 // New request
+#define OPT_UNF_REQ 2 // Unfinished requests
+#define OPT_BUS_SER 3 // Busy servers
+#define OPT_EDT_SER 4 // Edit servers
+#define OPT_MSD_MOV 5 // Most downloaded movie
+#define OPT_SHW_HEL 6 // Show help
 
 /**
  * Prints main application help.
@@ -45,14 +47,14 @@ void show_help()
  */
 int main()
 {
-    MovieCollection movies;
-    movies.read_movies();
+	MovieCollection movies;
+	movies.read_movies();
 
-    Network net;
-    net.read_network(movies.size());
+	Network net;
+	net.read_network(movies.size());
 
-    RequestCollection reqs;
-	
+	RequestCollection reqs;
+
 	cout << "MEGA-PRO2-LOAD initialized!" << endl << endl;
 
 	show_help();
@@ -62,48 +64,60 @@ int main()
 
 	while(opt != OPT_SYS_END)
 	{
-        if(opt == OPT_NEW_REQ)
-        {
-        	cout << "Input the time when to start the request: ";
-        	int t_start = readint();
+		if(opt == OPT_NEW_REQ)
+		{
+			Request req;
+			req.read_request();
 
-        	update(reqs, net, t_start);
+			reqs.clean_finished_requests(req.get_time_start());
+			net.update_busy_nodes(req.get_time_start());
 
-        	cout << "Input the movie id you want to download: ";
-        	int movie_id = readint();
+			int movie_id = req.get_movie_id();
+			int movie_size = movies.get_movie_size(movie_id);
 
-        	int movie_size = movies.get_movie_size(movie_id);
-        	cout << "Size of the selected movie: " << movie_size << " MBytes" << endl;
+			Route route = net.get_route(movie_id, movie_size);
 
-        	int node_speed;
-        	int node_id = net.get_best_node(movie_id, movie_size, node_speed);
+			if(not route.is_empty())
+			{
+				req.set_lifespan(route.get_travel_time());
+				net.set_busy_nodes(route, req.get_id(), req.get_time_end());
+				
+				reqs.add_request(req);
+				movies.add_download(movie_id, req.get_time_start());
+			}
 
-        	if(net.is_a_valid_node(node_id))
-        	{
-        		int request_id = reqs.get_next_id();
-        		net.set_busy_nodes(node_id, movie_id, request_id);
+			req.write_request();
+			route.write_route();
+		}
+		else if(opt == OPT_UNF_REQ)
+		{
+			int new_time = readint();
+			reqs.clean_finished_requests(new_time);
+			
+			reqs.write_requests();
+		}
+		else if(opt == OPT_BUS_SER)
+		{
+			int new_time = readint();
+			net.update_busy_nodes(new_time);
 
-        		int t_end = ceil( double(movie_size) / double(node_speed) );
-        		reqs.add_request(movie_id, t_start, t_end, node_id);
-        	}
-        }
-		else if(opt == OPT_UNF_REQ) reqs.write_unfinished_requests();
-		else if(opt == OPT_BUS_SER) net.write_busy_nodes();
-		else if(opt == OPT_UPD_SER)
+			net.write_busy_nodes();
+		}
+		else if(opt == OPT_EDT_SER)
 		{
 			int server_id = readint();
-			net.update_node(server_id);
+			net.edit_node(server_id);
 		}
 		else if(opt == OPT_MSD_MOV)
 		{
-			cout << "Input the interval of time in what you want to search:" << endl;
+			cout << "Input time interval in where you want to search:" << endl;
 			int t1 = readint();
 			int t2 = readint();
 
-			int dwl_movie = reqs.get_most_downloaded_movie(t1, t2);
-			movies.print_movie(dwl_movie);
+			movies.write_most_downloaded_movie(t1, t2);
 		}
-		else if(opt == OPT_SHW_HEL) show_help();
+		else if(opt == OPT_SHW_HEL)
+			show_help();
 
 		cout << "Choose next action: ";
 		opt = readint();

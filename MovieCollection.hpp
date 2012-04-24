@@ -5,16 +5,11 @@
 #ifndef MOVIECOLLECTION
 #define MOVIECOLLECTION
 
-#include <vector>
-
 /**
  * A MovieCollection represents a collection of movies.
  */
 class MovieCollection
 {
-	private:
-		std::vector<int> movies;
-
 	public:
 		/**
 		 * Creates a new empty MovieCollection.
@@ -38,24 +33,29 @@ class MovieCollection
 		int get_movie_size(int movie_id) const;
 
 		/**
-		 * Gets the most downloaded movie id beetween time [t1, t2] by the
-		 * current requests of the RequestCollection.
+		 * Adds a download record to the movie with **movie_id** in the time
+		 * **dwl_time**.
+		 * \pre 0 <= **movie_id** <= MovieCollection::size()
+		 *      0 <= **dwl_time**
+		 * \post The download record has been added to the desired movie.
 		 */
-		int get_most_downloaded_movie(int t1, int t2) const;
+		void add_download(int movie_id, int dwl_time);
 
 		/**
-		 * Reads a sequence of Movies from input stream.
+		 * Reads a sequence of movies from input stream.
 		 * \pre True
 		 * \post The Movies read from input are added to the MovieCollection.
 		 */
 		void read_movies();
 
 		/**
-		 * Outputs information of the movie with id **movie_id**.
-		 * \pre 0 <= id <= MovieCollection::size()
-		 * \post Information about movie with id **movie_id** has been printed.
+		 * Prints the most downloaded movie beetween times [t1, t2].
+		 * \pre True
+		 * \post If found, the id and the download times of the most downloaded
+		 *       movie are printed in the output stream.
+		 *       If not found, two separated 0s are printed.
 		 */
-		void write_movie(int movie_id) const;
+		void write_most_downloaded_movie(int t1, int t2) const;
 };
 
 #endif

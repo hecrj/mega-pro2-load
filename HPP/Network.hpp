@@ -2,10 +2,11 @@
  * @file Network.hpp
  * @brief Network specification.
  */
-#ifndef ROUTER_HPP
-#define ROUTER_HPP
+#ifndef NETWORK_HPP
+#define NETWORK_HPP
 
 #include "Server.hpp"
+#include "Route.hpp"
 
 /**
  * A Network consists of a tree related set of nodes.
@@ -21,49 +22,41 @@ class Network
 		Network();
 
 		/**
-		 * Tries to find the best node and its speed for the requested resource.
-		 * \pre Movie size >= 0
-		 * \post If found, the best node id is returned and **node_speed** is updated
-		 *       Otherwise, an invalid node id is returned and **node_speed** is untouched.
+		 * Returns a Route of the best nodes for the requested resource.
+		 * \pre resource_size >= 0
+		 * \post A Route of best nodes for the requested resource is returned.
 		 */
-		int get_best_node(int resource_id, int resource_size, int &node_speed) const;
+		Route get_route(int resource_id, int resource_size) const;
 
 		/**
-		 * Returns whether the given **node_id** is a valid node or not.
-		 * \pre True
-		 * \post Returns true if **node_id** is a valid node, false otherwise.
+		 * Sets the nodes of the Route as busy (serving **request_id**)
+		 * until **end_time**.
+		 * \pre The Route nodes are not busy
+		 * \post The Route nodes are busy until **end_time**.
 		 */
-		bool is_a_valid_node(int node_id) const;
+		void set_busy_nodes(const Route &route, int request_id, int end_time);
 
 		/**
-		 * Sets the nodes which have the given resource as busy, starting from
-		 * **node_id**, which is a valid node.
+		 * Updates the busy nodes in **route** at the **new_time**, releasing
+		 * the nodes when necessary.
+		 * \pre 0 <= **new_time**
+		 * \post The nodes have been updated to **new_time**.
+		 */
+		void update_busy_nodes(const Route &route, int new_time);
+
+		/**
+		 * Edits the node of the Network with id **node_id**.
 		 * \pre Network::is_a_valid_node(node_id)
-		 * \post The nodes of the description are set to busy for **request_id**.
+		 * \post The node with id **node_id** has been edited.
 		 */
-		void set_busy_nodes(int node_id, int resource_id, int request_id);
+		void edit_node(int node_id);
 
 		/**
-		 * Sets the nodes which are busy for **request_id** as free, starting
-		 * from **node_id**, which is a valid node.
-		 * \pre Network::is_a_valid_node(node_id)
-		 * \post The nodes of the description are freed.
-		 */
-		void set_free_nodes(int node_id, int request_id);
-
-		/**
-		 * Updates the node of the Network with id **node_id**.
-		 * \pre Network::is_a_valid_node(node_id)
-		 * \post The node with id **node_id** has been updated.
-		 */
-		void update_node(int node_id);
-
-		/**
-		 * Reads a Network.
+		 * Reads a Network given a number of resources **n_resources**.
 		 * \pre Not determined yet.
-		 * \post Not determined yet.
+		 * \post The Network has been read from the input stream.
 		 */
-		void read_network(int n_movies);
+		void read_network(int n_resources);
 
 		/**
 		 * Prints in the output stream the nodes that are actually busy.

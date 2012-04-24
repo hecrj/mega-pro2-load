@@ -3,10 +3,12 @@
 
 Request::Request()
 {
-	id = -1;
+	id = static::count;
 	movie_id = -1;
 	t_start = -1;
 	t_end = -1;
+
+	static::count += 1;
 }
 
 Request::Request(int id, int movie_id, int t_start, int t_end)
@@ -35,6 +37,15 @@ int Request::get_time_start() const
 int Request::get_time_end() const
 {
 	return t_end;
+}
+
+void Request::read_request()
+{
+	cout << "Input the time when to start the request #" << request_id << ": ";
+    t_start = readint();
+
+    cout << "Input the movie id you want to download: ";
+    movie_id = readint() - 1;
 }
 
 void Request::write_request()

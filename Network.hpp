@@ -6,25 +6,13 @@
 #define NETWORK_HPP
 
 #include "Server.hpp"
-#include <vector>
-#include <list>
+#include "Route.hpp"
 
 /**
  * A Network consists of a tree related set of nodes.
  */
 class Network
 {
-	private:
-		std::vector<Server> servers;
-		int main_server_id;
-		list<int> selection;
-		int selection_speed;
-
-		struct Node {
-			int id;
-			int speed;
-		};
-
 	public:
 		/**
 		 * Creates a new empty Network.
@@ -33,43 +21,34 @@ class Network
 		 */
 		Network();
 
-		int get_selection_speed();
-
 		/**
-		 * Selects the best nodes and for the requested resource.
+		 * Returns a Route of the best nodes for the requested resource.
 		 * \pre resource_size >= 0
-		 * \post The best nodes for the requested resoruce are selected.
+		 * \post A Route of best nodes for the requested resource is returned.
 		 */
-		void select(int resource_id, int resource_size) const;
+		Route get_route(int resource_id, int resource_size) const;
 
 		/**
-		 * Sets the last selected nodes as busy until **t_end**.
-		 * \pre True
-		 * \post The last selected nodes are busy.
+		 * Updates the busy nodes in **route** at the **new_time**, releasing
+		 * the nodes when necessary.
+		 * \pre 0 <= **new_time**
+		 * \post The nodes have been updated to **new_time**.
 		 */
-		void set_selection_busy_until(int time, int request_id);
+		void update_busy_nodes(const Route &route, int new_time);
 
 		/**
-		 * Sets the nodes which are busy for **request_id** as free, starting
-		 * from **node_id**, which is a valid node.
+		 * Edits the node of the Network with id **node_id**.
 		 * \pre Network::is_a_valid_node(node_id)
-		 * \post The nodes of the description are freed.
+		 * \post The node with id **node_id** has been edited.
 		 */
-		void set_free_nodes(int node_id, int request_id);
+		void edit_node(int node_id);
 
 		/**
-		 * Updates the node of the Network with id **node_id**.
-		 * \pre Network::is_a_valid_node(node_id)
-		 * \post The node with id **node_id** has been updated.
-		 */
-		void update_node(int node_id);
-
-		/**
-		 * Reads a Network.
+		 * Reads a Network given a number of resources **n_resources**.
 		 * \pre Not determined yet.
-		 * \post Not determined yet.
+		 * \post The Network has been read from the input stream.
 		 */
-		void read_network(int n_movies);
+		void read_network(int n_resources);
 
 		/**
 		 * Prints in the output stream the nodes that are actually busy.

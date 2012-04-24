@@ -5,60 +5,36 @@
 #ifndef SERVER_HPP
 #define SERVER_HPP
 
-#include <vector>
-
 /**
- * A Server is characterized by its speed, the request id that is serving, the
- * available movies, its parent and its two children.
+ * A Server is characterized by an id, its speed and its available movies.
+ * A Server can be free or busy (serving a request).
  */
 class Server
 {
-	private:
-		int speed;
-		int request_id;
-		std::vector<bool> movies;
-		int parent_id;
-		int child1_id;
-		int child2_id;
-
 	public:
 		/**
-		 * Creates a new empty server.
+		 * Creates a new empty Server.
 		 * \pre True
 		 * \pre Returns a new empty Server.
 		 */
 		Server();
 
 		/**
-		 * Creates a new server with the **id** and the **speed** specified.
-		 * \pre id >= 0, speed >= 0
-		 * \post Returns a new Server with the **id** and **speed** specified.
+		 * Creates a new Server with the identifier **id**.
+		 * \pre True
+		 * \pre Returns a new Server with the **id** assigned.
 		 */
-		Server(int id, int speed);
+		Server(int id);
 
 		/**
-		 * Returns the request id the Server is serving.
-		 * \pre The Server is busy
-		 * \post The request id is returned.
-		 */
-		int get_request_id() const;
-
-		/**
-		 * Returns the speed of the server.
+		 * Returns the speed of the Server.
 		 * \pre The Server has an speed.
 		 * \post The Server speed is returned.
 		 */
 		int get_speed() const;
 
 		/**
-		 * Returns the Server's parent id.
-		 * \pre The Server has a parent.
-		 * \post The Server's parent id is returned.
-		 */
-		int get_parent_id() const;
-
-		/**
-		 * Returns whether the Server is serving any petition or not.
+		 * Returns whether the Server is serving a request or not.
 		 * \pre True
 		 * \post True if the Server is busy, false otherwise.
 		 */
@@ -66,46 +42,17 @@ class Server
 
 		/**
 		 * Tells whether the Server has a movie or not.
-		 * \pre 0 <= movie_id <= total_movies
+		 * \pre 0 <= movie_id <= n_movies
 		 * \post True if the Server has the movie, false otherwise.
 		 */
 		bool has_movie(int movie_id) const;
 
 		/**
-		 * Tells whether the Server has a parent or not.
-		 * \pre True
-		 * \post True if the Server has a parent, false otherwise.
-		 */
-		bool has_parent() const;
-
-		/**
-		 * Tells whether the Server has children or not.
-		 * \pre True
-		 * \post True if the Server has children, false otherwise.
-		 */
-		bool has_children() const;
-
-		/**
-		 * Sets **c1** and **c2** with the children of the Server.
-		 * \pre The Server has children
-		 * \post c1 and c2 are set with the children of the Server
-		 *       (left and right, respectively)
-		 */
-		void children(int &c1, int &c2) const;
-
-		/**
-		 * Sets the request id that the Server is going to serve.
+		 * Sets the Server as busy (serving **request_id**) until **t_end**.
 		 * \pre The Server is not busy
-		 * \post The Server has the request id set to **request_id**.
+		 * \post The Server is busy until **t_end**.
 		 */
-		void set_request(int request_id);
-
-		/**
-		 * Sets the parent id of the Server.
-		 * \pre The Server has no parent.
-		 * \post The Server has the parent id set to **parent_id**.
-		 */
-		void set_parent_id(int parent_id);
+		void set_busy(int request_id, int t_end);
 
 		/**
 		 * Makes a movie available on the Server.
@@ -125,9 +72,16 @@ class Server
 		/**
 		 * Reads a Server from the input stream.
 		 * \pre Not determined yet.
-		 * \post Not determined yet.
+		 * \post The Server has assigned the data read from the input stream.
 		 */
-		void read_server(int id, int n_movies);
+		void read_server(int n_movies);
+
+		/**
+		 * Writes information about the Server in the output stream.
+		 * \pre Not determined yet.
+		 * \post The Server information has been printed to the output stream.
+		 */
+		void write_server();
 };
 
 #endif

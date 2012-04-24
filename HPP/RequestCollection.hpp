@@ -21,33 +21,27 @@ class RequestCollection
 		RequestCollection();
 
 		/**
-		 * Returns the next request id in the RequestCollection.
+		 * Adds the Request **req** to the RequestCollection.
 		 * \pre True
-		 * \post The next request id in the RequestCollection is returned.
+		 * \post The Request **req** has been added to the RequestCollection.
 		 */
-		int get_next_id() const;
+		void add_request(const Request &req);
 
 		/**
-		 * Gets the most downloaded movie id beetween time [t1, t2] by the
-		 * current requests of the RequestCollection.
+		 * Removes from the RequestCollection the Requests that have finished
+		 * at **new_time**.
+		 * \pre True
+		 * \post The Requests that have finished at **new_time** are removed
+		 *       from the RequestCollection.
 		 */
-		int get_most_downloaded_movie(int t1, int t2) const;
+		void clean_finished_requests(int new_time);
 
 		/**
-		 * Adds a request with **movie_id**, **t_start**, **t_end**, **node_id**
-		 * in the RequestCollection.
+		 * Writes the requests of the RequestCollection in the output stream.
 		 * \pre True
-		 * \post The request of the description has been added to the
-		 *       RequestCollection.
+		 * \post The requests have been printed in the output stream.
 		 */
-		void add_request(int movie_id, int t_start, int t_end, int node_id);
-
-		/**
-		 * Writes the unfinished Requests in the output stream.
-		 * \pre True
-		 * \post The unfinished Requests have been printend in the output stream.
-		 */
-		void write_unfinished_requests() const;
+		void write_requests();
 };
 
 #endif

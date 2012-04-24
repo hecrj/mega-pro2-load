@@ -6,22 +6,12 @@
 #define REQUESTCOLLECTION_HPP
 
 #include "Request.hpp"
-#include <list>
-
-typedef std::list<Request>::iterator Iterator;
 
 /**
- * A RequestCollection represents a collection of unfinished Requests.
+ * A RequestCollection represents a collection of Requests.
  */
 class RequestCollection
 {
-	private:
-		std::list<Request> reqs;
-		int next_id;
-
-		Iterator find_position(int t_end, Iterator it1,	Iterator it2);
-
-		// ...
 	public:
 		/**
 		 * Creates a new empty RequestCollection.
@@ -31,20 +21,20 @@ class RequestCollection
 		RequestCollection();
 
 		/**
-		 * Gets the next Request identifier.
+		 * Adds the Request **req** to the RequestCollection.
 		 * \pre True
-		 * \post The next Request identifier is returned.
+		 * \post The Request **req** has been added to the RequestCollection.
 		 */
-		int get_next_id() const;
+		void add_request(const Request &req);
 
 		/**
-		 * Adds a request with **movie_id**, **t_start**, **t_end**, **node_id**
-		 * in the RequestCollection.
+		 * Removes from the RequestCollection the Requests that have finished
+		 * at **new_time**.
 		 * \pre True
-		 * \post The request of the description has been added to the
-		 *       RequestCollection.
+		 * \post The Requests that have finished at **new_time** are removed
+		 *       from the RequestCollection.
 		 */
-		void add_request(int movie_id, int t_start, int t_end);
+		void clean_finished_requests(int new_time);
 
 		/**
 		 * Writes the requests of the RequestCollection in the output stream.
