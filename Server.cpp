@@ -87,4 +87,3 @@ void Server::read_server(int id, int n_movies)
 	child1_id = readint() - 1;
 	child2_id = readint() - 1;
 }
-

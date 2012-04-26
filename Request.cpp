@@ -46,7 +46,7 @@ void Request::set_lifespan(int lifespan)
 
 void Request::read_request()
 {
-	cout << "Input the time when to start the request #" << request_id << ": ";
+	cout << "Input the time when to start the request #" << id << ": ";
     t_start = readint();
 
     cout << "Input the movie id you want to download: ";

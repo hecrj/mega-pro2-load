@@ -8,47 +8,50 @@ Network::Network()
 Route Network::get_route(int resource_id, int resource_size, int cur_time) const
 {
 	Route route;
-	Route temp;
-	find_route(resource_id, resource_size, cur_time, nodes, route, temp);
+	Route curr;
+	bool found = false;
+	find_route(resource_id, resource_size, cur_time, nodes, route, curr, found);
 
 	return route;
 }
 
-void Network::find_route(int mv_id, int mv_size, int c_time, const Tree &node,
-	Route &route, Route &temp) const
+void Network::find_route(int mv_id, int mv_size, int c_time, Tree &node,
+	Route &route, Route &curr, bool &found) const
 {
-	if(temp.get_depth() >= route.get_depth())
+	if(found and curr.get_depth() >= route.get_depth())
 		return;
 	
 	int node_id = node.get_root();
 
 	if(not servers[node_id].is_busy(c_time) and servers[node_id].has_movie(mv_id))
 	{
-		temp.add_node(node_id, servers[node_id].get_speed());
+		curr.add_node(node_id, servers[node_id].get_speed());
 
-		if(temp.get_travel_time() >= mv_size)
+		if(curr.get_travel_time() >= mv_size)
 		{
-			route = temp;
+			route = curr;
+			found = true;
 			return;
 		}
 	}
 
 	if(node.has_children())
 	{
-		find_route(mv_id, mv_size, c_time, temp, nodes.get_left());
-		
+		Route left = curr;
+		find_route(mv_id, mv_size, c_time, nodes.get_left(), route, left, found);
+
 		if(node.has_right())
 		{
-			find_route(mv_id, mv_size, c_time, route, nodes.get_right());
+			find_route(mv_id, mv_size, c_time, nodes.get_right(), route, curr, found);
 
-			if(left.get_travel_time() >= route.get_travel_time())
-				node = node.get_left();
-			else
-				node = node.get_right();
+			if(left.get_travel_time() >= curr.get_travel_time())
+				curr = left;
 		}
 		else
-			node = node.get_left();
+			curr = left;
 
+		if(route.get_travel_time() < curr.get_travel_time())
+			route = curr;
 	}
 }
 

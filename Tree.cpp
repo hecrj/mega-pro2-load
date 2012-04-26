@@ -2,7 +2,6 @@
 
 Tree::Tree()
 {
-	depth = 0;
 	left = NULL;
 	right = NULL;
 }
@@ -10,15 +9,15 @@ Tree::Tree()
 Tree::Tree(T value)
 {
 	info = value;
-	depth = 0;
 	left = NULL;
 	right = NULL;
 }
 
-Tree::Tree(T value, int depth)
+Tree::Tree(T value, const Tree &left, const Tree &right)
 {
 	info = value;
-	depth = depth;
+	this->left = &left;
+	this->right = &right;
 }
 
 T get_root() const
@@ -36,8 +35,17 @@ bool has_children() const
 	return left == NULL and right == NULL;
 }
 
-void children(Tree &left, Tree &right)
+bool has_right() const
 {
-	left = *(this->left);
-	right = *(this->right);
+	return right == NULL;
+}
+
+Tree get_left()
+{
+	return *(this->left);
+}
+
+Tree get_right()
+{
+	return *(this->right);
 }

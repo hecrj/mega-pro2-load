@@ -5,19 +5,19 @@ template T class Tree
 {
 	private:
 		T info;
-		int depth;
 		Tree* left;
 		Tree* right;
 
 	public:
 		Tree();
 		Tree(T value);
-		Tree(T value, int depth);
+		Tree(T value, const Tree &left, const Tree &right);
 
 		T get_root() const;
-		int get_depth() const;
-
-		void children(Tree &left, Tree &right) const;
+		bool has_children() const;
+		bool has_right() const;
+		Tree get_left() const;
+		Tree get_right() const;
 
 };
 

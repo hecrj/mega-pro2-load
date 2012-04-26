@@ -10,6 +10,11 @@
  */
 class Route
 {
+	private:
+		vector<bool> nodes;
+		int speed;
+		bool is_empty;
+
 	public:
 		/**
 		 * Creates a new empty Route.
@@ -23,7 +28,7 @@ class Route
 		 * \pre True
 		 * \post Returns true if the Route has nodes, false otherwise.
 		 */
-		bool is_empty();
+		bool is_empty() const;
 
 		/**
 		 * Given a current node **cur_node**, gets the next node of the Route.
@@ -31,7 +36,14 @@ class Route
 		 * \post If found, the next Route node is returned.
 		 *       If not found, -1 is returned.
 		 */
-		int get_next_node(int cur_node);
+		int get_next_node(int cur_node) const;
+
+		/**
+		 * Gets the current speed of the Route.
+		 * \pre True
+		 * \post Returns the Route speed.
+		 */
+		int get_speed() const;
 
 		/**
 		 * Adds a node to the route.
@@ -46,7 +58,7 @@ class Route
 		 * \pre True
 		 * \post Information of the Route has been printed in the output stream.
 		 */
-		void write_route();
+		void write_route() const;
 };
 
 #endif
