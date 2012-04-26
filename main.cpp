@@ -17,13 +17,40 @@
 #include "RequestCollection.hpp"
 #include "Request.hpp"
 
-#define OPT_SYS_END 0 // System end
-#define OPT_NEW_REQ 1 // New request
-#define OPT_UNF_REQ 2 // Unfinished requests
-#define OPT_BUS_SER 3 // Busy servers
-#define OPT_EDT_SER 4 // Edit servers
-#define OPT_MSD_MOV 5 // Most downloaded movie
-#define OPT_SHW_HEL 6 // Show help
+/**
+ * System end option value.
+ */
+#define OPT_SYS_END 0
+
+ /**
+  * New request option value.
+  */
+#define OPT_NEW_REQ 1
+
+/**
+ * Unfinished requests option value.
+ */
+#define OPT_UNF_REQ 2
+
+/**
+ * Busy servers option value.
+ */
+#define OPT_BUS_SER 3
+
+/**
+ * Edit server option value.
+ */
+#define OPT_EDT_SER 4
+
+/**
+ * Most downloaded movie option value.
+ */
+#define OPT_MSD_MOV 5
+
+/**
+ * Show help option value.
+ */
+#define OPT_SHW_HEL 6
 
 /**
  * Prints main application help.
@@ -69,13 +96,14 @@ int main()
 			Request req;
 			req.read_request();
 
-			reqs.clean_finished_requests(req.get_time_start());
-			net.update_busy_nodes(req.get_time_start());
+			int cur_time = req.get_time_start();
+
+			reqs.clean_finished_requests(cur_time);
 
 			int movie_id = req.get_movie_id();
 			int movie_size = movies.get_movie_size(movie_id);
 
-			Route route = net.get_route(movie_id, movie_size);
+			Route route = net.get_route(movie_id, movie_size, cur_time);
 
 			if(not route.is_empty())
 			{
@@ -83,7 +111,7 @@ int main()
 				net.set_busy_nodes(route, req.get_id(), req.get_time_end());
 				
 				reqs.add_request(req);
-				movies.add_download(movie_id, req.get_time_start());
+				movies.add_download(movie_id, cur_time);
 			}
 
 			req.write_request();
@@ -98,10 +126,9 @@ int main()
 		}
 		else if(opt == OPT_BUS_SER)
 		{
-			int new_time = readint();
-			net.update_busy_nodes(new_time);
+			int cur_time = readint();
 
-			net.write_busy_nodes();
+			net.write_busy_nodes(cur_time);
 		}
 		else if(opt == OPT_EDT_SER)
 		{
@@ -114,7 +141,7 @@ int main()
 			int t1 = readint();
 			int t2 = readint();
 
-			movies.print_most_downloaded(t1, t2);
+			movies.write_most_downloaded_movie(t1, t2);
 		}
 		else if(opt == OPT_SHW_HEL)
 			show_help();

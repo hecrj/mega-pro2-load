@@ -7,12 +7,17 @@
 
 #include "Server.hpp"
 #include "Route.hpp"
+#include "Tree.hpp"
 
 /**
  * A Network consists of a tree related set of nodes.
  */
 class Network
 {
+	private:
+		vector<Server> servers;
+		Tree<int> nodes;
+
 	public:
 		/**
 		 * Creates a new empty Network.
@@ -29,12 +34,12 @@ class Network
 		Route get_route(int resource_id, int resource_size) const;
 
 		/**
-		 * Updates the busy nodes in **route** at the **new_time**, releasing
-		 * the nodes when necessary.
-		 * \pre 0 <= **new_time**
-		 * \post The nodes have been updated to **new_time**.
+		 * Sets the nodes of the Route as busy (serving **request_id**)
+		 * until **end_time**.
+		 * \pre The Route nodes are not busy
+		 * \post The Route nodes are busy until **end_time**.
 		 */
-		void update_busy_nodes(const Route &route, int new_time);
+		void set_busy_nodes(const Route &route, int request_id, int end_time);
 
 		/**
 		 * Edits the node of the Network with id **node_id**.
@@ -51,11 +56,12 @@ class Network
 		void read_network(int n_resources);
 
 		/**
-		 * Prints in the output stream the nodes that are actually busy.
+		 * Prints in the output stream the nodes that are busy at
+		 * **cur_time**.
 		 * \pre True
 		 * \post The busy nodes have been printed in the output stream.
 		 */
-		void write_busy_nodes() const;
+		void write_busy_nodes(int cur_time) const;
 };
 
 #endif

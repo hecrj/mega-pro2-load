@@ -39,6 +39,11 @@ int Request::get_time_end() const
 	return t_end;
 }
 
+void Request::set_lifespan(int lifespan)
+{
+	t_end = t_start + lifespan;
+}
+
 void Request::read_request()
 {
 	cout << "Input the time when to start the request #" << request_id << ": ";
@@ -51,7 +56,7 @@ void Request::read_request()
 void Request::write_request()
 {
 	cout << endl;
-	cout << "Request ID: " << id+1 << endl;
+	cout << "Request ID: " << id << endl;
 	cout << "Movie ID:   " << movie_id+1 << endl;
 	cout << "Start time: " << t_start << endl;
 	cout << "End time:   " << t_end << endl;

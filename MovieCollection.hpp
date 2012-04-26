@@ -10,6 +10,9 @@
  */
 class MovieCollection
 {
+	private:
+		vector<Movie> movies;
+
 	public:
 		/**
 		 * Creates a new empty MovieCollection.
@@ -26,9 +29,9 @@ class MovieCollection
 		int size() const;
 
 		/**
-		 * Returns the Movie size with id **movie_id**.
+		 * Returns the movie size with id **movie_id**.
 		 * \pre 0 <= id <= MovieCollection::size()
-		 * \post The Movie size with id **movie_id** is returned.
+		 * \post The movie size with id **movie_id** is returned.
 		 */
 		int get_movie_size(int movie_id) const;
 

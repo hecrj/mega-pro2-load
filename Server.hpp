@@ -34,11 +34,12 @@ class Server
 		int get_speed() const;
 
 		/**
-		 * Returns whether the Server is serving a request or not.
+		 * Returns whether the Server is serving a request or not at
+		 * **cur_time**.
 		 * \pre True
-		 * \post True if the Server is busy, false otherwise.
+		 * \post True if the Server is busy at **cur_time**, false otherwise.
 		 */
-		bool is_busy() const;
+		bool is_busy(int cur_time) const;
 
 		/**
 		 * Tells whether the Server has a movie or not.
@@ -75,13 +76,6 @@ class Server
 		 * \post The Server has assigned the data read from the input stream.
 		 */
 		void read_server(int n_movies);
-
-		/**
-		 * Writes information about the Server in the output stream.
-		 * \pre Not determined yet.
-		 * \post The Server information has been printed to the output stream.
-		 */
-		void write_server();
 };
 
 #endif

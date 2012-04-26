@@ -10,6 +10,13 @@
  */
 class Request
 {
+	private:
+		int id;
+		int movie_id;
+		int t_start;
+		int t_end;
+		static int count = 1;
+
 	public:
 		/**
 		 * Creates a new empty Request.

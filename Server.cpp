@@ -3,10 +3,7 @@
 
 Server::Server()
 {
-	parent_id = -1;
-	child1_id = -1;
-	child2_id = -1;
-	request_id = -1;
+
 }
 
 int Server::get_request_id() const
@@ -90,3 +87,4 @@ void Server::read_server(int id, int n_movies)
 	child1_id = readint() - 1;
 	child2_id = readint() - 1;
 }
+

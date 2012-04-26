@@ -6,12 +6,16 @@
 #define REQUESTCOLLECTION_HPP
 
 #include "Request.hpp"
+#include <list>
 
 /**
  * A RequestCollection represents a collection of Requests.
  */
 class RequestCollection
 {
+	private:
+		std::list<Request> requests;
+
 	public:
 		/**
 		 * Creates a new empty RequestCollection.
