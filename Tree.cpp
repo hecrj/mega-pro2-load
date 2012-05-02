@@ -2,50 +2,95 @@
 
 Tree::Tree()
 {
-	left = NULL;
-	right = NULL;
+	first = NULL;
 }
 
-Tree::Tree(T value)
+Tree::Tree(const Tree &original)
 {
-	info = value;
-	left = NULL;
-	right = NULL;
+	first = copy_node(original.first);
 }
 
-Tree::Tree(T value, const Tree &left, const Tree &right)
+~Tree::Tree()
 {
-	info = value;
-	this->left = &left;
-	this->right = &right;
+	delete_node(first);
+}
+
+Tree& Tree::operator=(const Tree &original)
+{
+	if(this != &original)
+	{
+		delete_node(first);
+		first = copy_node(original.first);
+	}
+
+	return *this;
 }
 
 T get_root() const
 {
-	return info;
+	return first->value;
 }
 
-int get_depth() const
+bool is_empty() const
 {
-	return depth;
+	return (first == NULL);
 }
 
-bool has_children() const
+void clear()
 {
-	return left == NULL and right == NULL;
+	delete_node(first);
+	first = NULL;
 }
 
-bool has_right() const
+void plant(T &value, Tree& t_left, Tree &t_right)
 {
-	return right == NULL;
+	Node* node;
+	node = new Node;
+	node->value = value;
+	node->left = t_left.first;
+
+	if(t_right.first != t_left.first or t_right.first == NULL)
+		node->right = t_right.first;
+	else
+		node->right = copy_node(t_right.first);
+
+	first = node;
+	t_left.first = NULL;
+	t_right.first = NULL;
 }
 
-Tree get_left()
+void children(Tree &t_left, Tree &t_right)
 {
-	return *(this->left);
+	Node* node;
+	node = first;
+
+	t_left.first = node->left;
+	t_right.first = node->right;
+
+	first = NULL;
+	delete node;
 }
 
-Tree get_right()
+static Node* Tree::copy_node(Node* node)
 {
-	return *(this->right);
+	if(node == NULL)
+		return NULL;
+
+	Node *node_copy = new Node;
+	
+	node_copy->value = node->value;
+	node_copy->left = copy_node(node->left);
+	node_copy->right = copy_node(node->right);
+
+	return node_copy;
+}
+
+static void Tree::delete_node(Node* node)
+{
+	if(node == NULL)
+		return;
+
+	delete_node(node->left);
+	delete_node(node->right);
+	delete node;
 }

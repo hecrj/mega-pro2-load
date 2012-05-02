@@ -20,13 +20,6 @@ class Server
 		Server();
 
 		/**
-		 * Creates a new Server with the identifier **id**.
-		 * \pre True
-		 * \pre Returns a new Server with the **id** assigned.
-		 */
-		Server(int id);
-
-		/**
 		 * Returns the speed of the Server.
 		 * \pre The Server has an speed.
 		 * \post The Server speed is returned.

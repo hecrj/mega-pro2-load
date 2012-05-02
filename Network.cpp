@@ -42,7 +42,7 @@ void Network::find_route(int mv_id, int mv_size, int c_time, Tree &node,
 
 		if(node.has_right())
 		{
-			find_route(mv_id, mv_size, c_time, nodes.get_right(), route, curr, found);
+			find_route(mv_id, mv_size, c_time, nodes.get_right(), left, curr, found);
 
 			if(left.get_travel_time() >= curr.get_travel_time())
 				curr = left;
@@ -132,31 +132,29 @@ void Network::update_node(int node_id)
 
 void Network::read_network(int n_movies)
 {
-	cout << "Input the number of servers of the system: ";
 	int n = readint();
 	servers = vector<Server>(n);
 
+	read_nodes(nodes);
+
 	for(int i = 0; i < n; ++i)
-	{
-		cout << "Input the id of the server #" << i+1 << ": ";
-		int id = readint() - 1;
+		servers[id].read_server(n_movies);
+}
 
-		servers[id].read_server(id, n_movies);
+void Network::read_nodes(Tree<int> &nodes)
+{
+	int id = readint();
 
-		if(servers[id].has_children())
-		{
-			int s1, s2;
-			servers[id].children(s1, s2);
+	if(id == 0)
+		return;
 
-			servers[s1].set_parent_id(id);
+	Tree<int> t_left;
+	Tree<int> t_right;
 
-			if(s2 != -1)
-				servers[s2].set_parent_id(id);
-		}
-	}
+	read_nodes(t_left);
+	read_nodes(t_right);
 
-	cout << "Input the id of the main server: ";
-	main_server_id = readint() - 1;
+	nodes.plant(id, t_left, t_right);
 }
 
 void Network::write_busy_nodes(int cur_time) const
