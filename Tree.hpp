@@ -1,7 +1,7 @@
 #ifndef TREE_HPP
 #define TREE_HPP
 
-template T class Tree
+template <class T> class Tree
 {
 	private:
 		struct Node

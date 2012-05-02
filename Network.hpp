@@ -18,6 +18,13 @@ class Network
 		vector<Server> servers;
 		Tree<int> nodes;
 
+		struct Resource
+		{
+			int id;
+			int size;
+			int time;
+		};
+
 	public:
 		/**
 		 * Creates a new empty Network.

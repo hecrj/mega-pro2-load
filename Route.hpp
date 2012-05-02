@@ -46,6 +46,13 @@ class Route
 		int get_speed() const;
 
 		/**
+		 * Gets the current depth of the Route.
+		 * \pre True
+		 * \post Returns the Route depth.
+		 */
+		int get_depth() const;
+
+		/**
 		 * Adds a node to the route.
 		 * \pre True
 		 * \post The **node_id** and **node_speed** have been added to the

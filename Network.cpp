@@ -7,111 +7,54 @@ Network::Network()
 
 Route Network::get_route(int resource_id, int resource_size, int cur_time) const
 {
-	Route route;
-	Route curr;
-	bool found = false;
-	find_route(resource_id, resource_size, cur_time, nodes, route, curr, found);
+	Route route(servers.size());
+	Route current(servers.size());
+
+	// Just to make the recursive function look better
+	Resource resource;
+	resource.id = resource_id;
+	resource.size = resource_size;
+	resource.time = cur_time;
+
+	find_route(route, current, resource, nodes);
 
 	return route;
 }
 
-void Network::find_route(int mv_id, int mv_size, int c_time, Tree &node,
-	Route &route, Route &curr, bool &found) const
+void Network::find_route(Route &route, Route &current, Resource &resource, Tree& node) const
 {
-	if(found and curr.get_depth() >= route.get_depth())
+	if(route.has_priority() and route.get_depth() <= current.get_depth())
 		return;
-	
+
 	int node_id = node.get_root();
 
-	if(not servers[node_id].is_busy(c_time) and servers[node_id].has_movie(mv_id))
+	if(not servers[node_id].is_busy_at(resource.time) and servers[node_id].has_movie(resource.id))
 	{
-		curr.add_node(node_id, servers[node_id].get_speed());
+		current.add_node(node_id, servers[node_id].get_speed());
 
-		if(curr.get_travel_time() >= mv_size)
+		if(current.get_speed() >= resource.size)
 		{
-			route = curr;
-			found = true;
-			return;
+			current.prioritize();
+			route = current;
+
+			return; // to avoid some instructions and unnecessary recursive calls
 		}
+
+		if(current.get_speed() > route.get_speed())
+			route = current;
 	}
+	else
+		current.add_node(node_id, 0);
 
-	if(node.has_children())
-	{
-		Route left = curr;
-		find_route(mv_id, mv_size, c_time, nodes.get_left(), route, left, found);
+	Tree node_left;
+	Tree node_right;
 
-		if(node.has_right())
-		{
-			find_route(mv_id, mv_size, c_time, nodes.get_right(), left, curr, found);
+	node.children(node_left, node_right);
 
-			if(left.get_travel_time() >= curr.get_travel_time())
-				curr = left;
-		}
-		else
-			curr = left;
+	if(not node_left.is_empty()) find_route(route, current, resource, node_left);
+	if(not node_right.is_empty()) find_route(route, current, resource, node_right);
 
-		if(route.get_travel_time() < curr.get_travel_time())
-			route = curr;
-	}
-}
-
-Route Network::get_route(int resource_id, int resource_size, int cur_time) const
-{
-	Node best_server;
-	best_server.id = -1;
-	best_server.speed = 0;
-
-	Node serv;
-	serv.id = main_server_id;
-	serv.speed = 0;
-
-	queue<Node> qservs;
-	qservs.push(serv);
-
-	bool found = false;
-
-	while(not qservs.empty() and not found)
-	{
-		serv = qservs.front();
-		qservs.pop();
-
-		cout << "Checking server: " << serv.id+1 << endl;
-
-		if(not servers[serv.id].is_busy(cur_time) and servers[serv.id].has_movie(resource_id))
-		{
-			serv.speed += servers[serv.id].get_speed();
-
-			cout << "The server is free and has the movie." << endl;
-			cout << "Movie size: " << resource_size << endl;
-			cout << "Node speed: " << serv.speed << endl;
-
-			if(resource_size <= serv.speed)
-				found = true;
-
-			if(serv.speed > best_server.speed)
-				best_server = serv;
-		}
-
-		if(not found and servers[serv.id].has_children())
-		{
-			int s1, s2;
-			servers[serv.id].children(s1, s2);
-
-			Node serv_child;
-			serv_child.id = s1;
-			serv_child.speed = serv.speed;
-
-			qservs.push(serv_child);
-
-			if(s2 != -1)
-			{
-				serv_child.id = s2;
-				qservs.push(serv_child);
-			}
-		}
-	}
-
-	return build_route(best_server.id);
+	current.delete_node(node_id);
 }
 
 void Network::set_busy_nodes(const Route &route, int request_id, int end_time)
