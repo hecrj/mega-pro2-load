@@ -44,8 +44,8 @@ void Network::find_route(Route &route, Route &current, Resource &resource, int n
 	else
 		current.add_node(node_id, 0);
 
-	if(not nodes[node_id].left != -1) find_route(route, current, resource, nodes[node_id].left);
-	if(not nodes[node_id].right != -1) find_route(route, current, resource, nodes[node_id].right);
+	if(nodes[node_id].left != -1) find_route(route, current, resource, nodes[node_id].left);
+	if(nodes[node_id].right != -1) find_route(route, current, resource, nodes[node_id].right);
 
 	current.delete_node(node_id);
 }
@@ -65,12 +65,20 @@ void Network::set_busy_nodes(const Route &route, int request_id, int end_time)
 	}
 }
 
-void Network::update_node(int node_id)
+void Network::edit_node(int node_id)
 {
-	// ...
+	int n_movies = readint();
+
+	for(int i = 0; i < n_movies; ++i)
+		servers[node_id].enable_movie(readint() - 1);
+
+	n_movies = readint();
+
+	for(int i = 0; i < n_movies; ++i)
+		servers[node_id].disable_movie(readint() - 1);
 }
 
-void Network::read_network(int n_movies)
+void Network::read_network(int n_resources)
 {
 	int n = readint();
 	servers = vector<Server>(n);
@@ -79,12 +87,12 @@ void Network::read_network(int n_movies)
 	read_nodes(main_node);
 
 	for(int i = 0; i < n; ++i)
-		servers[id].read_server(n_movies);
+		servers[i].read_server(n_resources);
 }
 
 void Network::read_nodes(int &node_id)
 {
-	int node_id = readint() - 1;
+	node_id = readint() - 1;
 
 	if(node_id == -1)
 		return;
@@ -104,7 +112,11 @@ void Network::write_busy_nodes(int cur_time) const
 	int n_servers = servers.size();
 
 	for(int i = 0; i < n_servers; ++i)
-		if(servers[i].is_busy(cur_time))
-			cout << "Server #" << i+1 << "is busy.";
-		// ...
+	{
+		if(servers[i].is_busy_at(cur_time))
+		{
+			cout << i+1 << ' ' << servers[i].get_request_id() << ' ';
+			cout << servers[i].get_time_left(cur_time) << endl;
+		}
+	}
 }

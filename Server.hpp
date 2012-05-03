@@ -5,6 +5,8 @@
 #ifndef SERVER_HPP
 #define SERVER_HPP
 
+#include <vector>
+
 /**
  * A Server is characterized by an id, its speed and its available movies.
  * A Server can be free or busy (serving a request).
@@ -13,7 +15,7 @@ class Server
 {
 	private:
 		int speed;
-		vector<bool> movies;
+		std::vector<bool> movies;
 		int request_id;
 		int end_time;
 
@@ -38,7 +40,7 @@ class Server
 		 * \pre True
 		 * \post True if the Server is busy at **cur_time**, false otherwise.
 		 */
-		bool is_busy(int cur_time) const;
+		bool is_busy_at(int cur_time) const;
 
 		/**
 		 * Returns the remaining time until the Server is free.
@@ -88,7 +90,7 @@ class Server
 		 * \pre Not determined yet.
 		 * \post The Server has assigned the data read from the input stream.
 		 */
-		void read_server(int n_movies);
+		void read_server(int total_movies);
 };
 
 #endif

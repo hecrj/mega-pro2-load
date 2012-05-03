@@ -1,22 +1,17 @@
 #include "Request.hpp"
+#include <cmath>
 #include "utils.PRO2"
+
+int Request::next_id = 0;
 
 Request::Request()
 {
-	id = static::count;
+	id = next_id;
 	movie_id = -1;
 	t_start = -1;
 	t_end = -1;
 
-	static::count += 1;
-}
-
-Request::Request(int id, int movie_id, int t_start, int t_end)
-{
-	this->id = id;
-	this->movie_id = movie_id;
-	this->t_start = t_start;
-	this->t_end = t_end;
+	next_id += 1;
 }
 
 int Request::get_id() const
@@ -39,26 +34,24 @@ int Request::get_time_end() const
 	return t_end;
 }
 
-void Request::set_lifespan(int lifespan)
+void Request::set_lifespan(int size, int speed)
 {
+	int lifespan = int(ceil( double(size) / double(speed) ));
 	t_end = t_start + lifespan;
 }
 
 void Request::read_request()
 {
-	cout << "Input the time when to start the request #" << id << ": ";
-    t_start = readint();
-
-    cout << "Input the movie id you want to download: ";
     movie_id = readint() - 1;
+    t_start = t_end = readint();
 }
 
-void Request::write_request()
+void Request::write_request() const
 {
-	cout << endl;
-	cout << "Request ID: " << id << endl;
-	cout << "Movie ID:   " << movie_id+1 << endl;
-	cout << "Start time: " << t_start << endl;
-	cout << "End time:   " << t_end << endl;
-	cout << endl;
+	cout << id << ' ' << movie_id+1 << ' ' << t_start << ' ' << t_end << endl;
+}
+
+void Request::set_next_id(int id)
+{
+	next_id = id;
 }

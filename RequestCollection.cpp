@@ -3,54 +3,44 @@
 
 RequestCollection::RequestCollection()
 {
-	next_id = 1;
-}
-
-int RequestCollection::get_next_id() const
-{
-	return next_id;
-}
-
-void RequestCollection::add_request(int movie_id, int t_start, int t_end)
-{
-	if(t_start < t_end)
-	{
-		Request req(next_id, movie_id, t_start, t_end);
-		
-		Iterator it = find_position(t_end, reqs.begin(), reqs.end());
-
-		reqs.insert(it, req);
-	}
-
-	next_id++;
-}
-
-Iterator RequestCollection::find_position(int t_end, Iterator it1, Iterator it2)
-{
-	if(it1 == it2)
-		return it1;
 	
-	int dist_first = t_end - it1->get_time_end();
+}
 
-	if(dist_first < 0)
-		return it1;
+bool RequestCollection::is_empty() const
+{
+	return reqs.empty();
+}
 
-	it1++;
+void RequestCollection::add_request(const Request &req)
+{
+	Iterator it = find_position(req.get_time_end());
 
-	if(dist_first == 0)
-		return it1;
+	reqs.insert(it, req);
+}
 
-	int dist_last = it2->get_time_end() - t_end;
+Iterator RequestCollection::find_position(int t_end)
+{
+	Iterator it = reqs.begin();
+	bool found = false;
 
-	if(dist_last <= 0)
+	while(it != reqs.end() and not found)
 	{
-		it2++;
-		return it2;
+		found = (it->get_time_end() > t_end);
+		++it;
 	}
 
-	it2--;
+	return it;
+}
 
-	return find_position(t_end, it1, it2);
+void RequestCollection::clean_finished_requests(int cur_time)
+{
+	Iterator it = reqs.begin();
+
+	while(it != reqs.end() and it->get_time_end() <= cur_time)
+	{
+		reqs.pop_front();
+		++it;
+	}
 }
 
 void RequestCollection::write_requests()
@@ -60,6 +50,6 @@ void RequestCollection::write_requests()
 	while(it != reqs.end())
 	{
 		it->write_request();
-		it++;
+		++it;
 	}
 }

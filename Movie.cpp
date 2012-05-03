@@ -3,19 +3,7 @@
 
 Movie::Movie()
 {
-	id = -1;
 	size = -1;
-}
-
-Movie::Movie(int id, int size)
-{
-	this->id = id;
-	this->size = size;
-}
-
-int Movie::get_id() const
-{
-	return id;
 }
 
 int Movie::get_size() const
@@ -25,19 +13,19 @@ int Movie::get_size() const
 
 int Movie::how_many_downloads(int t1, int t2) const
 {
-	int downloads = 0;
+	int num_downloads = 0;
 
 	list<int>::const_iterator it = downloads.begin();
 
 	while(it != downloads.end() and *it <= t2)
 	{
-		if(*it >= t1 and *it <= t2)
-			downloads++;
+		if(*it >= t1)
+			++num_downloads;
 
-		it++;
+		++it;
 	}
 
-	return downloads;
+	return num_downloads;
 }
 
 void Movie::add_download(int dwl_time)
@@ -45,10 +33,7 @@ void Movie::add_download(int dwl_time)
 	downloads.push_back(dwl_time);
 }
 
-void Movie::read_movie(int id)
+void Movie::read_movie()
 {
-	this->id = id;
-
-	cout << "Input the size of the movie #" << id << ": ";
 	size = readint();
 }

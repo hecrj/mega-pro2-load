@@ -1,7 +1,7 @@
 INCLUDES_CPP = /users/hector0193/Proyectos/PRO2/includes
 
-main.exe: main.o Request.o Network.o Server.o MovieCollection.o RequestCollection.o
-	g++ -o main.exe main.o Request.o Network.o Server.o MovieCollection.o RequestCollection.o
+main.exe: main.o Request.o Network.o Server.o MovieCollection.o RequestCollection.o Movie.o Route.o
+	g++ -o main.exe main.o Request.o Network.o Server.o MovieCollection.o RequestCollection.o Route.o Movie.o
 
 main.o: main.cpp
 	g++ -c main.cpp -I$(INCLUDES_CPP)
@@ -23,6 +23,9 @@ MovieCollection.o: MovieCollection.cpp
 
 RequestCollection.o: RequestCollection.cpp
 	g++ -c RequestCollection.cpp -I$(INCLUDES_CPP)
+
+Route.o: Route.cpp
+	g++ -c Route.cpp -I$(INCLUDES_CPP)
 
 clean:
 	rm -f *.o

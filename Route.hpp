@@ -5,14 +5,17 @@
 #ifndef ROUTE_HPP
 #define ROUTE_HPP
 
+#include <vector>
+
 /**
  * A Route represents a selection of nodes and its speed.
  */
 class Route
 {
 	private:
-		vector<bool> nodes;
+		std::vector<int> nodes;
 		int speed;
+		int depth;
 		bool prioritized;
 
 	public:
@@ -22,6 +25,8 @@ class Route
 		 * \post A new empty Route is returned.
 		 */
 		Route();
+
+		Route(int n_nodes);
 
 		/**
 		 * Returns whether the Route has nodes in it or not.
@@ -36,14 +41,6 @@ class Route
 		 * \post Returns true if the Route is prioritary, false otherwise.
 		 */
 		bool has_priority() const;
-
-		/**
-		 * Given a current node **cur_node**, gets the next node of the Route.
-		 * \pre -1 <= **cur_node**
-		 * \post If found, the next Route node is returned.
-		 *       If not found, -1 is returned.
-		 */
-		int get_next_node(int cur_node) const;
 
 		/**
 		 * Gets the current speed of the Route.
@@ -73,6 +70,14 @@ class Route
 		 * \post The **node_id** has been deleted from the Route.
 		 */
 		void delete_node(int node_id);
+
+		/**
+		 * Updates **cur_node** to the next node of the Route.
+		 * \pre -1 <= **cur_node**
+		 * \post **cur_node** has the next node of the Route.
+		 *       **found** tells whether there is a next node or not.
+		 */
+		void get_next_node(int &cur_node, bool &found) const;
 
 		/**
 		 * Makes the current Route prioritary.

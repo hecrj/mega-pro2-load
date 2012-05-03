@@ -7,6 +7,7 @@
 
 #include "Server.hpp"
 #include "Route.hpp"
+#include <vector>
 
 /**
  * A Network consists of a tree related set of nodes.
@@ -20,8 +21,9 @@ class Network
 			int right;
 		};
 
-		vector<Server> servers;
-		vector<Node> nodes;
+		std::vector<Server> servers;
+		std::vector<Node> nodes;
+		int main_node;
 
 		struct Resource
 		{
@@ -29,6 +31,9 @@ class Network
 			int size;
 			int time;
 		};
+
+		void find_route(Route &route, Route &current, Resource &resource, int node_id) const;
+		void read_nodes(int &node_id);
 
 	public:
 		/**

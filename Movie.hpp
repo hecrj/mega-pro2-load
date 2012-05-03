@@ -1,8 +1,14 @@
 #ifndef MOVIE_HPP
 #define MOVIE_HPP
 
+#include <list>
+
 class Movie
 {
+	private:
+		int size;
+		std::list<int> downloads;
+
 	public:
 		/**
 		 * Creates a new empty Movie.
@@ -10,13 +16,6 @@ class Movie
 		 * \post Returns a new empty Movie.
 		 */
 		Movie();
-
-		/**
-		 * Creates a new Movie with **id** and **size**.
-		 * \pre True
-		 * \post Returns a new Movie with **id** and **size**.
-		 */
-		Movie(int id, int size);
 
 		/**
 		 * Gets the size of the Movie.
@@ -30,14 +29,16 @@ class Movie
 		 * \pre True
 		 * \post The number of downloads is returned.
 		 */
-		int how_many_downloads(int t1, int t2);
+		int how_many_downloads(int t1, int t2) const;
 
 		/**
 		 * Adds a download record to the Movie at **dwl_time**.
 		 * \pre True
 		 * \post The download record has been added.  
 		 */
-		void add_download(int dwl_time) const;
+		void add_download(int dwl_time);
+
+		void read_movie();
 
 };
 

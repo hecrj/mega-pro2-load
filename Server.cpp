@@ -49,14 +49,14 @@ void Server::disable_movie(int movie_id)
 	movies[movie_id] = false;
 }
 
-void Server::read_server(int n_movies)
+void Server::read_server(int total_movies)
 {
-	movies = vector<bool>(n_movies, false);
+	movies = vector<bool>(total_movies, false);
 
 	speed = readint();
 
 	int n_movies = readint();
 
 	for(int i = 0; i < n_movies; ++i)
-		enable_movie(readint());
+		enable_movie(readint() - 1);
 }
