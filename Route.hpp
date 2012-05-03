@@ -13,7 +13,7 @@ class Route
 	private:
 		vector<bool> nodes;
 		int speed;
-		bool is_empty;
+		bool prioritized;
 
 	public:
 		/**
@@ -29,6 +29,13 @@ class Route
 		 * \post Returns true if the Route has nodes, false otherwise.
 		 */
 		bool is_empty() const;
+
+		/**
+		 * Returns whether the Route has priority or not.
+		 * \pre True
+		 * \post Returns true if the Route is prioritary, false otherwise.
+		 */
+		bool has_priority() const;
 
 		/**
 		 * Given a current node **cur_node**, gets the next node of the Route.
@@ -61,7 +68,21 @@ class Route
 		void add_node(int node_id, int node_speed);
 
 		/**
-		 * Writes information about the Route in the output stream.
+		 * Deletes a node from the Route.
+		 * \pre **node_id** has been added to the Route.
+		 * \post The **node_id** has been deleted from the Route.
+		 */
+		void delete_node(int node_id);
+
+		/**
+		 * Makes the current Route prioritary.
+		 * \pre True
+		 * \post The Route is prioritary.
+		 */
+		void prioritize();
+
+		/**
+		 * Writes the nodes from the Route that have an speed > 0.
 		 * \pre True
 		 * \post Information of the Route has been printed in the output stream.
 		 */

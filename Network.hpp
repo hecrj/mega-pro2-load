@@ -7,7 +7,6 @@
 
 #include "Server.hpp"
 #include "Route.hpp"
-#include "Tree.hpp"
 
 /**
  * A Network consists of a tree related set of nodes.
@@ -15,8 +14,14 @@
 class Network
 {
 	private:
+		struct Node
+		{
+			int left;
+			int right;
+		};
+
 		vector<Server> servers;
-		Tree<int> nodes;
+		vector<Node> nodes;
 
 		struct Resource
 		{
@@ -38,7 +43,7 @@ class Network
 		 * \pre resource_size >= 0
 		 * \post A Route of best nodes for the requested resource is returned.
 		 */
-		Route get_route(int resource_id, int resource_size) const;
+		Route get_route(int resource_id, int resource_size, int cur_time) const;
 
 		/**
 		 * Sets the nodes of the Route as busy (serving **request_id**)

@@ -70,14 +70,14 @@ void Tree::plant(T &value, Tree& t_left, Tree &t_right)
 template <class T>
 void Tree::children(Tree &t_left, Tree &t_right) const
 {
-	//Node* node;
-	//node = first;
+	Node* node;
+	node = first;
 
 	t_left.first = first->left;
 	t_right.first = first->right;
 
-	//first = NULL;
-	//delete node;
+	first = NULL;
+	delete node;
 }
 
 template <class T>

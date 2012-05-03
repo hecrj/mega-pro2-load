@@ -10,23 +10,21 @@ Route Network::get_route(int resource_id, int resource_size, int cur_time) const
 	Route route(servers.size());
 	Route current(servers.size());
 
-	// Just to make the recursive function look better
+	// just to make the recursive function look better
 	Resource resource;
 	resource.id = resource_id;
 	resource.size = resource_size;
 	resource.time = cur_time;
 
-	find_route(route, current, resource, nodes);
+	find_route(route, current, resource, main_node);
 
 	return route;
 }
 
-void Network::find_route(Route &route, Route &current, Resource &resource, Tree& node) const
+void Network::find_route(Route &route, Route &current, Resource &resource, int node_id) const
 {
 	if(route.has_priority() and route.get_depth() <= current.get_depth())
 		return;
-
-	int node_id = node.get_root();
 
 	if(not servers[node_id].is_busy_at(resource.time) and servers[node_id].has_movie(resource.id))
 	{
@@ -46,25 +44,24 @@ void Network::find_route(Route &route, Route &current, Resource &resource, Tree&
 	else
 		current.add_node(node_id, 0);
 
-	Tree node_left;
-	Tree node_right;
-
-	node.children(node_left, node_right);
-
-	if(not node_left.is_empty()) find_route(route, current, resource, node_left);
-	if(not node_right.is_empty()) find_route(route, current, resource, node_right);
+	if(not nodes[node_id].left != -1) find_route(route, current, resource, nodes[node_id].left);
+	if(not nodes[node_id].right != -1) find_route(route, current, resource, nodes[node_id].right);
 
 	current.delete_node(node_id);
 }
 
 void Network::set_busy_nodes(const Route &route, int request_id, int end_time)
 {
-	int node_id = route.get_next_node(-1);
+	int node_id = -1;
+	bool found;
 
-	while(node_id != -1)
+	route.get_next_node(node_id, found);
+
+	while(found)
 	{
 		servers[node_id].set_busy(request_id, end_time);
-		node_id = route.get_next_node(node_id);
+		
+		route.get_next_node(node_id, found);
 	}
 }
 
@@ -77,27 +74,29 @@ void Network::read_network(int n_movies)
 {
 	int n = readint();
 	servers = vector<Server>(n);
+	nodes = vector<Node>(n);
 
-	read_nodes(nodes);
+	read_nodes(main_node);
 
 	for(int i = 0; i < n; ++i)
 		servers[id].read_server(n_movies);
 }
 
-void Network::read_nodes(Tree<int> &nodes)
+void Network::read_nodes(int &node_id)
 {
-	int id = readint();
+	int node_id = readint() - 1;
 
-	if(id == 0)
+	if(node_id == -1)
 		return;
 
-	Tree<int> t_left;
-	Tree<int> t_right;
+	int n_left;
+	int n_right;
 
-	read_nodes(t_left);
-	read_nodes(t_right);
+	read_nodes(n_left);
+	read_nodes(n_right);
 
-	nodes.plant(id, t_left, t_right);
+	nodes[node_id].left = n_left;
+	nodes[node_id].right = n_right;
 }
 
 void Network::write_busy_nodes(int cur_time) const
@@ -106,6 +105,6 @@ void Network::write_busy_nodes(int cur_time) const
 
 	for(int i = 0; i < n_servers; ++i)
 		if(servers[i].is_busy(cur_time))
-			cout << "Server #" << i << "is busy.";
+			cout << "Server #" << i+1 << "is busy.";
 		// ...
 }

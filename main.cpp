@@ -107,7 +107,7 @@ int main()
 
 			if(not route.is_empty())
 			{
-				req.set_lifespan(route.get_travel_time());
+				req.set_lifespan(movie_size, route.get_speed());
 				net.set_busy_nodes(route, req.get_id(), req.get_time_end());
 				
 				reqs.add_request(req);

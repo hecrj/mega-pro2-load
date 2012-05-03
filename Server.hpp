@@ -11,6 +11,12 @@
  */
 class Server
 {
+	private:
+		int speed;
+		vector<bool> movies;
+		int request_id;
+		int end_time;
+
 	public:
 		/**
 		 * Creates a new empty Server.
@@ -33,6 +39,20 @@ class Server
 		 * \post True if the Server is busy at **cur_time**, false otherwise.
 		 */
 		bool is_busy(int cur_time) const;
+
+		/**
+		 * Returns the remaining time until the Server is free.
+		 * \pre Server::is_busy(cur_time) == true
+		 * \post The remaining time is returned.
+		 */
+		int get_time_left(int cur_time) const;
+
+		/**
+		 * Returns the last request id served by the Server.
+		 * \pre The Server has been busy at least once.
+		 * \post The request id is returned.
+		 */
+		int get_request_id() const;
 
 		/**
 		 * Tells whether the Server has a movie or not.

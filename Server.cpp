@@ -3,12 +3,9 @@
 
 Server::Server()
 {
-
-}
-
-int Server::get_request_id() const
-{
-	return request_id;
+	request_id = -1;
+	speed = 0;
+	end_time = -1;
 }
 
 int Server::get_speed() const
@@ -16,14 +13,19 @@ int Server::get_speed() const
 	return speed;
 }
 
-int Server::get_parent_id() const
+bool Server::is_busy_at(int cur_time) const
 {
-	return parent_id;
+	return cur_time < end_time;
 }
 
-bool Server::is_busy() const
+int Server::get_time_left(int cur_time) const
 {
-	return request_id != -1;
+	return end_time - cur_time;
+}
+
+int Server::get_request_id() const
+{
+	return request_id;
 }
 
 bool Server::has_movie(int movie_id) const
@@ -31,24 +33,10 @@ bool Server::has_movie(int movie_id) const
 	return movies[movie_id];
 }
 
-bool Server::has_parent() const
-{
-	return parent_id != -1;
-}
-
-bool Server::has_children() const
-{
-	return (child1_id != -1 and child2_id != -1);
-}
-
-void Server::set_request(int request_id)
+void Server::set_busy(int request_id, int end_time)
 {
 	this->request_id = request_id;
-}
-
-void Server::set_parent_id(int parent_id)
-{
-	this->parent_id = parent_id;
+	this->end_time = end_time;
 }
 
 void Server::enable_movie(int movie_id)
@@ -59,12 +47,6 @@ void Server::enable_movie(int movie_id)
 void Server::disable_movie(int movie_id)
 {
 	movies[movie_id] = false;
-}
-
-void Server::children(int &c1, int &c2) const
-{
-	c1 = child1_id;
-	c2 = child2_id;
 }
 
 void Server::read_server(int n_movies)
