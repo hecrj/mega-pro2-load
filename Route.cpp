@@ -29,15 +29,14 @@ bool Route::has_priority() const
 void Route::get_next_node(int &cur_node, bool &found) const
 {
 	found = false;
-
 	int size = nodes.size();
+
+	++cur_node;
 
 	while(cur_node < size and not found)
 	{
-		++cur_node;
-
-		if(nodes[cur_node] != 0)
-			found = true;
+		if(nodes[cur_node] != 0) found = true;
+		else ++cur_node;
 	}
 }
 

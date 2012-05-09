@@ -25,8 +25,8 @@ Iterator RequestCollection::find_position(int t_end)
 
 	while(it != reqs.end() and not found)
 	{
-		found = (it->get_time_end() > t_end);
-		++it;
+		if(it->get_time_end() > t_end) found = true;
+		else ++it;
 	}
 
 	return it;
@@ -34,13 +34,8 @@ Iterator RequestCollection::find_position(int t_end)
 
 void RequestCollection::clean_finished_requests(int cur_time)
 {
-	Iterator it = reqs.begin();
-
-	while(it != reqs.end() and it->get_time_end() <= cur_time)
-	{
+	while(not reqs.empty() and reqs.front().get_time_end() <= cur_time)
 		reqs.pop_front();
-		++it;
-	}
 }
 
 void RequestCollection::write_requests()
