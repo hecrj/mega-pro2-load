@@ -16,12 +16,12 @@ Route Network::get_route(int resource_id, int resource_size, int cur_time) const
 	resource.size = resource_size;
 	resource.time = cur_time;
 
-	find_route(route, current, resource, main_node);
+	find_route(resource, main_node, route, current);
 
 	return route;
 }
 
-void Network::find_route(Route &route, Route &current, Resource &resource, int node_id) const
+void Network::find_route(const Resource &resource, int node_id, Route &route, Route &current) const
 {
 	if(route.has_priority() and route.get_depth() <= current.get_depth())
 		return;
@@ -44,8 +44,8 @@ void Network::find_route(Route &route, Route &current, Resource &resource, int n
 	else
 		current.add_node(node_id, 0);
 
-	if(nodes[node_id].left != -1) find_route(route, current, resource, nodes[node_id].left);
-	if(nodes[node_id].right != -1) find_route(route, current, resource, nodes[node_id].right);
+	if(nodes[node_id].left != -1) find_route(resource, nodes[node_id].left, route, current);
+	if(nodes[node_id].right != -1) find_route(resource, nodes[node_id].right, route, current);
 
 	current.delete_node(node_id);
 }

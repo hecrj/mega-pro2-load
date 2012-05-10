@@ -32,7 +32,15 @@ class Network
 			int time;
 		};
 
-		void find_route(Route &route, Route &current, Resource &resource, int node_id) const;
+		/**
+		 * Private recursive function that finds a Route of servers given a Resource.
+		 * 
+		 * \pre **resource** has and id, size and time.
+		 *      0 <= node_id <= servers.size() - 1
+		 * \post **route** has been updated with the best Route using **current** as root and
+		 *       starting in **node_id**.
+		 */
+		void find_route(const Resource &resource, int node_id, Route &route, Route &current) const;
 		void read_nodes(int &node_id);
 
 	public:

@@ -38,6 +38,11 @@ class Movie
 		 */
 		void add_download(int dwl_time);
 
+		/**
+		 * Reads a Movie from the input stream.
+		 * \pre True
+		 * \post The Movie has assigned the information read from input stream.
+		 */
 		void read_movie();
 
 };
