@@ -39,8 +39,16 @@ class Network
 		 *      0 <= node_id <= servers.size() - 1
 		 * \post **route** has been updated with the best Route using **current** as root and
 		 *       starting in **node_id**.
+		 *       **current** is left as passed originally.
 		 */
 		void find_route(const Resource &resource, int node_id, Route &route, Route &current) const;
+
+		/**
+		 * Private function that reads recursively a binary tree structure of nodes, using 0 as
+		 * mark.
+		 * \pre True
+		 * \post The Network **nodes** have been readed from input stream.
+		 */
 		void read_nodes(int &node_id);
 
 	public:
