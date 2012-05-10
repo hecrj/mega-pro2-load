@@ -13,7 +13,6 @@
 
 #include "MovieCollection.hpp"
 #include "Network.hpp"
-#include "Route.hpp"
 #include "RequestCollection.hpp"
 #include "Request.hpp"
 #include "utils.PRO2"
@@ -53,6 +52,8 @@
  */
 int main()
 {
+	cout << endl;
+
 	MovieCollection movies;
 	movies.read_movies();
 
@@ -77,21 +78,21 @@ int main()
 			int movie_id = req.get_movie_id();
 			int movie_size = movies.get_movie_size(movie_id);
 
-			Route route = net.get_route(movie_id, movie_size, cur_time);
-
-			if(not route.is_empty())
-			{
-				req.set_lifespan(movie_size, route.get_speed());
-				net.set_busy_nodes(route, req.get_id(), req.get_time_end());
-				
-				reqs.add_request(req);
-				movies.add_download(movie_id, cur_time);
-			}
+			int duration = net.get_download_time(req.get_id(), movie_id, movie_size, cur_time);
 
 			cout << "Peticion procesada y servidores" << endl;
 			
-			cout << req.get_id() << ' ' << req.get_time_end() - req.get_time_start() << endl;
-			route.write_route();
+			cout << req.get_id() << ' ' << duration << endl;
+
+			if(duration > 0)
+			{
+				req.set_duration(duration);
+				reqs.add_request(req);
+
+				movies.add_download(movie_id, cur_time);
+
+				net.write_request_nodes(req.get_id());
+			}
 		}
 		else if(opt == OPT_UNF_REQ)
 		{
@@ -131,6 +132,4 @@ int main()
 
 		opt = readint();
 	}
-
-	cout << endl;
 }

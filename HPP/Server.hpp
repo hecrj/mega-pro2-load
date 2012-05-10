@@ -5,12 +5,20 @@
 #ifndef SERVER_HPP
 #define SERVER_HPP
 
+#include <vector>
+
 /**
  * A Server is characterized by an id, its speed and its available movies.
  * A Server can be free or busy (serving a request).
  */
 class Server
 {
+	private:
+		int speed;
+		std::vector<bool> movies;
+		int request_id;
+		int end_time;
+
 	public:
 		/**
 		 * Creates a new empty Server.
@@ -20,13 +28,6 @@ class Server
 		Server();
 
 		/**
-		 * Creates a new Server with the identifier **id**.
-		 * \pre True
-		 * \pre Returns a new Server with the **id** assigned.
-		 */
-		Server(int id);
-
-		/**
 		 * Returns the speed of the Server.
 		 * \pre The Server has an speed.
 		 * \post The Server speed is returned.
@@ -34,11 +35,26 @@ class Server
 		int get_speed() const;
 
 		/**
-		 * Returns whether the Server is serving a request or not.
+		 * Returns whether the Server is serving a request or not at
+		 * **cur_time**.
 		 * \pre True
-		 * \post True if the Server is busy, false otherwise.
+		 * \post True if the Server is busy at **cur_time**, false otherwise.
 		 */
-		bool is_busy() const;
+		bool is_busy_at(int cur_time) const;
+
+		/**
+		 * Returns the remaining time until the Server is free.
+		 * \pre Server::is_busy(cur_time) == true
+		 * \post The remaining time is returned.
+		 */
+		int get_time_left(int cur_time) const;
+
+		/**
+		 * Returns the last request id served by the Server.
+		 * \pre The Server has been busy at least once.
+		 * \post The request id is returned.
+		 */
+		int get_request_id() const;
 
 		/**
 		 * Tells whether the Server has a movie or not.
@@ -74,14 +90,7 @@ class Server
 		 * \pre Not determined yet.
 		 * \post The Server has assigned the data read from the input stream.
 		 */
-		void read_server(int n_movies);
-
-		/**
-		 * Writes information about the Server in the output stream.
-		 * \pre True
-		 * \post The Server information has been printed to the output stream.
-		 */
-		void write_server();
+		void read_server(int total_movies);
 };
 
 #endif

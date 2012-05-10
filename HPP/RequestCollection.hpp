@@ -6,12 +6,20 @@
 #define REQUESTCOLLECTION_HPP
 
 #include "Request.hpp"
+#include <list>
+
+typedef std::list<Request>::iterator Iterator;
 
 /**
  * A RequestCollection represents a collection of Requests.
  */
 class RequestCollection
 {
+	private:
+		std::list<Request> reqs;
+
+		Iterator find_position(int end_time);
+
 	public:
 		/**
 		 * Creates a new empty RequestCollection.
@@ -19,6 +27,8 @@ class RequestCollection
 		 * \post Returns a new empty RequestCollection.
 		 */
 		RequestCollection();
+
+		bool is_empty() const;
 
 		/**
 		 * Adds the Request **req** to the RequestCollection.

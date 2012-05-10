@@ -13,67 +13,47 @@
 
 #include "MovieCollection.hpp"
 #include "Network.hpp"
-#include "Route.hpp"
 #include "RequestCollection.hpp"
 #include "Request.hpp"
-
-/**
- * System end option value.
- */
-#define OPT_SYS_END 0
+#include "utils.PRO2"
 
  /**
   * New request option value.
   */
-#define OPT_NEW_REQ 1
+#define OPT_NEW_REQ -1
 
 /**
  * Unfinished requests option value.
  */
-#define OPT_UNF_REQ 2
+#define OPT_UNF_REQ -2
 
 /**
  * Busy servers option value.
  */
-#define OPT_BUS_SER 3
+#define OPT_BUS_SER -3
 
 /**
  * Edit server option value.
  */
-#define OPT_EDT_SER 4
+#define OPT_EDT_SER -4
 
 /**
  * Most downloaded movie option value.
  */
-#define OPT_MSD_MOV 5
+#define OPT_MSD_MOV -5
 
 /**
- * Show help option value.
+ * System end option value.
  */
-#define OPT_SHW_HEL 6
-
-/**
- * Prints main application help.
- * \pre True
- * \post A help message has been printed on the output stream.
- */
-void show_help()
-{
-	cout << "Here are the available actions you can choose:" << endl << endl;
-	cout << "[1] Create and handle a new request" << endl;
-	cout << "[2] See unfinished requests" << endl;
-	cout << "[3] See busy servers" << endl;
-	cout << "[4] Update a server" << endl;
-	cout << "[5] See the most downloaded movie" << endl;
-	cout << "[6] Show this help" << endl;
-	cout << "[0] Exit" << endl << endl;
-}
+#define OPT_SYS_END -6
 
 /**
  * Starts the main application logic.
  */
 int main()
 {
+	cout << endl;
+
 	MovieCollection movies;
 	movies.read_movies();
 
@@ -82,11 +62,6 @@ int main()
 
 	RequestCollection reqs;
 
-	cout << "MEGA-PRO2-LOAD initialized!" << endl << endl;
-
-	show_help();
-
-	cout << "Choose one action: ";
 	int opt = readint();
 
 	while(opt != OPT_SYS_END)
@@ -96,59 +71,65 @@ int main()
 			Request req;
 			req.read_request();
 
-			reqs.clean_finished_requests(req.get_time_start());
-			net.update_busy_nodes(req.get_time_start());
+			int cur_time = req.get_time_start();
+
+			reqs.clean_finished_requests(cur_time);
 
 			int movie_id = req.get_movie_id();
 			int movie_size = movies.get_movie_size(movie_id);
 
-			Route route = net.get_route(movie_id, movie_size);
+			int duration = net.get_download_time(req.get_id(), movie_id, movie_size, cur_time);
 
-			if(not route.is_empty())
+			cout << "Peticion procesada y servidores" << endl;
+			
+			cout << req.get_id() << ' ' << duration << endl;
+
+			if(duration > 0)
 			{
-				req.set_lifespan(route.get_travel_time());
-				net.set_busy_nodes(route, req.get_id(), req.get_time_end());
-				
+				req.set_duration(duration);
 				reqs.add_request(req);
-				movies.add_download(movie_id, req.get_time_start());
-			}
 
-			req.write_request();
-			route.write_route();
+				movies.add_download(movie_id, cur_time);
+
+				net.write_request_nodes(req.get_id());
+			}
 		}
 		else if(opt == OPT_UNF_REQ)
 		{
-			int new_time = readint();
-			reqs.clean_finished_requests(new_time);
-			
-			reqs.write_requests();
+			int cur_time = readint();
+			reqs.clean_finished_requests(cur_time);
+
+			cout << "Peticiones pendientes" << endl;
+
+			if(reqs.is_empty()) cout << '0' << endl;
+			else reqs.write_requests();
 		}
 		else if(opt == OPT_BUS_SER)
 		{
-			int new_time = readint();
-			net.update_busy_nodes(new_time);
+			int cur_time = readint();
+			reqs.clean_finished_requests(cur_time);
 
-			net.write_busy_nodes();
+			cout << "Servidores ocupados" << endl;
+
+			if(reqs.is_empty()) cout << '0' << endl;
+			else net.write_busy_nodes(cur_time);
 		}
 		else if(opt == OPT_EDT_SER)
 		{
-			int server_id = readint();
+			int server_id = readint() - 1;
+			
 			net.edit_node(server_id);
 		}
 		else if(opt == OPT_MSD_MOV)
 		{
-			cout << "Input time interval in where you want to search:" << endl;
 			int t1 = readint();
 			int t2 = readint();
 
+			cout << "Pelicula mas solicitada" << endl;
+
 			movies.write_most_downloaded_movie(t1, t2);
 		}
-		else if(opt == OPT_SHW_HEL)
-			show_help();
 
-		cout << "Choose next action: ";
 		opt = readint();
 	}
-
-	cout << "MEGA-PRO2-LOAD finished!" << endl;
 }

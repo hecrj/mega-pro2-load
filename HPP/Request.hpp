@@ -10,6 +10,13 @@
  */
 class Request
 {
+	private:
+		int id;
+		int movie_id;
+		int t_start;
+		int t_end;
+		static int next_id;
+
 	public:
 		/**
 		 * Creates a new empty Request.
@@ -47,11 +54,12 @@ class Request
 		int get_time_end() const;
 
 		/**
-		 * Sets the lifespan of the Request.
+		 * Sets the lifespan of the Request given a size and a download
+		 * speed.
 		 * \pre True
-		 * \post The Request has a lifespan of **lifespan**.
+		 * \post The Request has a lifespan: (size / speed).
 		 */
-		void set_lifespan(int lifespan);
+		void set_duration(int duration);
 
 		/**
 		 * Reads Request data from the input stream.

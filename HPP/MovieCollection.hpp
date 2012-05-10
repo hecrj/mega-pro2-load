@@ -5,11 +5,17 @@
 #ifndef MOVIECOLLECTION
 #define MOVIECOLLECTION
 
+#include "Movie.hpp"
+#include <vector>
+
 /**
  * A MovieCollection represents a collection of movies.
  */
 class MovieCollection
 {
+	private:
+		std::vector<Movie> movies;
+
 	public:
 		/**
 		 * Creates a new empty MovieCollection.

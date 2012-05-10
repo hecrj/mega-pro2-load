@@ -64,7 +64,7 @@ class Network
 		 * \pre resource_size >= 0
 		 * \post A Route of best nodes for the requested resource is returned.
 		 */
-		Route get_route(int resource_id, int resource_size, int cur_time) const;
+		int get_download_time(int request_id, int resource_id, int resource_size, int cur_time);
 
 		/**
 		 * Sets the nodes of the Route as busy (serving **request_id**)
@@ -87,6 +87,8 @@ class Network
 		 * \post The Network has been read from the input stream.
 		 */
 		void read_network(int n_resources);
+
+		void write_request_nodes(int request_id) const;
 
 		/**
 		 * Prints in the output stream the nodes that are busy at

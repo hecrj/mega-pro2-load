@@ -7,12 +7,50 @@
 
 #include "Server.hpp"
 #include "Route.hpp"
+#include <vector>
 
 /**
  * A Network consists of a tree related set of nodes.
  */
 class Network
 {
+	private:
+		struct Node
+		{
+			int left;
+			int right;
+		};
+
+		std::vector<Server> servers;
+		std::vector<Node> nodes;
+		int main_node;
+
+		struct Resource
+		{
+			int id;
+			int size;
+			int time;
+		};
+
+		/**
+		 * Private recursive function that finds a Route of servers given a Resource.
+		 * 
+		 * \pre **resource** has and id, size and time.
+		 *      0 <= node_id <= servers.size() - 1
+		 * \post **route** has been updated with the best Route using **current** as root and
+		 *       starting in **node_id**.
+		 *       **current** is left as passed originally.
+		 */
+		void find_route(const Resource &resource, int node_id, Route &route, Route &current) const;
+
+		/**
+		 * Private function that reads recursively a binary tree structure of nodes, using 0 as
+		 * mark.
+		 * \pre True
+		 * \post The Network **nodes** have been readed from input stream.
+		 */
+		void read_nodes(int &node_id);
+
 	public:
 		/**
 		 * Creates a new empty Network.
@@ -26,7 +64,7 @@ class Network
 		 * \pre resource_size >= 0
 		 * \post A Route of best nodes for the requested resource is returned.
 		 */
-		Route get_route(int resource_id, int resource_size) const;
+		int get_download_time(int request_id, int resource_id, int resource_size, int cur_time);
 
 		/**
 		 * Sets the nodes of the Route as busy (serving **request_id**)
@@ -35,14 +73,6 @@ class Network
 		 * \post The Route nodes are busy until **end_time**.
 		 */
 		void set_busy_nodes(const Route &route, int request_id, int end_time);
-
-		/**
-		 * Updates the busy nodes in **route** at the **new_time**, releasing
-		 * the nodes when necessary.
-		 * \pre 0 <= **new_time**
-		 * \post The nodes have been updated to **new_time**.
-		 */
-		void update_busy_nodes(const Route &route, int new_time);
 
 		/**
 		 * Edits the node of the Network with id **node_id**.
@@ -58,12 +88,15 @@ class Network
 		 */
 		void read_network(int n_resources);
 
+		void write_request_nodes(int request_id) const;
+
 		/**
-		 * Prints in the output stream the nodes that are actually busy.
+		 * Prints in the output stream the nodes that are busy at
+		 * **cur_time**.
 		 * \pre True
 		 * \post The busy nodes have been printed in the output stream.
 		 */
-		void write_busy_nodes() const;
+		void write_busy_nodes(int cur_time) const;
 };
 
 #endif

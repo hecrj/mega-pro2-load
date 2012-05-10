@@ -1,11 +1,11 @@
 #include "Network.hpp"
 #include "utils.PRO2"
-#include <queue>
+#include <cmath>
 
 Network::Network()
 {}
 
-Route Network::get_route(int resource_id, int resource_size, int cur_time) const
+int Network::get_download_time(int request_id, int resource_id, int resource_size, int cur_time)
 {
 	Route route(servers.size());
 	Route current(servers.size());
@@ -18,7 +18,15 @@ Route Network::get_route(int resource_id, int resource_size, int cur_time) const
 
 	find_route(resource, main_node, route, current);
 
-	return route;
+	int duration = 0;
+
+	if(not route.is_empty())
+	{
+		duration = int(ceil( double(resource.size) / double(route.get_speed()) ));
+		set_busy_nodes(route, request_id, cur_time+duration);
+	}
+
+	return duration;
 }
 
 void Network::find_route(const Resource &resource, int node_id, Route &route, Route &current) const
@@ -105,6 +113,24 @@ void Network::read_nodes(int &node_id)
 
 	nodes[node_id].left = n_left;
 	nodes[node_id].right = n_right;
+}
+
+void Network::write_request_nodes(int request_id) const
+{
+	bool space = false;
+
+	for(int i = 0; i < servers.size(); ++i)
+	{
+		if(servers[i].get_request_id() == request_id)
+		{
+			if(space) cout << ' ';
+			
+			cout << i+1;
+			space = true;
+		}
+	}
+
+	cout << endl;
 }
 
 void Network::write_busy_nodes(int cur_time) const

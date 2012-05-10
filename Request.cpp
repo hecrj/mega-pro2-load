@@ -1,5 +1,4 @@
 #include "Request.hpp"
-#include <cmath>
 #include "utils.PRO2"
 
 int Request::next_id = 0;
@@ -34,10 +33,9 @@ int Request::get_time_end() const
 	return t_end;
 }
 
-void Request::set_lifespan(int size, int speed)
+void Request::set_duration(int duration)
 {
-	int lifespan = int(ceil( double(size) / double(speed) ));
-	t_end = t_start + lifespan;
+	t_end = t_start + duration;
 }
 
 void Request::read_request()
@@ -49,9 +47,4 @@ void Request::read_request()
 void Request::write_request() const
 {
 	cout << id << ' ' << movie_id+1 << ' ' << t_start << ' ' << t_end << endl;
-}
-
-void Request::set_next_id(int id)
-{
-	next_id = id;
 }

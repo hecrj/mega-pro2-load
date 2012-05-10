@@ -59,9 +59,7 @@ class Request
 		 * \pre True
 		 * \post The Request has a lifespan: (size / speed).
 		 */
-		void set_lifespan(int size, int speed);
-
-		static void set_next_id(int id);
+		void set_duration(int duration);
 
 		/**
 		 * Reads Request data from the input stream.
