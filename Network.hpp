@@ -6,8 +6,8 @@
 #define NETWORK_HPP
 
 #include "Server.hpp"
-#include "Route.hpp"
 #include <vector>
+#include <stack>
 
 /**
  * A Network consists of a tree related set of nodes.
@@ -32,6 +32,13 @@ class Network
 			int time;
 		};
 
+		struct Route {
+			std::stack<int> nodes;
+			int speed;
+			int depth;
+			bool priority;
+		};
+
 		/**
 		 * Private recursive function that finds a Route of servers given a Resource.
 		 * 
@@ -42,6 +49,13 @@ class Network
 		 *       **current** is left as passed originally.
 		 */
 		void find_route(const Resource &resource, int node_id, Route &route, Route &current) const;
+
+		/**
+		 * Sets the **nodes** as busy (serving **request_id**) until **end_time**.
+		 * \pre The Route nodes are not busy
+		 * \post The Route nodes are busy until **end_time**.
+		 */
+		void set_busy_nodes(std::stack<int> &nodes, int request_id, int end_time);
 
 		/**
 		 * Private function that reads recursively a binary tree structure of nodes, using 0 as
@@ -65,14 +79,6 @@ class Network
 		 * \post A Route of best nodes for the requested resource is returned.
 		 */
 		int get_download_time(int request_id, int resource_id, int resource_size, int cur_time);
-
-		/**
-		 * Sets the nodes of the Route as busy (serving **request_id**)
-		 * until **end_time**.
-		 * \pre The Route nodes are not busy
-		 * \post The Route nodes are busy until **end_time**.
-		 */
-		void set_busy_nodes(const Route &route, int request_id, int end_time);
 
 		/**
 		 * Edits the node of the Network with id **node_id**.
