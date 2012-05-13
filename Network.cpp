@@ -16,6 +16,7 @@ int Network::get_download_time(int request_id, int resource_id, int resource_siz
 	Route route;
 	Route current;
 
+	route.depth = current.depth = route.speed = current.speed = 0;
 	route.priority = current.priority = false;
 
 	find_route(resource, main_node, route, current);
