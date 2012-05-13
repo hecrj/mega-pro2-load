@@ -34,7 +34,9 @@ int Network::get_download_time(int request_id, int resource_id, int resource_siz
 
 void Network::find_route(const Resource &resource, int node_id, Route &route, Route &current) const
 {
-	if(route.priority and route.depth <= (current.depth - 1))
+	current.depth += 1;
+
+	if(node_id == -1 or (route.priority and route.depth <= current.depth))
 		return;
 
 	int speed = 0;
@@ -55,16 +57,15 @@ void Network::find_route(const Resource &resource, int node_id, Route &route, Ro
 			route = current;
 	}
 	
-	current.depth += 1;
-	
-	if(nodes[node_id].left != -1) find_route(resource, nodes[node_id].left, route, current);
-	if(nodes[node_id].right != -1) find_route(resource, nodes[node_id].right, route, current);
+	find_route(resource, nodes[node_id].left, route, current);
+	find_route(resource, nodes[node_id].right, route, current);
 
 	if(speed > 0)
 	{
 		current.nodes.pop();
 		current.speed -= speed;
 	}
+
 	current.depth -= 1;
 }
 
