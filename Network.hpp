@@ -38,7 +38,7 @@ class Network
 			int depth;
 		};
 
-		void route_instant_mindepth(int node_id, const Resource &resource, Route &route, int speed);
+		void route_instant_mindepth(int node_id, const Resource &resource, Route &route, int speed, int depth);
 		void route_maxspeed_mindepth(int node_id, const Resource &resource, Route &route);
 
 		/**

@@ -15,7 +15,7 @@ int Network::get_download_time(int request_id, int resource_id, int resource_siz
 
 	Route route;
 
-	route_instant_mindepth(main_node, resource, route, 0);
+	route_instant_mindepth(main_node, resource, route, 0, 0);
 
 	if(route.nodes.empty())
 		route_maxspeed_mindepth(main_node, resource, route);
@@ -31,49 +31,43 @@ int Network::get_download_time(int request_id, int resource_id, int resource_siz
 	return duration;
 }
 
-void Network::route_instant_mindepth(int node_id, const Resource &resource, Route &route, int speed)
+void Network::route_instant_mindepth(int node_id, const Resource &resource, Route &route, int speed, int depth)
 {
-	if(node_id == -1)
-	{
-		route.speed = 0;
-		route.depth = 0;
-	}
+	route.depth = depth;
+
+	if(speed >= resource.size) route.speed = speed;
+	else if(node_id == -1) route.speed = 0;
 	else
 	{
 		bool available = (not servers[node_id].is_busy_at(resource.time) and servers[node_id].has_movie(resource.id));
 		
 		if(available) speed += servers[node_id].get_speed();
 
-		if(speed < resource.size)
+		Route left, right;
+
+		route_instant_mindepth(nodes[node_id].left, resource, left, speed, depth+1);
+		route_instant_mindepth(nodes[node_id].right, resource, right, speed, depth+1);
+
+		bool best_left;
+
+		if(left.speed > 0 and right.speed > 0) best_left = (left.depth <= right.depth);
+		else best_left = (left.speed > 0);
+
+		if(best_left)
 		{
-			Route left, right;
-
-			route_instant_mindepth(nodes[node_id].left, resource, left, speed);
-			route_instant_mindepth(nodes[node_id].right, resource, right, speed);
-
-			if(left.depth <= right.depth)
-			{
-				route.speed = left.speed;
-				route.depth = left.depth;
-				route.nodes.splice(route.nodes.begin(), left.nodes);
-			}
-			else
-			{
-				route.speed = right.speed;
-				route.depth = right.depth;
-				route.nodes.splice(route.nodes.begin(), right.nodes);
-			}
+			route.speed = left.speed;
+			route.depth = left.depth;
+			route.nodes.splice(route.nodes.begin(), left.nodes);
 		}
 		else
 		{
-			route.speed = speed;
-			route.depth = 0;
+			route.speed = right.speed;
+			route.depth = right.depth;
+			route.nodes.splice(route.nodes.begin(), right.nodes);
 		}
 
 		if(route.speed > 0 and available)
 			route.nodes.push_front(node_id);
-
-		route.depth += 1;
 	}
 }
 
@@ -93,7 +87,7 @@ void Network::route_maxspeed_mindepth(int node_id, const Resource &resource, Rou
 
 		bool best_left;
 
-		if(route.speed == right.speed)	best_left = (left.depth > right.depth);
+		if(left.speed == right.speed)	best_left = (left.depth <= right.depth);
 		else best_left = (left.speed > right.speed);
 
 		if(best_left)
