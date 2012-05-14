@@ -34,39 +34,42 @@ int Network::get_download_time(int request_id, int resource_id, int resource_siz
 
 void Network::find_route(const Resource &resource, int node_id, Route &route, Route &current) const
 {
-	current.depth += 1;
-
-	if(node_id == -1 or (route.priority and route.depth <= current.depth))
-		return;
-
-	int speed = 0;
-
-	if(not servers[node_id].is_busy_at(resource.time) and servers[node_id].has_movie(resource.id))
+	if(node_id != -1)
 	{
-		speed = servers[node_id].get_speed();
-		
-		current.speed += speed;
-		current.nodes.push(node_id);
+		current.depth += 1;
 
-		if(current.speed >= resource.size)
+		if(not route.priority or route.depth > current.depth)
 		{
-			current.priority = true;
-			route = current;
+			int speed = 0;
+
+			if(not servers[node_id].is_busy_at(resource.time) and servers[node_id].has_movie(resource.id))
+			{
+				speed = servers[node_id].get_speed();
+				
+				current.speed += speed;
+				current.nodes.push(node_id);
+
+				if(current.speed >= resource.size)
+				{
+					current.priority = true;
+					route = current;
+				}
+				else if(current.speed > route.speed)
+					route = current;
+			}
+			
+			find_route(resource, nodes[node_id].left, route, current);
+			find_route(resource, nodes[node_id].right, route, current);
+
+			if(speed > 0)
+			{
+				current.nodes.pop();
+				current.speed -= speed;
+			}
 		}
-		else if(current.speed > route.speed)
-			route = current;
-	}
-	
-	find_route(resource, nodes[node_id].left, route, current);
-	find_route(resource, nodes[node_id].right, route, current);
 
-	if(speed > 0)
-	{
-		current.nodes.pop();
-		current.speed -= speed;
+		current.depth -= 1;
 	}
-
-	current.depth -= 1;
 }
 
 void Network::set_busy_nodes(stack<int> &nodes, int request_id, int end_time)
