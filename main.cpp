@@ -52,8 +52,6 @@
  */
 int main()
 {
-	cout << endl;
-
 	MovieCollection movies;
 	movies.read_movies();
 
