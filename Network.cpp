@@ -15,10 +15,10 @@ int Network::get_download_time(int request_id, int resource_id, int resource_siz
 
 	Route route;
 
-	route_instant_mindepth(main_node, resource, route, 0, 0);
+	route_instant_mindepth(nodes, resource, route, 0, 0);
 
 	if(route.nodes.empty())
-		route_maxspeed_mindepth(main_node, resource, route);
+		route_maxspeed_mindepth(nodes, resource, route);
 
 	int duration = 0;
 
@@ -31,22 +31,27 @@ int Network::get_download_time(int request_id, int resource_id, int resource_siz
 	return duration;
 }
 
-void Network::route_instant_mindepth(int node_id, const Resource &resource, Route &route, int speed, int depth)
+void Network::route_instant_mindepth(Arbre<int> &a, const Resource &resource, Route &route, int speed, int depth)
 {
 	route.depth = depth;
 
 	if(speed >= resource.size) route.speed = speed;
-	else if(node_id == -1) route.speed = 0;
+	else if(a.es_buit()) route.speed = 0;
 	else
 	{
+		int node_id = a.arrel();
+
 		bool available = (not servers[node_id].is_busy_at(resource.time) and servers[node_id].has_movie(resource.id));
 		
 		if(available) speed += servers[node_id].get_speed();
 
+		Arbre<int> a1, a2;
+		a.fills(a1, a2);
+
 		Route left, right;
 
-		route_instant_mindepth(nodes[node_id].left, resource, left, speed, depth+1);
-		route_instant_mindepth(nodes[node_id].right, resource, right, speed, depth+1);
+		route_instant_mindepth(a1, resource, left, speed, depth+1);
+		route_instant_mindepth(a2, resource, right, speed, depth+1);
 
 		bool best_left;
 
@@ -68,22 +73,29 @@ void Network::route_instant_mindepth(int node_id, const Resource &resource, Rout
 
 		if(route.speed > 0 and available)
 			route.nodes.push_front(node_id);
+
+		a.plantar(node_id, a1, a2);
 	}
 }
 
-void Network::route_maxspeed_mindepth(int node_id, const Resource &resource, Route &route)
+void Network::route_maxspeed_mindepth(Arbre<int> &a, const Resource &resource, Route &route)
 {
-	if(node_id == -1)
+	if(a.es_buit())
 	{
 		route.speed = 0;
 		route.depth = 0;
 	}
 	else
 	{
+		int node_id = a.arrel();
+
+		Arbre<int> a1, a2;
+		a.fills(a1, a2);
+
 		Route left, right;
 
-		route_maxspeed_mindepth(nodes[node_id].left, resource, left);
-		route_maxspeed_mindepth(nodes[node_id].right, resource, right);
+		route_maxspeed_mindepth(a1, resource, left);
+		route_maxspeed_mindepth(a2, resource, right);
 
 		bool best_left;
 
@@ -110,6 +122,8 @@ void Network::route_maxspeed_mindepth(int node_id, const Resource &resource, Rou
 		}
 
 		route.depth += 1;
+
+		a.plantar(node_id, a1, a2);
 	}
 }
 
@@ -140,29 +154,25 @@ void Network::read_network(int n_resources)
 {
 	int n = readint();
 	servers = vector<Server>(n);
-	nodes = vector<Node>(n);
 
-	read_nodes(main_node);
+	read_tree(nodes, 0);
 
 	for(int i = 0; i < n; ++i)
 		servers[i].read_server(n_resources);
 }
 
-void Network::read_nodes(int &node_id)
+void Network::read_tree(Arbre<int> &a, int marca)
 {
-	node_id = readint() - 1;
+	int node_id = readint();
 
-	if(node_id == -1)
-		return;
+	if(node_id != marca)
+	{
+		Arbre<int> a1, a2;
+		read_tree(a1, marca);
+		read_tree(a2, marca);
 
-	int n_left;
-	int n_right;
-
-	read_nodes(n_left);
-	read_nodes(n_right);
-
-	nodes[node_id].left = n_left;
-	nodes[node_id].right = n_right;
+		a.plantar(node_id - 1, a1, a2);
+	}
 }
 
 void Network::write_request_nodes(int request_id) const

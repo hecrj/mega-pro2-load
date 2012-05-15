@@ -6,6 +6,7 @@
 #define NETWORK_HPP
 
 #include "Server.hpp"
+#include "Arbre.hpp"
 #include <vector>
 #include <list>
 
@@ -15,15 +16,8 @@
 class Network
 {
 	private:
-		struct Node
-		{
-			int left;
-			int right;
-		};
-
 		std::vector<Server> servers;
-		std::vector<Node> nodes;
-		int main_node;
+		Arbre<int> nodes;
 
 		struct Resource
 		{
@@ -38,8 +32,8 @@ class Network
 			int depth;
 		};
 
-		void route_instant_mindepth(int node_id, const Resource &resource, Route &route, int speed, int depth);
-		void route_maxspeed_mindepth(int node_id, const Resource &resource, Route &route);
+		void route_instant_mindepth(Arbre<int> &a, const Resource &resource, Route &route, int speed, int depth);
+		void route_maxspeed_mindepth(Arbre<int> &a, const Resource &resource, Route &route);
 
 		/**
 		 * Sets the **nodes** as busy (serving **request_id**) until **end_time**.
@@ -54,7 +48,7 @@ class Network
 		 * \pre True
 		 * \post The Network **nodes** have been readed from input stream.
 		 */
-		void read_nodes(int &node_id);
+		void read_tree(Arbre<int> &a, int marca);
 
 	public:
 		/**
