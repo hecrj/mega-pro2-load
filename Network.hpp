@@ -7,7 +7,7 @@
 
 #include "Server.hpp"
 #include <vector>
-#include <stack>
+#include <list>
 
 /**
  * A Network consists of a tree related set of nodes.
@@ -33,29 +33,20 @@ class Network
 		};
 
 		struct Route {
-			std::stack<int> nodes;
+			std::list<int> nodes;
 			int speed;
 			int depth;
-			bool priority;
 		};
 
-		/**
-		 * Private recursive function that finds a Route of servers given a Resource.
-		 * 
-		 * \pre **resource** has and id, size and time.
-		 *      0 <= node_id <= servers.size() - 1
-		 * \post **route** has been updated with the best Route using **current** as root and
-		 *       starting in **node_id**.
-		 *       **current** is left as passed originally.
-		 */
-		void find_route(const Resource &resource, int node_id, Route &route, Route &current) const;
+		void route_instant_mindepth(int node_id, const Resource &resource, Route &route, int speed, int depth);
+		void route_maxspeed_mindepth(int node_id, const Resource &resource, Route &route);
 
 		/**
 		 * Sets the **nodes** as busy (serving **request_id**) until **end_time**.
 		 * \pre The Route nodes are not busy
 		 * \post The Route nodes are busy until **end_time**.
 		 */
-		void set_busy_nodes(std::stack<int> &nodes, int request_id, int end_time);
+		void set_busy_nodes(std::list<int> &nodes, int request_id, int end_time);
 
 		/**
 		 * Private function that reads recursively a binary tree structure of nodes, using 0 as
