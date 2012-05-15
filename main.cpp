@@ -17,9 +17,9 @@
 #include "Request.hpp"
 #include "utils.PRO2"
 
- /**
-  * New request option value.
-  */
+/**
+ * New request option value.
+ */
 #define OPT_NEW_REQ -1
 
 /**
@@ -76,10 +76,10 @@ int main()
 			int movie_id = req.get_movie_id();
 			int movie_size = movies.get_movie_size(movie_id);
 
-			int duration = net.get_download_time(req.get_id(), movie_id, movie_size, cur_time);
+			int duration;
+			net.process_download(req.get_id(), movie_id, movie_size, cur_time, duration);
 
 			cout << "Peticion procesada y servidores" << endl;
-			
 			cout << req.get_id() << ' ' << duration << endl;
 
 			if(duration > 0)

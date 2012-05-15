@@ -14,6 +14,10 @@
 class MovieCollection
 {
 	private:
+		/**
+		 * Vector of movies. The position in the vector represents the movie
+		 * id - 1.
+		 */
 		std::vector<Movie> movies;
 
 	public:
@@ -49,16 +53,19 @@ class MovieCollection
 
 		/**
 		 * Reads a sequence of movies from input stream.
-		 * \pre True
-		 * \post The Movies read from input are added to the MovieCollection.
+		 * \pre The input stream is prepared with:
+		 *      - An integer that represents the number of movies.
+		 *      - A sequence of movie sizes in increasing order by id.
+		 * \post The MovieCollection has the size and the movies read from
+		 *       the input stream.
 		 */
 		void read_movies();
 
 		/**
 		 * Prints the most downloaded movie beetween times [t1, t2].
-		 * \pre True
-		 * \post If found, the id and the download times of the most downloaded
-		 *       movie are printed in the output stream.
+		 * \pre 0 <= t1 <= t2
+		 * \post If found, the id and the download times of the most
+		 *       downloaded movie are printed in the output stream.
 		 *       If not found, two separated 0s are printed.
 		 */
 		void write_most_downloaded_movie(int t1, int t2) const;

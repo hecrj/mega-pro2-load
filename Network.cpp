@@ -5,7 +5,7 @@
 Network::Network()
 {}
 
-int Network::get_download_time(int request_id, int resource_id, int resource_size, int cur_time)
+void Network::process_download(int request_id, int resource_id, int resource_size, int cur_time, int &duration)
 {
 	// just to make the recursive function look better
 	Resource resource;
@@ -20,15 +20,13 @@ int Network::get_download_time(int request_id, int resource_id, int resource_siz
 	if(route.nodes.empty())
 		route_maxspeed_mindepth(nodes, resource, route);
 
-	int duration = 0;
+	duration = 0;
 
 	if(not route.nodes.empty())
 	{
 		duration = int(ceil( double(resource.size) / double(route.speed) ));
 		set_busy_nodes(route.nodes, request_id, cur_time+duration);
 	}
-
-	return duration;
 }
 
 void Network::route_instant_mindepth(Arbre<int> &a, const Resource &resource, Route &route, int speed, int depth)
@@ -99,7 +97,7 @@ void Network::route_maxspeed_mindepth(Arbre<int> &a, const Resource &resource, R
 
 		bool best_left;
 
-		if(left.speed == right.speed)	best_left = (left.depth <= right.depth);
+		if(left.speed == right.speed) best_left = (left.depth <= right.depth);
 		else best_left = (left.speed > right.speed);
 
 		if(best_left)
