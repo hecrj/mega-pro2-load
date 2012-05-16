@@ -119,7 +119,7 @@ void Network::route_maxspeed_mindepth(Arbre<int> &a, const Resource &resource, R
 			route.nodes.push_front(node_id);
 		}
 
-		route.depth += 1;
+		if(route.speed > 0) route.depth += 1;
 
 		a.plantar(node_id, a1, a2);
 	}
