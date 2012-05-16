@@ -1,10 +1,10 @@
 INCLUDES_CPP = /users/hector0193/Proyectos/PRO2/includes
 
-main.exe: main.o Request.o Network.o Server.o MovieCollection.o RequestCollection.o Movie.o
-	g++ -o main.exe *.o
+pro2.exe: pro2.o Request.o Network.o Server.o MovieCollection.o RequestCollection.o Movie.o
+	g++ -o pro2.exe *.o
 
-main.o: main.cpp
-	g++ -c main.cpp -I$(INCLUDES_CPP)
+pro2.o: pro2.cpp
+	g++ -c pro2.cpp -I$(INCLUDES_CPP)
 
 Request.o: Request.cpp
 	g++ -c Request.cpp -I$(INCLUDES_CPP)
