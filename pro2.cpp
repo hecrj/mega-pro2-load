@@ -84,8 +84,11 @@ int main()
 
 			if(duration > 0)
 			{
-				req.set_duration(duration);
-				reqs.add_request(req);
+				if(duration > 1)
+				{
+					req.set_duration(duration);
+					reqs.add_request(req);
+				}
 
 				movies.add_download(movie_id, cur_time);
 
