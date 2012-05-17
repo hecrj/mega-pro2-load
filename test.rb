@@ -1,40 +1,51 @@
-puts "Autodetecting executable..."
+require "rainbow"
+
+puts "running    ".color(:yellow) + "Autodetecting executable..."
 
 exe = Dir["*.exe"][0]
 
 if(exe.nil?)
-	puts "No executable found..."
+	puts "error      ".color(:red) + "No executable found..."
 	exit
 else
-	puts "Autodetected executable: " + exe
+	puts "detected   ".color(:green) + exe
 end
 
 puts "Enter the directory you want to test: "
 testDir = gets.chomp
 
-puts "Running tests in " + testDir + ":"
+puts "Running tests in " + testDir.color(:blue) + ":"
+
+passed = 0
+failed = 0
 
 Dir.glob("#{testDir}/*.{txt,dat}") do |filename|
-	puts "Running " + filename
-
-	`./#{exe} < #{filename} > temp.out`
+	puts "running    ".color(:yellow) + "#{filename}"
 
 	basename = File.basename(filename, File.extname(filename))
 
-	puts "Checking outputs for " + filename
+	`./#{exe} < #{filename} > #{basename}.out`
+
+	status = true
 
 	Dir.glob("#{testDir}/#{basename}.{out,sal}") do |outname|
-		puts "Checking " + outname
+		differences = `diff -Bbw #{basename}.out #{outname}`
 
-		differences = `diff -Bbw temp.out #{outname}`
-
-		if(not differences.empty?)
-			puts "Difference detected!"
-			exit
+		if(differences.empty?)
+			puts "  " + "passed     ".color(:green) + outname
+			passed += 1
+		else
+			puts "  " + "failed     ".color(:red) + outname
+			failed += 1
 		end
+
+		passed += 1 if differences.empty?
+		status = differences.empty? if status
 	end
 
-	File.delete("temp.out")
+	puts "" + (status ? "passed     ".color(:green) : "failed     ".color(:red)) + filename
+
+	File.delete("#{basename}.out") if status
 end
 
-puts "All tests passed correctly!"
+puts "#{passed + failed} tests run".color(:yellow) + ", " + "#{passed} passed".color(:green) + ", " + "#{failed} failed".color(:red)
