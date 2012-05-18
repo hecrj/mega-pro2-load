@@ -1,6 +1,5 @@
 #include "Network.hpp"
 #include "utils.PRO2"
-#include <cmath>
 
 Network::Network()
 {}
@@ -24,7 +23,7 @@ void Network::process_download(int request_id, int resource_id, int resource_siz
 
 	if(not route.nodes.empty())
 	{
-		duration = int(ceil( double(resource.size) / double(route.speed) ));
+		duration = 1 + (resource.size - 1) / route.speed;
 		set_busy_nodes(route.nodes, request_id, cur_time+duration);
 	}
 }
