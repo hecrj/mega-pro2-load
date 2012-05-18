@@ -11,41 +11,40 @@ else
 	puts "detected   ".color(:green) + exe
 end
 
-puts "Enter the directory you want to test: "
-testDir = gets.chomp
+passed, failed = 0, 0
 
-puts "Running tests in " + testDir.color(:blue) + ":"
+ARGV.each do |testDir|
+	puts "Running tests in " + testDir.color(:magenta) + ":"
 
-passed = 0
-failed = 0
+	Dir.glob("#{testDir}/*.{txt,dat}") do |filename|
+		puts "running    ".color(:yellow) + "#{filename}"
 
-Dir.glob("#{testDir}/*.{txt,dat}") do |filename|
-	puts "running    ".color(:yellow) + "#{filename}"
+		basename = File.basename(filename, File.extname(filename))
 
-	basename = File.basename(filename, File.extname(filename))
+		`./#{exe} < #{filename} > #{basename}.out`
 
-	`./#{exe} < #{filename} > #{basename}.out`
+		status = true
 
-	status = true
+		outname = Dir.glob("#{testDir}/#{basename}.{out,sal}")[0]
 
-	Dir.glob("#{testDir}/#{basename}.{out,sal}") do |outname|
+		if outname.nil?
+			puts "not found  ".color(:magenta) + "#{testDir}/#{basename}.out"
+			puts "not found  ".color(:magenta) + "#{testDir}/#{basename}.sal"
+			next
+		end
+
 		differences = `diff -Bbw #{basename}.out #{outname}`
 
-		if(differences.empty?)
-			puts "  " + "passed     ".color(:green) + outname
+		if differences.empty?
+			puts "passed     ".color(:green) + outname
 			passed += 1
 		else
 			puts "  " + "failed     ".color(:red) + outname
 			failed += 1
 		end
 
-		passed += 1 if differences.empty?
-		status = differences.empty? if status
+		File.delete("#{basename}.out") if differences.empty?
 	end
-
-	puts "" + (status ? "passed     ".color(:green) : "failed     ".color(:red)) + filename
-
-	File.delete("#{basename}.out") if status
 end
 
 puts "#{passed + failed} tests run".color(:yellow) + ", " + "#{passed} passed".color(:green) + ", " + "#{failed} failed".color(:red)
