@@ -30,10 +30,16 @@ void Network::process_download(int request_id, int resource_id, int resource_siz
 
 void Network::route_instant_mindepth(Arbre<int> &a, const Resource &resource, Route &route, int speed, int depth)
 {
-	route.depth = depth;
-
-	if(speed >= resource.size) route.speed = speed;
-	else if(a.es_buit()) route.speed = 0;
+	if(speed >= resource.size)
+	{
+		route.speed = speed;
+		route.depth = depth;
+	}
+	else if(a.es_buit())
+	{
+		route.speed = 0;
+		route.depth = 0;
+	}
 	else
 	{
 		int node_id = a.arrel();
