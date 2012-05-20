@@ -1,17 +1,19 @@
+/**
+ * @file Request.cpp
+ * @brief Request implementation
+ */
 #include "Request.hpp"
-#include "utils.PRO2"
 
 int Request::next_id = 0;
 
 Request::Request()
 {
 	id = next_id;
-	movie_id = -1;
-	t_start = -1;
-	t_end = -1;
-
 	next_id += 1;
 }
+
+Request::~Request()
+{}
 
 int Request::get_id() const
 {

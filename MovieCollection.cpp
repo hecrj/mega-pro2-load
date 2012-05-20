@@ -1,10 +1,14 @@
+/**
+ * @file MovieCollection.cpp
+ * @brief MovieCollection implementation
+ */
 #include "MovieCollection.hpp"
-#include "utils.PRO2"
 
 MovieCollection::MovieCollection()
-{
-	
-}
+{}
+
+MovieCollection::~MovieCollection()
+{}
 
 int MovieCollection::size() const
 {

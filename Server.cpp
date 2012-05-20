@@ -1,12 +1,17 @@
+/**
+ * @file Server.cpp
+ * @brief Server implementation
+ */
 #include "Server.hpp"
-#include "utils.PRO2"
 
 Server::Server()
 {
-	request_id = -1;
 	speed = 0;
-	end_time = -1;
+	end_time = 0;
 }
+
+Server::~Server()
+{}
 
 int Server::get_speed() const
 {

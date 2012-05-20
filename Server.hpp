@@ -5,7 +5,8 @@
 #ifndef SERVER_HPP
 #define SERVER_HPP
 
-#include <vector>
+#include "utils.PRO2" //
+#include <vector> //
 
 /**
  * A Server is characterized by an id, its speed and its available movies.
@@ -14,9 +15,24 @@
 class Server
 {
 	private:
+		/**
+		 * Represents the Server speed.
+		 */
 		int speed;
-		std::vector<bool> movies;
+
+		/**
+		 * Represents the movies available in the Server.
+		 */
+		vector<bool> movies;
+
+		/**
+		 * Represents the last request identifier served by the Server.
+		 */
 		int request_id;
+
+		/**
+		 * Represents the time until the Server is busy.
+		 */
 		int end_time;
 
 	public:
@@ -26,6 +42,11 @@ class Server
 		 * \pre Returns a new empty Server.
 		 */
 		Server();
+
+		/**
+		 * Default destructor.
+		 */
+		~Server();
 
 		/**
 		 * Returns the speed of the Server.
@@ -87,7 +108,10 @@ class Server
 
 		/**
 		 * Reads a Server from the input stream.
-		 * \pre Not determined yet.
+		 * \pre The input stream is prepared with:
+		 *      - The speed of the Server
+		 *      - Number of movies available in the Server
+		 *      - A sequence of the available movies ids in the Server
 		 * \post The Server has assigned the data read from the input stream.
 		 */
 		void read_server(int total_movies);

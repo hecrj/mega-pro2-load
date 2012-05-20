@@ -1,8 +1,16 @@
+/**
+ * @file Movie.hpp
+ * @brief Movie specification
+ */
 #ifndef MOVIE_HPP
 #define MOVIE_HPP
 
-#include <list>
+#include "utils.PRO2" //
+#include <list> //
 
+/**
+ * A Movie consists of a size and downloads.
+ */
 class Movie
 {
 	private:
@@ -15,15 +23,20 @@ class Movie
 		 * Represents the time of every occasion that the movie has been
 		 * downloaded.
 		 */
-		std::list<int> downloads;
+		list<int> downloads;
 
 	public:
 		/**
-		 * Creates a new empty Movie.
+		 * Creates a new empty Movie with size 0.
 		 * \pre True
-		 * \post Returns a new empty Movie.
+		 * \post Returns a new empty Movie with size 0.
 		 */
 		Movie();
+
+		/**
+		 * Default destructor.
+		 */
+		~Movie();
 
 		/**
 		 * Gets the size of the Movie.

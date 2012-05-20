@@ -1,14 +1,25 @@
 /**
+ * @file pro2.cpp
+ * @brief Main program of the download system.
+ * 
  * @mainpage MEGA-PRO2-LOAD
  * 
- * A simple download system implementation in C++. Tries to simulate a network
- * of servers that are hosting different movies. The system can handle requests
- * and show statistics based in them.
- */
-
-/**
- * @file main.cpp
- * @brief Main program of the download system.
+ * A simple download system implementation in C++.
+ * Tries to simulate a **network of servers** that are hosting different movies.
+ * The system can handle requests and show statistics based in them.
+ * 
+ * The possible actions that can satisfy the system are:
+ * - Process and handle a new movie request.
+ * - Write the unfinished requests in an specific time.
+ * - Write the busy servers in an specific time.
+ * - Edit the available movies of a server.
+ * - Write the most downloaded movie in a period of time.
+ * 
+ * For more information:
+ * http://php5.lsi.upc.edu/pro2/data/uploads/enun.txt
+ * 
+ * To see information about the input:
+ * http://php5.lsi.upc.edu/pro2/data/uploads/jpinfo.txt
  */
 
 #include "MovieCollection.hpp"
@@ -49,6 +60,9 @@
 
 /**
  * Starts the main application logic.
+ * First, reads a collection of movies and a network.
+ * Then, starts to satisfy the available actions in the
+ * system.
  */
 int main()
 {
@@ -117,8 +131,7 @@ int main()
 		}
 		else if(opt == OPT_EDT_SER)
 		{
-			int server_id = readint() - 1;
-			
+			int server_id = readint();
 			net.edit_node(server_id);
 		}
 		else if(opt == OPT_MSD_MOV)

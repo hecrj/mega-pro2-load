@@ -1,10 +1,16 @@
+/**
+ * @file Movie.cpp
+ * @brief Movie implementation
+ */
 #include "Movie.hpp"
-#include "utils.PRO2"
 
 Movie::Movie()
 {
-	size = -1;
+	size = 0;
 }
+
+Movie::~Movie()
+{}
 
 int Movie::get_size() const
 {

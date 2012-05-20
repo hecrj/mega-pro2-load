@@ -1,10 +1,14 @@
+/**
+ * @file RequestCollection.cpp
+ * @brief RequestCollection implementation
+ */
 #include "RequestCollection.hpp"
-#include "utils.PRO2"
 
 RequestCollection::RequestCollection()
-{
-	
-}
+{}
+
+RequestCollection::~RequestCollection()
+{}
 
 bool RequestCollection::is_empty() const
 {

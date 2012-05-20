@@ -5,6 +5,8 @@
 #ifndef REQUEST_HPP
 #define REQUEST_HPP
 
+#include "utils.PRO2" //
+
 /**
  * A Request consists of an id, a movie_id and times to start and finish.
  */
@@ -46,6 +48,11 @@ class Request
 		Request();
 
 		/**
+		 * Default destructor.
+		 */
+		~Request();
+
+		/**
 		 * Returns the id of the current Request.
 		 * \pre True
 		 * \post The Request id is returned.
@@ -55,27 +62,28 @@ class Request
 		/**
 		 * Returns the movie id of the current Request.
 		 * \pre The Request has a movie id.
-		 * \post True
+		 * \post The Request movie id is returned.
 		 */
 		int get_movie_id() const;
 		
 		/**
 		 * Returns the time when the Request started.
 		 * \pre The Request has a start time.
-		 * \post True
+		 * \post The Request start time is returned.
 		 */
 		int get_time_start() const;
 		
 		/**
 		 * Returns the time when the Request finishes.
 		 * \pre The Request has an end time.
-		 * \post True
+		 * \post The Request end time is returned.
 		 */
 		int get_time_end() const;
 
 		/**
 		 * Sets the duration of the Request.
-		 * \pre **duration** > 0
+		 * \pre  Request has an start time
+		 *       **duration** > 0
 		 * \post The **duration** has been set in the Request.
 		 *       The Request has an end time.
 		 */
