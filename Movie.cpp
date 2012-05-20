@@ -23,8 +23,9 @@ int Movie::how_many_downloads(int t1, int t2) const
 
     list<int>::const_iterator it = downloads.begin();
 
-    // Inv: num_downloads = "downloads started from beginning
-    //      of downloads until the previous position that points it"
+    // Inv: num_downloads = "downloads started between t1 and t2
+    //      from beginning of downloads until the previous element
+    //      pointed by it"
     //      it is between downloads.begin() and downloads.end()
     while(it != downloads.end() and *it <= t2)
     {
