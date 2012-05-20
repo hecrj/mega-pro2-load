@@ -11,7 +11,7 @@ else
 	puts "detected   ".color(:green) + exe
 end
 
-passed, failed = 0, 0
+stats = {:passed => 0, :failed => 0}
 
 ARGV.each do |testDir|
 	puts "Running tests in " + testDir.color(:magenta) + ":"
@@ -22,8 +22,6 @@ ARGV.each do |testDir|
 		basename = File.basename(filename, File.extname(filename))
 
 		`./#{exe} < #{filename} > #{basename}.out`
-
-		status = true
 
 		outname = Dir.glob("#{testDir}/#{basename}.{out,sal}")[0]
 
@@ -37,14 +35,17 @@ ARGV.each do |testDir|
 
 		if differences.empty?
 			puts "passed     ".color(:green) + outname
-			passed += 1
+			File.delete("#{basename}.out")
+
+			stats[:passed] += 1
 		else
 			puts "  " + "failed     ".color(:red) + outname
-			failed += 1
+			
+			stats[:failed] += 1
 		end
-
-		File.delete("#{basename}.out") if differences.empty?
 	end
 end
 
-puts "#{passed + failed} tests run".color(:yellow) + ", " + "#{passed} passed".color(:green) + ", " + "#{failed} failed".color(:red)
+puts "#{stats[:passed] + stats[:failed]} tests run".color(:yellow) + ", " +
+     "#{stats[:passed]} passed".color(:green) + ", " +
+     "#{stats[:failed]} failed".color(:red)
