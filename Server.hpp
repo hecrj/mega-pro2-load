@@ -86,8 +86,8 @@ class Server
 
 		/**
 		 * Sets the Server as busy (serving **request_id**) until **t_end**.
-		 * \pre The Server is not busy
-		 * \post The Server is busy until **t_end**.
+		 * \pre **t_end** >= 0
+		 * \post The Server is busy until **t_end** serving **request_id**.
 		 */
 		void set_busy(int request_id, int t_end);
 

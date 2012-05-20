@@ -32,13 +32,13 @@ PROJECT_NAME           = MEGA-PRO2-LOAD
 # This could be handy for archiving the generated documentation or 
 # if some version control system is used.
 
-PROJECT_NUMBER         = "v0.4 RC 20 may 2012 (Héctor Ramón Jiménez)"
+PROJECT_NUMBER         = "v1.0 20 may 2012 (Héctor Ramón Jiménez (Group 11))"
 
 # Using the PROJECT_BRIEF tag one can provide an optional one line description 
 # for a project that appears at the top of each page and should give viewer 
 # a quick idea about the purpose of the project. Keep the description short.
 
-PROJECT_BRIEF          = 
+PROJECT_BRIEF          = "Héctor Ramón Jiménez (Group 11)"
 
 # With the PROJECT_LOGO tag one can specify an logo or icon that is 
 # included in the documentation. The maximum height of the logo should not 

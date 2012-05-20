@@ -138,6 +138,9 @@ void Network::route_maxspeed_mindepth(Arbre<int> &a, const Resource &resource, R
 
 void Network::set_busy_nodes(list<int> &nodes, int request_id, int end_time)
 {
+    // nodes = NODES
+    // Inv: nodes contains the not processed nodes
+    //      NODES - nodes = nodes processed (set as busy)
     while(not nodes.empty())
     {
         servers[nodes.front()].set_busy(request_id, end_time);
