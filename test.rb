@@ -1,5 +1,7 @@
 require "rainbow"
 
+time = Time.now
+
 puts "running    ".color(:yellow) + "Autodetecting executable..."
 
 exe = Dir["*.exe"][0]
@@ -49,3 +51,5 @@ end
 puts "#{stats[:passed] + stats[:failed]} tests run".color(:yellow) + ", " +
      "#{stats[:passed]} passed".color(:green) + ", " +
      "#{stats[:failed]} failed".color(:red)
+
+puts "Elapsed time (HH:MM:SS:LL): ".color(:magenta) + Time.at(Time.now - time).gmtime.strftime('%H:%M:%S:%L')
