@@ -8,7 +8,7 @@
 #include "Server.hpp"
 #include "Arbre.hpp" //
 #include "utils.PRO2" //
-#include <vector> // 
+#include <vector>  //
 #include <list> //
 
 /**
